@@ -1,0 +1,4 @@
+FROM ros:noetic-ros-base-focal@sha256:72b8bc59035dc0a5b8e07aae28c16caa84192971d72d207c72ed734fb1d5e97d
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake python3-setuptools ros-noetic-move-base-msgs && rm -rf /var/lib/apt/lists/*
+ENV ROS_MASTER_URI=http://127.0.0.1:11311 ROS_IP=127.0.0.1

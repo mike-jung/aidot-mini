@@ -1,0 +1,18 @@
+<launch>
+  <arg name="navigation_action" default="move_base"/>
+  <arg name="pose_topic" default="amcl_pose"/>
+  <arg name="battery_topic" default="battery_state"/>
+  <arg name="map_frame" default="map"/>
+  <arg name="bridge_port" default="8912"/>
+  <arg name="acknowledge_recovery" default="false"/>
+  <arg name="data_dir" default="$(env HOME)/.local/state/aidot-mini/robot"/>
+  <node pkg="aidot_mini_ros" type="aidot_robot_bridge" name="aidot_robot_bridge" output="screen" required="true">
+    <param name="navigation_action" value="$(arg navigation_action)"/>
+    <param name="pose_topic" value="$(arg pose_topic)"/>
+    <param name="battery_topic" value="$(arg battery_topic)"/>
+    <param name="map_frame" value="$(arg map_frame)"/>
+    <param name="bridge_port" value="$(arg bridge_port)"/>
+    <param name="acknowledge_recovery" value="$(arg acknowledge_recovery)" type="bool"/>
+    <param name="data_dir" value="$(arg data_dir)"/>
+  </node>
+</launch>

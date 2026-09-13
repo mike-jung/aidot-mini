@@ -1,0 +1,7 @@
+[Unit]
+Description=AiDot mini and ROS robot integration
+Wants=aidot-mini.service aidot-ros-bridge.service
+After=network.target
+
+[Install]
+WantedBy=multi-user.target

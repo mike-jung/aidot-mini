@@ -1,0 +1,18 @@
+#!/bin/sh
+set -eu
+umask 077
+install_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+node_bin="$install_root/runtime/bin/node"
+app_root="$install_root/app"
+DATA_DIR=${DATA_DIR:-${XDG_STATE_HOME:-$HOME/.local/state}/aidot-mini}
+LOG_DIR=${LOG_DIR:-$DATA_DIR/log}
+export DATA_DIR LOG_DIR
+export NODE_ENV=${NODE_ENV:-production}
+case "${1:-}" in
+  --check) exec "$node_bin" "$app_root/scripts/check-install.mjs" "$install_root" ;;
+  --admin-account) shift; exec "$node_bin" "$app_root/scripts/admin-account.mjs" "$@" ;;
+  --admin-token) exec "$node_bin" "$app_root/scripts/admin-token.mjs" ;;
+  --robot) shift; exec "$node_bin" "$app_root/modules/robot-client/main.mjs" "$@" ;;
+  --version) exec "$node_bin" --version ;;
+esac
+exec "$node_bin" "$app_root/start.js" "$@"

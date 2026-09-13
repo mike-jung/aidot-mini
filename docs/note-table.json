@@ -1,0 +1,29 @@
+{
+  "fileName": "note",
+  "tableName": "note",
+  "description": "My Note",
+  "columns": [
+    {
+      "name": "id",
+      "pk": true,
+      "insertable": false,
+      "updatable": false
+    },
+    {
+      "name": "title"
+    },
+    {
+      "name": "body"
+    },
+    {
+      "name": "created_at",
+      "insertable": false,
+      "updatable": false
+    },
+    {
+      "name": "updated_at",
+      "insertable": false,
+      "updatable": false
+    }
+  ]
+}

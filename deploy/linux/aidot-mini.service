@@ -1,0 +1,34 @@
+[Unit]
+Description=aidot-mini device web server
+After=network.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=aidot-mini
+Group=aidot-mini
+WorkingDirectory=/opt/aidot-mini/app
+ExecStart=/opt/aidot-mini/bin/aidot-mini
+Environment=NODE_ENV=production
+Environment=DATA_DIR=/var/lib/aidot-mini
+Environment=LOG_DIR=/var/log/aidot-mini
+Environment=LOG_TO_FILE=false
+EnvironmentFile=-/etc/aidot-mini/aidot-mini.env
+StateDirectory=aidot-mini
+LogsDirectory=aidot-mini
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=12
+KillSignal=SIGTERM
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

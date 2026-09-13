@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.10)
+project(aidot_mini_ros)
+find_package(catkin REQUIRED)
+catkin_package()
+catkin_install_python(PROGRAMS scripts/aidot_robot_bridge DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+install(DIRECTORY aidot_bridge DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION} PATTERN "__pycache__" EXCLUDE)
+install(DIRECTORY launch DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})

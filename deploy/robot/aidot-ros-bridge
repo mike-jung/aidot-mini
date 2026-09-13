@@ -1,0 +1,23 @@
+#!/bin/sh
+set -eu
+umask 077
+: "${ROS_DISTRO:?Set ROS_DISTRO to the installed distribution}"
+: "${AIDOT_ROS_FAMILY:?Set AIDOT_ROS_FAMILY to ros1 or ros2}"
+case "$ROS_DISTRO" in *[!a-z0-9_]*|'') echo 'Invalid ROS_DISTRO' >&2; exit 2;; esac
+ros_setup="/opt/ros/$ROS_DISTRO/setup.sh"
+overlay=${AIDOT_ROS_OVERLAY:-/opt/aidot-mini/ros}
+[ -r "$ros_setup" ] || { echo "ROS is not installed: $ros_setup" >&2; exit 2; }
+[ -r "$overlay/setup.sh" ] || { echo "Build/install the AiDot ROS overlay first: $overlay" >&2; exit 2; }
+# Only administrator-owned installation files are sourced; no request data is executed.
+set +u
+. "$ros_setup"
+. "$overlay/setup.sh"
+set -u
+case "$AIDOT_ROS_FAMILY" in
+  ros1) action=${AIDOT_NAVIGATION_ACTION:-move_base};set -- roslaunch aidot_mini_ros robot.launch ;;
+  ros2) action=${AIDOT_NAVIGATION_ACTION:-navigate_to_pose};set -- ros2 launch aidot_mini_ros2 robot.launch.py ;;
+  *) echo 'AIDOT_ROS_FAMILY must be ros1 or ros2' >&2;exit 2 ;;
+esac
+exec "$@" "navigation_action:=$action" "pose_topic:=${AIDOT_POSE_TOPIC:-amcl_pose}" \
+  "battery_topic:=${AIDOT_BATTERY_TOPIC:-battery_state}" "map_frame:=${AIDOT_MAP_FRAME:-map}" \
+  "bridge_port:=${AIDOT_BRIDGE_PORT:-8912}" "data_dir:=${AIDOT_ROBOT_DATA_DIR:-/var/lib/aidot-mini/robot}"

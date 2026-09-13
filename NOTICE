@@ -1,0 +1,19 @@
+aidot-mini
+Copyright 2026 Aidot Link Co., Ltd.
+
+This product includes software developed by Aidot Link Co., Ltd.
+(https://github.com/mike-jung/aidot-mini).
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+Portions are adapted from aidot-express. Upstream attributions and licenses
+are retained in docs/THIRD_PARTY_NOTICES.md and docs/third-party/.
+
+TRADEMARKS
+"aidot-mini" and "Aidot Mini" are product names of Aidot Link Co., Ltd.
+The Apache License grants rights to code, not a right to imply that a fork
+is an official Aidot release. See section 6 of LICENSE.
+
+SCOPE
+Public source is Apache-2.0. Independently licensed files under enterprise/
+are excluded from the Public distribution. Their separate notices govern
+those files only; they do not restrict the Apache-licensed core.

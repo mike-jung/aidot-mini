@@ -1,0 +1,5 @@
+<resources>
+<string name="app_name">aidot-mini</string><string name="notif_channel">로컬 서버</string>
+<string name="server_starting">서버 시작 중…</string><string name="server_restarting">서버 다시 시작 중…</string><string name="stop_server">서버 중지</string><string name="copy_key">관리자 키 복사</string><string name="key_copied">관리자 키를 복사했습니다. 로그인 화면의 기존 관리자 키 항목에서 사용하세요.</string><string name="server_ready">로컬 서버가 준비되었습니다</string><string name="server_waiting">서버 연결 대기 중 (%1$d)</string><string name="server_error">서버를 사용할 수 없습니다: %1$s</string>
+<string name="start_server">서버 시작</string>
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+<string name="app_name">aidot-mini</string><string name="notif_channel">Local server</string>
+<string name="server_starting">Starting server…</string><string name="server_restarting">Restarting server…</string><string name="stop_server">Stop server</string><string name="copy_key">Copy admin key</string><string name="key_copied">Administrator key copied. Open the existing-key option on the login screen.</string><string name="server_ready">Local server is ready</string><string name="server_waiting">Waiting for server (%1$d)</string><string name="server_error">Server unavailable: %1$s</string>
+<string name="start_server">Start server</string>
+</resources>

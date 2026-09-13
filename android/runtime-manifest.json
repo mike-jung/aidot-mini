@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "nodeVersion": "24.18.0",
+  "origin": "Official Termux packages; hashes pinned in runtime-packages.json",
+  "modifications": [
+    "DT_NEEDED/SONAME suffixes normalized to .so for APK packaging",
+    "Termux RUNPATH removed; LD_LIBRARY_PATH points to nativeLibraryDir"
+  ],
+  "deviceRuntimeTest": {
+    "x86_64": {
+      "status": "passed",
+      "device": "Android API 26 x86_64 software emulator",
+      "node": "v24.18.0",
+      "sqlite": "passed",
+      "crypto": "passed",
+      "apkLifecycleAndWebView": "passed"
+    },
+    "arm64-v8a": {
+      "status": "not-executed",
+      "staticElfAndApkValidation": "passed",
+      "requires": "physical ARM64 and modern Android execution"
+    }
+  },
+  "abis": {
+    "x86_64": {
+      "libc++_shared.so": "683a1c7cd2f6829fd40bf805739166c5fce35235bf60d2c4e4a95e9f65a342ef",
+      "libcares.so": "1072b08349b3d1a3c006d00bd9b83752bfaa4bd9c1b70adde8d650e4f996801e",
+      "libcrypto.so": "470eff1209dcaceddf18283ec789e3ee7b695fef3162e8824390a10911950fd8",
+      "libicudata.so": "4c74d35c6379a508fd0cb4d90c7e4dc90adce40970a1028fc93225a19f0ecf70",
+      "libicui18n.so": "9049451611f80d1be8b87d3cc30d8da01fec6fefc7772ba8ee1c679ba5c83d66",
+      "libicuuc.so": "650342c210c7882b9342b2a32df48c059fd4539d924886bb2b545007ba20cae2",
+      "libsqlite3.so": "7d2b8d37c38944da0f0ab7abeee06a79554748fb6ae77b2cb5d9dde54c150553",
+      "libssl.so": "7e1984d0ef022119c1cbb3b39e483bf65ba62598160f1670c27c1875e19452e2",
+      "libz.so": "8478f2138d043bb4e8ec93bdec055b7bca9d8a3974224acb20968a56dbf01136",
+      "libnode_exec.so": "0e04411072e1d1259a78317f53f861a260c5aee924c3b2b6a414940048c683e3"
+    },
+    "arm64-v8a": {
+      "libc++_shared.so": "e09c2f45cf4cf8ae574f94b6c2650d99ead0d332d5396f6613f062a2d2d73540",
+      "libcares.so": "43e4bfbe89d06f5171932423033ee387c5b145810f0d5db0debcda1e2d74b1ed",
+      "libcrypto.so": "2659fdea347c687d5a85f29d1f57756a8e09ece42600713864d82310b60856f6",
+      "libicudata.so": "843d50679edd9fb8061d4135644d344b46f7db59dae73932bb135fbedbfe871e",
+      "libicui18n.so": "0082b9947cf45e9876328dc788b582c93d9c0ce7906763d2432829fe24c87848",
+      "libicuuc.so": "634b785d81a0bab0d09210118ad363e64c2cd3c5a33dffcf4eaafd31d4e10b14",
+      "libsqlite3.so": "76c9f98ee8a740b8688ff93ea367ba99daf191c2a28a0d5f15067439baadc910",
+      "libssl.so": "49c971578b93409c56885f8ff2fea4a413e1f37e415a1725b8ae4dc5450c7011",
+      "libz.so": "221f416e06e5c7dfb6f02b4bbc2132c4680c19ea965579bcbf47e9d28c7b71e9",
+      "libnode_exec.so": "47b804b8b7c75f3399ff7cec51ad83c4f6191ef6e840aa5ec2f888cbc5af6442"
+    }
+  }
+}

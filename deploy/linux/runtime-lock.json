@@ -1,0 +1,16 @@
+{
+  "nodeVersion": "24.19.0",
+  "source": "npm node-linux architecture packages (unofficial distribution); archive hashes pinned after runtime inspection",
+  "archives": {
+    "x64": {
+      "file": "node-linux-x64-24.19.0.tgz",
+      "package": "node-linux-x64@24.19.0",
+      "sha256": "fc3154551fb7d35dd59253f1d7379d88583b1df8693369b1804e99476258c681"
+    },
+    "arm64": {
+      "file": "node-linux-arm64-24.19.0.tgz",
+      "package": "node-linux-arm64@24.19.0",
+      "sha256": "cb0556d78e4b5f6b259d991212402d7bf1be074eca3bff7ba1541b1e2e9131fb"
+    }
+  }
+}

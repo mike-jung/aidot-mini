@@ -1,0 +1,57 @@
+{
+  "name": "NoteController",
+  "basePath": "/api/notes",
+  "controllerType": "DB",
+  "serviceName": "NoteService",
+  "description": "My Note API",
+  "auth": false,
+  "roles": [],
+  "routes": [
+    {
+      "type": "list",
+      "method": "get",
+      "path": "/",
+      "handlerName": "list",
+      "auth": false,
+      "roles": []
+    },
+    {
+      "type": "getById",
+      "method": "get",
+      "path": "/:id",
+      "handlerName": "get",
+      "auth": false,
+      "roles": []
+    },
+    {
+      "type": "create",
+      "method": "post",
+      "path": "/",
+      "handlerName": "create",
+      "auth": false,
+      "roles": []
+    },
+    {
+      "type": "update",
+      "method": "put",
+      "path": "/:id",
+      "handlerName": "update",
+      "auth": false,
+      "roles": []
+    },
+    {
+      "type": "remove",
+      "method": "delete",
+      "path": "/:id",
+      "handlerName": "remove",
+      "auth": false,
+      "roles": []
+    }
+  ],
+  "realtime": {
+    "enabled": false,
+    "channel": ""
+  },
+  "_generatedAt": "2026-09-12T13:01:12.485Z",
+  "_version": 2
+}

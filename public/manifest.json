@@ -1,0 +1,9 @@
+{
+  "name": "aidot-mini",
+  "short_name": "aidot-mini",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#14161b",
+  "theme_color": "#1e2129",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

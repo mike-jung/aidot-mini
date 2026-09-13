@@ -1,0 +1,7 @@
+#!/usr/bin/env python3
+from pathlib import Path
+import sys
+here=Path(__file__).resolve().parent
+sys.path[:0]=[str(here),str(here.parent)]
+from aidot_bridge.ros1 import main
+main()

@@ -1,0 +1,19 @@
+{
+  "name": "aidot-note",
+  "controller": [
+    "NoteController.js",
+    "meta/NoteController.meta.json"
+  ],
+  "service": [
+    "NoteService.js",
+    "meta/NoteService.meta.json"
+  ],
+  "sql": [
+    "note.sql"
+  ],
+  "migrations": [
+    "002_create_note.sql",
+    "003_note_seed_english.sql"
+  ],
+  "version": "0.6.1"
+}

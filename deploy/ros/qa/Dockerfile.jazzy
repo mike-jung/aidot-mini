@@ -1,0 +1,4 @@
+FROM ros:jazzy-ros-base-noble@sha256:386d06ec6d4188f731bae5678e07b4cb64a4e4d4152090c0bd1f881dcf7706f5
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3-colcon-common-extensions ros-jazzy-nav2-msgs ros-jazzy-launch-ros && rm -rf /var/lib/apt/lists/*
+ENV ROS_DOMAIN_ID=167 ROS_LOCALHOST_ONLY=1
