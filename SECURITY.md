@@ -12,5 +12,4 @@ robot addresses or customer data. Do not include secrets in public issues.
 This address is a reporting channel; no response-time SLA is promised.
 
 The project does not claim a formal security audit, complete secret detection,
-or hard real-time robot safety certification. See docs/CONSOLE_FILES_LOGS_KO.md
-for precise editor and log limits.
+or hard real-time robot safety certification. See [console usage](docs/USAGE.md) for editor and log limits.

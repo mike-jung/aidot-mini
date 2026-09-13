@@ -38,3 +38,6 @@ runtime-cache/
 validation/
 __pycache__/
 *.pyc
+
+# Internal local version backups
+/internal/version-backups/

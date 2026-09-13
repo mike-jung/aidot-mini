@@ -1,3 +1,1 @@
-aidot-mini 0.6.1
-2026-09-13
-GitHub publishing from .env, with token authentication and legacy settings support.
+aidot-mini 1.0.1

@@ -1,6 +1,6 @@
 {
   "edition": "public",
-  "version": "0.6.2",
+  "version": "1.0.1",
   "files": [
     {
       "path": ".env.example",
@@ -16,7 +16,7 @@
     },
     {
       "path": ".gitignore",
-      "sha256": "41380491c761ef31692e97e41626c4fff85b34d593681a42651e6b5138c5fb80"
+      "sha256": "7ac8174e6f87f44e8670dd1d261ef574eff8b6e015271e5cfcd0db8bfca293d6"
     },
     {
       "path": "AGENTS.md",
@@ -40,19 +40,19 @@
     },
     {
       "path": "README.md",
-      "sha256": "02ba6ae150b00026c9682a154bb50c65217a5c71b63ca0aca016c00557d21736"
+      "sha256": "ea91b3e22203d362d4d672061c6746b9f7dff6900febde4bee513c6a8d23a9c4"
     },
     {
       "path": "REVISION.txt",
-      "sha256": "c2c937f3969c7ac860048b6e9aba72fb3ef22c9469ccec2fea7f915db5818cd8"
+      "sha256": "8d1ea628163b3b9df92ce0b3668790658f54727f34ed6d42813c0467f6b7f78a"
     },
     {
       "path": "SECURITY.md",
-      "sha256": "1fc3d144da1368d819a059229f6e1eb685eab82a7e6dca1478b0a75e66526e38"
+      "sha256": "e353d3b641fe4f4f325442e3742fef9f0b60699e680e86da7b81748eb6c3b877"
     },
     {
       "path": "addons/communications/README.md",
-      "sha256": "eb4e8cd2ae4009fdc109d32b7366bb9abfb03454378069f60c30d54e949ba4fe"
+      "sha256": "84946510aeaa8781b3f17ede64f7e109ccda7fce3a8427a3d41eb29571be5252"
     },
     {
       "path": "addons/communications/mqtt.mjs",
@@ -60,11 +60,11 @@
     },
     {
       "path": "addons/communications/package-lock.json",
-      "sha256": "cbe44ad0df1f75c6c84de19e7a81dbee62c6ddc708b36ee0fa95bc02bb7dbcbc"
+      "sha256": "5969a7e5f4f53486242195c4f4ae341a63d7bd05e36255e0c54cdc872cc3b58c"
     },
     {
       "path": "addons/communications/package.json",
-      "sha256": "8ed8c9f42cacf8ee7956fc2f4e140e4dacf6bd978001349545fd6326f2e03da1"
+      "sha256": "5bbbe16a7f52136ac1a48f55c63b17add5028fdac217e563fc4a76486e1b2b3a"
     },
     {
       "path": "addons/communications/socketio.mjs",
@@ -76,7 +76,7 @@
     },
     {
       "path": "android/app/build.gradle.kts",
-      "sha256": "7287ee0d42fb83d927a68052d5ed7edfb7e3238956b5ed9de3cb18dcdfc7179f"
+      "sha256": "ebf0d6ae99a23973738e6ee3b7adac6618c8304dd13289223d21af594a334e0f"
     },
     {
       "path": "android/app/proguard-rules.pro",
@@ -100,7 +100,7 @@
     },
     {
       "path": "android/app/src/main/assets/licenses/THIRD_PARTY_NOTICES.md",
-      "sha256": "458f7f606d0122d8d27a7894f8308d73c13ecc3d432c9d9b19bda85323c7d350"
+      "sha256": "e03e0f93a4f33151abded74a297d7e91b506a5d1c523c1ee773cdc6188720d36"
     },
     {
       "path": "android/app/src/main/assets/licenses/aidot-express-LICENSE",
@@ -308,7 +308,7 @@
     },
     {
       "path": "deploy/ros1/aidot_mini_ros/package.xml",
-      "sha256": "0900c31d961483ab8e4d4ff1afb1cf33cabe6fc2f16c6c1863c62960a87c8a24"
+      "sha256": "f6c5d6e240bd9edcf64981bba88c39200ea5ceb1a74d8b4beed2b02f4c7dc31d"
     },
     {
       "path": "deploy/ros1/aidot_mini_ros/scripts/aidot_robot_bridge",
@@ -320,7 +320,7 @@
     },
     {
       "path": "deploy/ros2/aidot_mini_ros2/package.xml",
-      "sha256": "654666c8faa3485716cbe933c25a3ec648a9339562827051f12031a479bf9b37"
+      "sha256": "a96b88222870a058bf0973ea45a8c6d915704d9dd6ec2649d7bbdb3445d4615b"
     },
     {
       "path": "deploy/ros2/aidot_mini_ros2/resource/aidot_mini_ros2",
@@ -332,67 +332,35 @@
     },
     {
       "path": "deploy/ros2/aidot_mini_ros2/setup.py",
-      "sha256": "38116ace4f96fd607c05e1edc01dbc975785dd8ce21de16eb848c5ca9d1fdff7"
+      "sha256": "06a765b7fb43a5f674890604b41a4aed98e27f7e63fb73840a718fc0701cf167"
     },
     {
       "path": "docs/AI_API_RULES.md",
-      "sha256": "2ae0e60fbe5b3de081b4c00a8e35cea9e83b1823d6b944bc47af559a3eb01a5b"
+      "sha256": "f190542181997219174bfc790a542956c2793c1a4c6257e85970312f828d597c"
     },
     {
-      "path": "docs/AI_WORKFLOW.md",
-      "sha256": "9e2808ff6eb24f2ea82ec50fca451e4d8cafc4dbeea42b9dddfaa907f5ebc19d"
-    },
-    {
-      "path": "docs/COMMUNICATIONS_VPN_KO.md",
-      "sha256": "d06d600df25eae3eb7243b1a0cca95bbe83e3b26410bbf2645a16430a12b84ac"
-    },
-    {
-      "path": "docs/CONSOLE_FILES_LOGS_KO.md",
-      "sha256": "fbbd1824b74dcbc2e6cf36bfee678b5ce7d9130589a63714cdca5e74e91ed14e"
-    },
-    {
-      "path": "docs/CONSOLE_LOGIN_KO.md",
-      "sha256": "bff0c06e3206971d83411f5463b956e85581b48afb3b191410570e7d65c455ff"
-    },
-    {
-      "path": "docs/CONSOLE_V060_EN.md",
-      "sha256": "48a8ac89ffc4464fca96bdfa64e34ee2592e6e25e6d8dfc8972dded8470359ac"
+      "path": "docs/DEPLOY_ANDROID.md",
+      "sha256": "a8b7e55760dd07a2bd4cc1cd125d91a0a8f1f95e107fbce638b35c27ca78dcd1"
     },
     {
       "path": "docs/DEPLOY_LINUX.md",
-      "sha256": "aac7ca23a8945a63c13904aabc0f6cf0a1dc147a819506255f5243a080c5e424"
+      "sha256": "2407877c73c44da423cfdedba48c474888b8d11b0999d6aa4ba6c81710d692d4"
     },
     {
       "path": "docs/DEPLOY_ROS.md",
-      "sha256": "a61e68ca0aa0ff7e04c17bee9b01a4323dcd161d1e1b72cb8d9accec42ef8ea0"
-    },
-    {
-      "path": "docs/HTTPS_CONSOLE_KO.md",
-      "sha256": "ae8373c5342982031967692f502dde8329c463526e5b7a94a990cd268a37acdf"
-    },
-    {
-      "path": "docs/LICENSING.md",
-      "sha256": "afa0b58ae3239dc1899b5ea4eb17713a41c1ce939d579a194830d9abc9c6b185"
-    },
-    {
-      "path": "docs/NOTE_COMPATIBILITY_KO.md",
-      "sha256": "7f88fa0f3e9b312eb2672ece64d9066aedf30d656ef161d7a821636e30c61cd2"
+      "sha256": "5a580748d80becaa1f8b58838fc63f93df8c94ff118c4f9b2df085a50aa21cbc"
     },
     {
       "path": "docs/PORTING.md",
-      "sha256": "78cd707d3c453e00f1959dec740efcd1e86ef1d031821b35d6f48dbc28c320b4"
-    },
-    {
-      "path": "docs/ROS_SDK_BUILD_KO.md",
-      "sha256": "4d2e6bc325bc55fc495e9e08d4be65bc1126867f01da303a2805e6b171562cf6"
+      "sha256": "ac8f3765d10a8d6543dacf543dd59f2c6174cd11f0f815a0e5fbe62fc242af2a"
     },
     {
       "path": "docs/THIRD_PARTY_NOTICES.md",
-      "sha256": "458f7f606d0122d8d27a7894f8308d73c13ecc3d432c9d9b19bda85323c7d350"
+      "sha256": "e03e0f93a4f33151abded74a297d7e91b506a5d1c523c1ee773cdc6188720d36"
     },
     {
-      "path": "docs/WORKSPACE_METADATA_KO.md",
-      "sha256": "0e6975afa6265d96059f5d52d72a383aa6b8d8f962ac857105593be71b74e59e"
+      "path": "docs/USAGE.md",
+      "sha256": "9e962b9a0173dc1d8c6fdbd36449849e13ff6d2a4dd73462a55f194a10d7e869"
     },
     {
       "path": "docs/note-mariadb.sql",
@@ -415,10 +383,6 @@
       "sha256": "7bf4562f23348ba48add6ee2d99070256aa6ed97b7529ce63bd759f1cd37fb91"
     },
     {
-      "path": "docs/tutorial/client.mjs",
-      "sha256": "921214f4156ab4ae82003539b40f38d03bb403a8e04bdc1823e822f715118e5e"
-    },
-    {
       "path": "examples/note-auth-workspace/.aidot-cache/71387ff9d85d271f86eeb83c294478d538576579584f6280ccea2978cd034eec.json",
       "sha256": "e50fa92411cb68b574366c23a00dd2dd7fb43f01347cfb3912dda5249ef96f61"
     },
@@ -428,7 +392,7 @@
     },
     {
       "path": "examples/note-auth-workspace/README.md",
-      "sha256": "90191c89c49fd1ee2a2596e9befd7f4781777ce92cd3fa6ebf06b357aad48bf0"
+      "sha256": "a245eede217779f533047115a901f66e5873c72551de5a6fbbddabd92749d6a2"
     },
     {
       "path": "examples/note-auth-workspace/controller/NoteController.js",
@@ -460,7 +424,7 @@
     },
     {
       "path": "module.json",
-      "sha256": "24fc6e71ce672af7e3ed7231f1be96e2f661c86ac78a9f80c2bce186c0e85204"
+      "sha256": "816f84accac585eec714eb6fb4cd7fb02ec005f1f39b8ee8ae44d6a5267cbd86"
     },
     {
       "path": "modules/robot-client/client.mjs",
@@ -484,11 +448,11 @@
     },
     {
       "path": "package-lock.json",
-      "sha256": "2900c4619fd317f39b227f35a9dd536054fc061f2e5b68c9bb61ad4267c3b0f3"
+      "sha256": "c17b0d381839d4eea03938a2bf541c66c3983409dfa7d16ba65bdb880d61e934"
     },
     {
       "path": "package.json",
-      "sha256": "452b4e752608650e2384795f4505754e3323e6eda0195dc7438c979e9a1a1f7f"
+      "sha256": "083763f99bfe5faafc0f8112ef1965840e4cffb52cc9f7ba17668852b4fd570e"
     },
     {
       "path": "public/console-tools.css",
@@ -536,15 +500,15 @@
     },
     {
       "path": "scripts/build-linux.py",
-      "sha256": "810c01808670c4a4019725011d7401d31f214390e649458d68ff88059cda6a34"
+      "sha256": "f32cde080576330234ec997bdba1be31fe263fda4313b92102fc997335470b07"
     },
     {
       "path": "scripts/build-ros.py",
-      "sha256": "e65bc3e0f553d3e755df7012eb410a076dff9900371463992e283bc495dbb547"
+      "sha256": "56f69ad4593710ab4b0eff301eefd97b86b7851463e0e2b7247f3448f141a4a1"
     },
     {
       "path": "scripts/build-starter.py",
-      "sha256": "4b55ce085a0d7506d8b0ea5359cc61829b135ebe95d98677f6d5f627f8d92e7b"
+      "sha256": "de75d9b09abb61087ed6d8c2e34f59b8956c8213ec017ff3e7eebd02618cb549"
     },
     {
       "path": "scripts/check-contract.mjs",
@@ -832,7 +796,7 @@
     },
     {
       "path": "workspace/README.md",
-      "sha256": "347329df87ff0b60eef3f4654880e375a933df866624e53a3b65f422abbf07a9"
+      "sha256": "df433dac9b89ffd02f9c82bf65aab277651052cb71672bf0e7b1d4c53082203c"
     },
     {
       "path": "workspace/controller/NoteController.js",

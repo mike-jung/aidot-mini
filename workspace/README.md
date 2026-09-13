@@ -1,7 +1,7 @@
 # Note CRUD
 
-Express 1.45.2 console generator format. See ../docs/NOTE_COMPATIBILITY_KO.md and docs/AI_API_RULES.md in the project root.
+A minimal public API with annotated Controller and Service files and named SQL.
+The administrator console still requires ID/password login.
 
-All five CRUD routes are public. The administrator console requires ID/password.
-
-Copy controller/, service/ and sql/ including both meta/ directories. Provision the note table separately on the target database.
+Read the [API guide](../docs/AI_API_RULES.md) and [porting guide](../docs/PORTING.md).
+Missing metadata is generated automatically when the server loads this workspace.

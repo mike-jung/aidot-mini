@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>aidot_mini_ros</name><version>0.5.1</version>
+  <name>aidot_mini_ros</name><version>1.0.1</version>
   <description>AiDot robot client bridge for ROS 1 move_base.</description>
-  <maintainer email="support@example.invalid">AiDot</maintainer><license>Proprietary</license>
+  <maintainer email="support@example.invalid">AiDot</maintainer><license>Apache-2.0</license>
   <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>rospy</exec_depend><exec_depend>actionlib</exec_depend>
   <exec_depend>move_base_msgs</exec_depend><exec_depend>geometry_msgs</exec_depend>

@@ -1,87 +1,62 @@
-# Portable aidot-express workspace profile
+# Porting a workspace
 
-## File contract
+aidot-mini supports the annotated Controller/Service/SQL profile used by the
+aidot-express workspace generator. Keep these source files unchanged when moving
+an API between supported hosts. Both Note variants use the same file contract.
 
-The current default is Note CRUD. Both public and Auth Note variants come from
-unmodified aidot-express 1.45.2 console generator functions. Copy controller/,
-service/ and sql/ including both meta/ directories. Keep annotations, imports,
-method signatures and return shapes. No Express runtime dependency is added to mini.
+## Files and metadata
 
-The companion metadata supports the Express editor and regeneration. Mini uses
-annotations to execute the API. Since 0.5.1 it generates missing sidecars and loads
-metadata at startup, synchronizing declarations while preserving descriptions and
-extension fields. Unchanged files are not rewritten. `npm run contract:check` also
-prepares metadata before checking declarations. Do not hand-author the sidecars.
-Use `npm run workspace:compile` before installing code read-only.
-The Express console preview/save round trip provides stronger evidence for the
-built-in Note example; the checker alone does not prove arbitrary custom code round trips.
+Copy `controller/`, `service/` and `sql/`, including generated `meta/` folders.
+Keep default class exports, annotations, imports, method signatures, query names
+and response shapes. Run the source on aidot-mini to generate missing metadata
+before exporting; do not write sidecars manually.
 
-## Paths
+`module.json` identifies the files for `npm run port:export`. Configure the target
+host's workspace loader to read the destination folder, then restart it.
+For the standard `../../src/...` imports on aidot-express, placing the workspace
+directly below the host project root preserves relative paths. An external
+workspace also needs the target host's import-resolution support.
 
-Mini supports an absolute APP_WORKSPACE or a workspace saved through Console >
-Settings. Restart to apply it. Generated relative imports such as
-`../../src/core/decorators.js` resolve to the active mini host even from an external
-Unicode directory. The reference Express generator computes imports based on its
-workspace placement.
+## Database setup
 
-The executed reverse-port target was a workspace directly below the Express
-project root. In that layout, generated `../../src/...` imports resolve unchanged.
-An arbitrary external Express workspace must also provide correct host import
-resolution. This report does not claim that every relative import remains valid
-at every filesystem depth. Do not rewrite business APIs to hide a host path issue.
+aidot-mini applies workspace migrations to built-in SQLite. Provision the same
+table, columns and timestamp behavior on the receiving host; do not assume it
+automatically applies aidot-mini migrations.
 
-## Database
+- [SQLite Note table](note-sqlite.sql)
+- [MariaDB Note table](note-mariadb.sql)
+- [Note table description](note-table.json)
 
-Mini uses one node:sqlite connection and a SQLite file. Note uses a plain `note`
-table and bound named parameters. The Note round trip tested Express's own
-better-sqlite3 driver. Provision the same table, columns and timestamp policy on
-the target host. Express does not automatically run mini workspace migrations.
+These setup files are separate from the portable queries in `sql/note.sql`.
+MariaDB syntax, collation, stored procedures and multiple database schemas do not
+become universally compatible through file copying. `DB_APP_SCHEMA` maps one
+configured application schema to SQLite's main database during execution;
+plain `note` queries do not need this mapping.
 
-The default 002 migration creates and seeds the Note table on mini. Its limited
-MariaDB-shaped AUTO_INCREMENT DDL is normalized by mini's SQLite dialect adapter.
-For Express SQLite, use `docs/note-sqlite.sql` or equivalent DDL. On MariaDB, use
-`docs/note-mariadb.sql` and verify date serialization and constraints on that target.
-These DDL files are deployment setup; `sql/note.sql` stays unchanged.
+## API contract
 
-DB_APP_SCHEMA=aidot_app maps qualified `aidot_app.table` references to SQLite's
-main database only during execution. Plain `note` queries need no schema mapping.
-String literals, comments and column aliases are preserved. Other schemas are not
-silently merged. No universal MariaDB syntax, collation, stored procedure or
-multi-schema compatibility is claimed.
+| Operation | Contract |
+|---|---|
+| Controller arguments | `(params, req, res)`; query < JSON body < URL path |
+| List | Array of rows inside `data` |
+| Read | One row; Note sends 404 for a missing ID |
+| Create | HTTP 201 with `{ insertId, rowsAffected }` inside `data` |
+| Update/delete | `{ rowsAffected }`, including zero for a missing row |
+| Envelope | `code`, `message`, `header`, `data` |
 
-## API behavior
+`fillPlaceholders(sql, params)` binds omitted fields as null. It does not validate
+a payload or implement partial updates. Define business validation explicitly
+for each API and compare date serialization on the target database.
 
-- Legacy @Controller / @Service / @Autowired / @Sql / @Log remain the model.
-- Handlers use `(params)` or `(params, req, res)`; query < body < path precedence.
-- List returns rows; getById returns the first row or null; Controller handles 404.
-- Create returns `{ insertId, rowsAffected }`; explicit HTTP response is 201.
-- Update calls `fillPlaceholders(sql, params)`; omitted fields become null.
-- Update and remove return `{ rowsAffected }`, including zero for a missing row.
-- Host envelopes use `code/message/header/data`; requestCode propagates to header.
+## Authentication and verification
 
-Generated Note has no business validation. Define validation and error status for
-new production APIs. Browser input constraints do not validate direct API calls.
+Apply `@Auth()` to each protected method. Configure credentials and HTTPS on
+each host separately; account files and sessions are not portable business code.
 
-## Auth and infrastructure
+Run `npm run check`, `npm run contract:check` and real HTTP tests on aidot-mini.
+Run the same requests on the destination and compare status, payload, missing-row
+behavior, authentication and persistence. Note tests do not verify an unrelated
+API or every optional feature of another framework.
 
-Public and Auth Note variants expose the same CRUD operations. Auth adds guards
-and corresponding metadata. Each host issues its own session/token. Credentials
-are not portable business files. The mini console supports local ID/password.
-HTTPS, accounts, DB paths and deployment state are configured per host.
-
-Express's full SSE hub, admin generators, MCI and every optional decorator are not
-included in the mini portable profile. MQTT, Socket.IO, ROS and VPN integrations
-belong to adapters outside portable business files unless a feature is explicitly
-supported and tested on both hosts. See the full project's deployment guides.
-
-## Executable evidence
-
-`node scripts/verify-note-express.mjs /path/to/aidot-express` in the full project
-starts real isolated servers, exercises 15 cases for each variant, compares
-responses, reads metadata through the actual Express console API, regenerates and
-saves code there, then runs the returned files on mini. All five source/meta files
-are hashed. Only response header timestamps and development stacks are excluded
-from response comparison; business date fields are included.
-
-See NOTE_COMPATIBILITY_KO.md and VALIDATION_NOTE_ROUNDTRIP.md for the tested version
-and targets. For each new API, repeat equivalent tests on its target database.
+Keep MQTT, Socket.IO, ROS and VPN integrations in adapters unless both hosts
+explicitly support the business-level interface. See the [API guide](AI_API_RULES.md).

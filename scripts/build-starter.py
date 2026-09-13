@@ -15,10 +15,8 @@ SCRIPTS = [
     'build-starter.py', 'verify-api-example.mjs',
 ]
 DOCS = [
-    'AI_API_RULES.md', 'AI_WORKFLOW.md', 'PORTING.md', 'NOTE_COMPATIBILITY_KO.md',
-    'DEPLOY_LINUX.md', 'DEPLOY_ROS.md', 'ROS_SDK_BUILD_KO.md',
-    'VALIDATION_NOTE_ROUNDTRIP.md', 'VALIDATION_V051.md', 'WORKSPACE_METADATA_KO.md', 'CONSOLE_LOGIN_KO.md', 'HTTPS_CONSOLE_KO.md',
-    'CONSOLE_FILES_LOGS_KO.md', 'CONSOLE_V060_EN.md', 'LICENSING.md', 'THIRD_PARTY_NOTICES.md', 'note-table.json', 'note-sqlite.sql', 'note-mariadb.sql',
+    'AI_API_RULES.md', 'USAGE.md', 'PORTING.md', 'THIRD_PARTY_NOTICES.md',
+    'note-table.json', 'note-sqlite.sql', 'note-mariadb.sql',
 ]
 
 def main():
@@ -42,9 +40,8 @@ def main():
     for folder in ['src', 'public', 'workspace', 'examples/note-auth-workspace', 'docs/third-party']:
         selected.update(p for p in (ROOT/folder).rglob('*') if p.is_file())
     selected.update(ROOT/'scripts'/name for name in SCRIPTS)
-    selected.update(ROOT/'docs'/name for name in DOCS + [f'aidot-mini-tutorial-v{version}.pptx', f'aidot-mini-tutorial-v{version}_ko.pptx'] if (ROOT/'docs'/name).is_file())
-    selected.update((ROOT/'docs').glob('aidot-mini-tutorial-v*.pptx'))
-    selected.update(ROOT/name for name in ['tests/helpers/note-api.mjs', 'docs/tutorial/client.mjs'])
+    selected.update(ROOT/'docs'/name for name in DOCS)
+    selected.add(ROOT/'tests/helpers/note-api.mjs')
     entries = {'package.json': (json.dumps(package, indent=2)+'\n').encode()}
     for p in sorted(selected):
         if not p.exists():
@@ -57,12 +54,13 @@ def main():
         entries[relative.as_posix()] = p.read_bytes()
     readme = entries['README.md'].decode('utf-8')
     readme = re.sub(r'\n<!-- FULL_PUBLISH_START -->[\s\S]*?<!-- FULL_PUBLISH_END -->\n?', '\n', readme)
+    readme = re.sub(r'\n<!-- DEVICE_BUILDS_START -->[\s\S]*?<!-- DEVICE_BUILDS_END -->\n?', '\n', readme)
     readme = readme.replace(f'# aidot-mini {version}', f'# aidot-mini {version} API Starter', 1)
     readme = readme.replace('npm run build:linux -- --arch x64 --download --deb\n', '')
     readme = readme.replace('npm run build:ros -- --family all\n', '')
     readme += ('\nThis Starter includes the API runtime, console, Note examples and AI rules. '
                'Linux/ROS/Android SDK build tools and publishing tools are available in the '
-               'Full or Public source distribution; the deployment guides describe that distribution.\n')
+               'Full or Public source distribution.\n')
     entries['README.md'] = readme.encode('utf-8')
     manifest = {'format': 'aidot-mini-starter/v1', 'version': package['version'],
                 'runtimeIncluded': False, 'install': 'npm ci --ignore-scripts',

@@ -71,7 +71,7 @@ def main():
         tree.write(package_xml, encoding='utf-8', xml_declaration=True)
         if family == 'ros1':
             (target / 'scripts/aidot_robot_bridge').chmod(0o755)
-        for guide in ['DEPLOY_ROS.md', 'ROBOT_CONSOLE_V040_KO.md', 'ROS_SDK_BUILD_KO.md']:
+        for guide in ['DEPLOY_ROS.md']:
             if (ROOT / 'docs' / guide).is_file():
                 shutil.copy2(ROOT / 'docs' / guide, workspace / guide)
         for notice in ['LICENSE', 'NOTICE', 'COPYRIGHT.md']:

@@ -1,35 +1,39 @@
-# Source provenance and third-party notices
+# Third-party notices
 
-## aidot-express 1.45.1
+## aidot-express
 
-The compatibility contract was compared against the user-supplied aidot-express-1.45.1-full.zip, SHA-256:
+This product includes code copied or adapted from aidot-express 1.45.1 by
+Aidot Link Co., Ltd.: `src/core/decorators.js`, `src/core/container.js`,
+`src/core/paramParser.js` and `src/database/sqlite-dialect.js`.
 
-8fd07b50e8b6c5bdf4f0a24aa24c226ba7014bfa1e5285517f0f3a1259104929
+The decorator implementation is adapted for aidot-mini dependency metadata and
+rejects class-level authentication declarations. The complete upstream Apache
+License 2.0 and NOTICE are retained under `docs/third-party/` in source packages
+and under `third-party/` or the licenses directory in device packages.
 
-The following files were copied or adapted from that source:
-- src/core/decorators.js (adapted: dependency preflight metadata and explicit class-Auth rejection)
-- src/core/container.js
-- src/core/paramParser.js
-- src/database/sqlite-dialect.js
+Source: https://github.com/mike-jung/aidot-express
 
-The upstream archive supplies the Apache License 2.0. Its complete text is retained in third-party/aidot-express-LICENSE. Modified runtime behavior is described in COMPATIBILITY_V050_KO.md. The verification harness reads Book/Student fixtures from the supplied target and does not bundle that entire server.
+## esbuild-wasm
 
-The visual tutorial template follows the user-supplied aidot-express tutorial family and retains its native colors, typography and layout.
+`esbuild-wasm` 0.28.2 is licensed under the MIT license. Its complete `LICENSE.md`
+is included by npm and retained in runtime packages. The device bundle includes
+the package metadata, browser compiler, WebAssembly binary and license.
 
-## esbuild-wasm 0.28.2
+Source: https://github.com/evanw/esbuild
 
-Source and documentation: https://github.com/evanw/esbuild , https://esbuild.github.io/api/ .
+## Node.js and device runtimes
 
-MIT license; the complete upstream LICENSE.md is included with node_modules/esbuild-wasm in source/runtime packages. Package lock and the runtime asset allowlist fix the version. Only package.json, LICENSE.md, lib/browser.js and esbuild.wasm are needed in the device runtime bundle.
+Linux runtime versions and archive checksums are pinned in
+`deploy/linux/runtime-lock.json`. Linux packages retain `runtime/LICENSE`,
+including notices for Node.js and its bundled components.
 
-## Node.js
+Android runtime versions and hashes are pinned in `android/runtime-packages.json`
+and `android/runtime-manifest.json`. Notices are retained in
+`android/runtime-licenses/` and APK license assets.
 
-Linux runtime archives and checksums are pinned in deploy/linux/runtime-lock.json. The release includes runtime/LICENSE from the selected distribution, including Node and bundled components' notices.
+## Optional communication adapters
 
-## Development-only tools
-
-Browser verification used Playwright and Microsoft Edge. The inherited tutorial family uses the supplied style; version 0.5.1 was edited with artifact-tool. These tools are not added as server runtime dependencies.
-
-## 0.6.0 changes
-
-The console editor/log viewer and font-independent m. SVG are new Aidot code. Existing upstream attribution is retained. The publication structure was compared with aidot-express 1.45.2; its private implementation is not bundled as an additional server. No new runtime dependency was added.
+The separately installed communication package uses MQTT.js and Socket.IO under
+their MIT licenses. Exact versions are in `addons/communications/package-lock.json`.
+Retain the license files supplied with these packages and their dependencies
+when including the adapters in a distribution.

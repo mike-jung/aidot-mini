@@ -62,7 +62,7 @@ def main():
             shutil.copytree(ROOT/'deploy'/family/package,destination)
             shutil.copytree(ROOT/'deploy/ros/common/aidot_bridge',destination/'aidot_bridge',ignore=shutil.ignore_patterns('__pycache__','*.pyc'))
             if family=='ros1':(destination/'scripts/aidot_robot_bridge').chmod(0o755)
-        for file in ['CONSOLE_FILES_LOGS_KO.md','CONSOLE_V060_EN.md','LICENSING.md','WORKSPACE_METADATA_KO.md','ROS_SDK_BUILD_KO.md','WORKSPACE_COMPATIBILITY_KO.md','NOTE_COMPATIBILITY_KO.md','VALIDATION_NOTE_ROUNDTRIP.md','PORTING.md','CONSOLE_LOGIN_KO.md','DEPLOY_LINUX.md','DEPLOY_ROS.md','ROBOT_SDK_KO.md','COMMUNICATIONS_VPN_KO.md']:
+        for file in ['USAGE.md', 'DEPLOY_LINUX.md', 'DEPLOY_ROS.md']:
             if (ROOT/'docs'/file).is_file():shutil.copy2(ROOT/'docs'/file,release/file)
         shutil.copytree(ROOT/'docs/third-party',release/'third-party')
         shutil.copy2(ROOT/'docs/THIRD_PARTY_NOTICES.md',release/'THIRD_PARTY_NOTICES.md')

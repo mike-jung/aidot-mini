@@ -1,9 +1,16 @@
 {
   "name": "aidot-mini-communications",
-  "version": "0.3.0",
+  "version": "1.0.1",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=22.13.0" },
-  "dependencies": { "mqtt": "5.15.2", "socket.io": "4.8.3" },
-  "devDependencies": { "socket.io-client": "4.8.3" }
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "dependencies": {
+    "mqtt": "5.15.2",
+    "socket.io": "4.8.3"
+  },
+  "devDependencies": {
+    "socket.io-client": "4.8.3"
+  }
 }

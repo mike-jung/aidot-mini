@@ -7,8 +7,8 @@ android {
   applicationId = "com.aidot.mini"
   minSdk = 26
   targetSdk = 36
-  versionCode = 10
-  versionName = "0.6.2"
+  versionCode = 11
+  versionName = "1.0.1"
  }
  // A PIE executable must be extracted to nativeLibraryDir before ProcessBuilder can run it.
  packaging { jniLibs { useLegacyPackaging = true; keepDebugSymbols += "**/*.so" } }

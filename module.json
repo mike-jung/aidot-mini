@@ -15,5 +15,5 @@
     "002_create_note.sql",
     "003_note_seed_english.sql"
   ],
-  "version": "0.6.1"
+  "version": "1.0.1"
 }
