@@ -164,15 +164,25 @@ Without a token, install [GitHub CLI](https://cli.github.com/) and run
 `winget install --id GitHub.cli --exact`, then open a new terminal. `GH_PATH`
 can point to an existing `gh.exe` outside `PATH`.
 
-Push the version tag from the public source checkout to the destination first
-(`v1.0.11` for this release). Existing releases, including drafts, are never
-overwritten. A failed upload leaves the draft for review and records incomplete
-progress in `RELEASE_PLAN.json`. After a version upgrade, rebuild the artifacts
-for that version; move older release files to a separate directory first.
+Publish the matching public source before releasing (`npm run sync:public`
+from the Full project). An existing version tag is reused. If the tag is missing,
+the command checks the public branch's `package.json` for the same version and
+public edition, then pins that exact commit when creating the draft. A separate
+tag push is no longer required. The branch defaults to `PUBLIC_BRANCH` or `main`;
+`--branch` overrides it. GitHub manages the draft's tag; draft creation does not
+mean the release or its tag has been published.
+
+Existing releases, including drafts, are never overwritten. An API upload failure
+leaves the draft for review and records incomplete progress in `RELEASE_PLAN.json`.
+After a version upgrade, rebuild the artifacts for that version; move older
+release files to a separate directory first. This publishing-tool correction
+keeps version 1.0.11, so existing verified 1.0.11 artifacts can be reused.
+See the [missing-tag fix and verification](docs/RELEASE_1.0.11_TAG_FIX_KO.md).
 
 ```bash
 npm run release:github -- --dry-run                  # Local plan only; no GitHub access
 npm run release:github -- --repo owner/repository    # Use another repository
+npm run release:github -- --branch release/stable    # Public branch when the tag is missing
 ```
 
 The earlier `--publish --repo mike-jung/aidot-mini` form remains supported.

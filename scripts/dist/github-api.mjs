@@ -52,11 +52,61 @@ export function githubCliError(result, env) {
     + '\nCheck gh auth status --hostname github.com, or configure GITHUB_TOKEN in .env.');
 }
 
-export async function createGitHubDraft(plan, directory, { env, fetchImpl = fetch, save = () => {} }) {
+// Both authentication paths use the same read-only preflight. Never turn an
+// authentication/network error into permission to create a release or a tag.
+export async function prepareGitHubRelease(plan, { request, branch = 'main' }) {
+  const base = `https://api.github.com/repos/${plan.repository}`;
+  // Authenticated lists include drafts; the public release-by-tag endpoint does not.
+  for (let page = 1; ; page++) {
+    if (page > 100) throw new Error('Too many release pages to check safely; no draft was created.');
+    const releases = await request(`${base}/releases?per_page=100&page=${page}`, 'release lookup');
+    if (!Array.isArray(releases)) throw new Error('Invalid GitHub release list; no draft was created.');
+    if (releases.some(release => release.tag_name === plan.tag)) {
+      throw new Error(`Release ${plan.tag} already exists; review it manually instead of overwriting.`);
+    }
+    if (releases.length < 100) break;
+  }
+  const tag = await request(`${base}/git/ref/tags/${encodeURIComponent(plan.tag)}`, `tag lookup for ${plan.tag}`, { allowNotFound: true });
+  if (tag !== undefined) {
+    if (tag?.ref !== `refs/tags/${plan.tag}` || !['commit', 'tag'].includes(tag.object?.type) || !/^[a-f0-9]{40}$/i.test(tag.object?.sha || '')) {
+      throw new Error(`Remote tag ${plan.tag} was not confirmed; no draft was created.`);
+    }
+    return { tagExists: true };
+  }
+
+  branch = branch.trim();
+  if (!branch || /[\x00-\x20\x7f]/.test(branch) || branch.startsWith('-')) throw new Error('Use --branch with the public source branch name.');
+  const repository = await request(base, 'repository lookup');
+  if (repository?.private !== false || repository.full_name?.toLowerCase() !== plan.repository.toLowerCase()) {
+    throw new Error('Missing-tag releases require the intended public repository; check --repo.');
+  }
+  const head = await request(`${base}/git/ref/heads/${encodeURIComponent(branch)}`, `public branch lookup for ${branch}`, { allowNotFound: true });
+  if (head?.ref !== `refs/heads/${branch}` || head.object?.type !== 'commit' || !/^[a-f0-9]{40}$/i.test(head.object?.sha || '')) {
+    throw new Error(`Public branch ${branch} was not confirmed. Run npm run sync:public first, or select --branch. No draft was created.`);
+  }
+  const sha = head.object.sha;
+  // Read by the resolved SHA, so a later branch push cannot change the checked source.
+  const file = await request(`${base}/contents/package.json?ref=${sha}`, 'public source version lookup', { allowNotFound: true });
+  let source;
+  try {
+    if (file?.type !== 'file' || file.path !== 'package.json' || file.encoding !== 'base64' || typeof file.content !== 'string') throw new Error();
+    source = JSON.parse(Buffer.from(file.content, 'base64').toString('utf8'));
+  } catch {
+    throw new Error('Public package.json could not be verified. Run npm run sync:public first. No draft was created.');
+  }
+  if (source?.name !== 'aidot-mini' || source.aidotEdition !== 'public' || source.version !== plan.version) {
+    throw new Error(`Public source must be aidot-mini ${plan.version} with aidotEdition=public. Run npm run sync:public for this version before releasing. No draft was created.`);
+  }
+  // GitHub manages the tag for the draft. Do not push a local Full-source tag,
+  // move an existing tag, or claim that a draft has already published its tag.
+  return { tagExists: false, sourceBranch: branch, targetCommitish: sha };
+}
+
+export async function createGitHubDraft(plan, directory, { env, fetchImpl = fetch, save = () => {}, branch = 'main' }) {
   const token = releaseToken(env), base = `https://api.github.com/repos/${plan.repository}`;
   const headers = { Accept: 'application/vnd.github+json', Authorization: `Bearer ${token}`,
     'X-GitHub-Api-Version': '2026-03-10', 'User-Agent': 'aidot-mini-release' };
-  async function request(url, label, { method = 'GET', body, upload = false, expected = 200 } = {}) {
+  async function request(url, label, { method = 'GET', body, upload = false, expected = 200, allowNotFound = false } = {}) {
     let response;
     try {
       response = await fetchImpl(url, { method, redirect: 'error', signal: AbortSignal.timeout(upload ? 600000 : 30000),
@@ -67,29 +117,21 @@ export async function createGitHubDraft(plan, directory, { env, fetchImpl = fetc
     }
     let data;
     try { data = await response.json(); } catch { throw new Error(`GitHub ${label} returned HTTP ${response.status} without a JSON response.`); }
+    if (allowNotFound && response.status === 404) return undefined;
     if (response.status !== expected) {
       const hint = response.status === 401 ? 'Check token validity.'
         : response.status === 403 ? 'Check token repository access, Contents: Read and write, and API rate limits.'
-          : response.status === 404 ? 'Check the repository and remote version tag, and token access to them.' : 'Review the GitHub response before retrying.';
+          : response.status === 404 ? 'Check the repository or ref, and token access to it.' : 'Review the GitHub response before retrying.';
       throw new Error(`GitHub ${label} failed (HTTP ${response.status}): ${redactReleaseError(data?.message || 'Request rejected', env)} ${hint}`);
     }
     return data;
   }
 
-  // List authenticated releases: this includes drafts, unlike the public tag endpoint.
-  for (let page = 1; ; page++) {
-    if (page > 100) throw new Error('Too many release pages to check safely; no draft was created.');
-    const releases = await request(`${base}/releases?per_page=100&page=${page}`, 'release lookup');
-    if (!Array.isArray(releases)) throw new Error('Invalid GitHub release list; no draft was created.');
-    if (releases.some(release => release.tag_name === plan.tag)) {
-      throw new Error(`Release ${plan.tag} already exists; review it manually instead of overwriting.`);
-    }
-    if (releases.length < 100) break;
-  }
-  const tag = await request(`${base}/git/ref/tags/${encodeURIComponent(plan.tag)}`, `tag lookup for ${plan.tag}`);
-  if (tag?.ref !== `refs/tags/${plan.tag}`) throw new Error(`Remote tag ${plan.tag} was not confirmed; push the intended public version tag first.`);
+  Object.assign(plan, await prepareGitHubRelease(plan, { request, branch }));
+  save();
   const release = await request(`${base}/releases`, 'draft creation', { method: 'POST', expected: 201,
     body: JSON.stringify({ tag_name: plan.tag, name: `aidot-mini ${plan.version}`, draft: true,
+      ...(plan.targetCommitish ? { target_commitish: plan.targetCommitish } : {}),
       body: fs.readFileSync(path.join(directory, 'RELEASE_NOTES.md'), 'utf8') }) });
   if (!Number.isSafeInteger(release?.id) || release.id <= 0 || release.draft !== true || release.tag_name !== plan.tag) {
     throw new Error('Unexpected GitHub draft response; inspect the repository before retrying.');

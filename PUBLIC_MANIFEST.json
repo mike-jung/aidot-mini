@@ -40,11 +40,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "7d09092d8acaa0b8608066065d2afe798ff027c4a8f0f26b1dd510f12d506674"
+      "sha256": "faf4538a40cfb7d446fbed40d08d358f80e73099235e4cfd8bb35408784a5252"
     },
     {
       "path": "REVISION.txt",
-      "sha256": "36b976fceb5e810de517f56964104b3b723378d79dfb0cdb990c672a0a04e378"
+      "sha256": "a2213790b6372207a3daa9a706ba76c9db8ddbfad5e859e6db576a418d40c321"
     },
     {
       "path": "SECURITY.md",
@@ -208,7 +208,7 @@
     },
     {
       "path": "android/runtime-manifest.json",
-      "sha256": "c12c49066ad0d7274d3935609ea9f1c220691e5babbb21f91b747be637eeec01"
+      "sha256": "743c2ab7e73e75208af556b94c1d5dd9cb8dfb53b8262b0405d939493f3844fc"
     },
     {
       "path": "android/runtime-packages.json",
@@ -464,7 +464,11 @@
     },
     {
       "path": "docs/RELEASE_1.0.11_KO.md",
-      "sha256": "b3beed15240e31b3bd4a22fc3f7f0d35a16c862d5b92ee8134870b61513a3487"
+      "sha256": "77765fcbaa170a9893d9849b926cc4becf44b581de3f8f4f5b3a2ad040ee5011"
+    },
+    {
+      "path": "docs/RELEASE_1.0.11_TAG_FIX_KO.md",
+      "sha256": "d43b82c2e94b1a1fdd855fdf42030c8f8810c63417f2e6d9896634e0c1a90215"
     },
     {
       "path": "docs/RELEASE_1.0.11_VERIFICATION.json",
@@ -8368,7 +8372,7 @@
     },
     {
       "path": "scripts/dist/github-api.mjs",
-      "sha256": "9b96b23446fb181b00b089b9483ddbb053ec7f26be7688f7a55219ee6399a7ff"
+      "sha256": "36e8a14a9414e2760e370477c836d4ea91a4e57bbc4b13c8305a883690a1f3f1"
     },
     {
       "path": "scripts/dist/licenses/node-24.19.0-LICENSE",
@@ -8376,7 +8380,7 @@
     },
     {
       "path": "scripts/dist/release-github.mjs",
-      "sha256": "858407f53249474198d50927a973f853563706b931240c3f22c43cb75e426a56"
+      "sha256": "2754853369e3b5f1844873faf18408317802110fa42a6e3bfd1838aa89dbf544"
     },
     {
       "path": "scripts/dist/runtime-files.json",
@@ -8624,7 +8628,7 @@
     },
     {
       "path": "tests/dist.test.mjs",
-      "sha256": "b56c0d48901db632ff1bfd9ddf402d14ba28c204b2677afe66fc790f65c3f094"
+      "sha256": "ee9659ec4ba5b944cf08f590de87919500e44665954e1b58558f3622ad8a4a30"
     },
     {
       "path": "tests/events.test.mjs",
@@ -8644,7 +8648,7 @@
     },
     {
       "path": "tests/github-release.test.mjs",
-      "sha256": "e51c338e27bd5b2d910b2fb95763ccc67dc71471d4a4eeefb5a5e4877b282a12"
+      "sha256": "2050038745285065f6cd75496f2d2e257e07626bebedef9dff34e5cc1b6af48d"
     },
     {
       "path": "tests/hardening.test.mjs",

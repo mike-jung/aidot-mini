@@ -100,19 +100,27 @@ function releaseFixture(t) {
   return { directory, file, version, readPlan: () => JSON.parse(fs.readFileSync(path.join(directory, 'RELEASE_PLAN.json'), 'utf8')) };
 }
 
+function cliPreflight(args, version, releases = []) {
+  assert.equal(args[0], 'api');
+  const data = args.at(-1).includes('/releases?') ? releases : { ref: `refs/tags/v${version}`,
+    object: { type: 'commit', sha: '0123456789abcdef0123456789abcdef01234567' } };
+  return { status: 0, stdout: `HTTP/2.0 200 OK\r\nContent-Type: application/json\r\n\r\n${JSON.stringify(data)}`, stderr: '' };
+}
+
 test('release command defaults to creating a draft in the public repository', async t => {
   const { directory, file, version, readPlan } = releaseFixture(t), calls = [], output = [];
   const plan = await releaseMain(['--directory', directory], {
     run(command, args) {
       assert.equal(command, 'gh'); calls.push(args);
       assert.equal(readPlan().uploadPerformed, false);
-      return { status: args[1] === 'view' ? 1 : 0, stdout: '', stderr: '' };
+      return args[0] === 'api' ? cliPreflight(args, version) : { status: 0, stdout: '', stderr: '' };
     },
     output: text => output.push(JSON.parse(text)),
   });
-  assert.deepEqual(calls[0], ['release', 'view', `v${version}`, '--repo', 'mike-jung/aidot-mini']);
-  assert.deepEqual(calls[1], ['release', 'create', `v${version}`, path.join(directory, file), path.join(directory, 'SHA256SUMS.txt'), '--repo', 'mike-jung/aidot-mini', '--draft', '--verify-tag', '--title', `aidot-mini ${version}`, '--notes-file', path.join(directory, 'RELEASE_NOTES.md')]);
-  assert.equal(calls.length, 2);
+  assert.match(calls[0].at(-1), /^repos\/mike-jung\/aidot-mini\/releases\?/);
+  assert.equal(calls[1].at(-1), `repos/mike-jung/aidot-mini/git/ref/tags/v${version}`);
+  assert.deepEqual(calls[2], ['release', 'create', `v${version}`, path.join(directory, file), path.join(directory, 'SHA256SUMS.txt'), '--repo', 'mike-jung/aidot-mini', '--draft', '--verify-tag', '--title', `aidot-mini ${version}`, '--notes-file', path.join(directory, 'RELEASE_NOTES.md')]);
+  assert.equal(calls.length, 3);
   assert.equal(plan.repository, 'mike-jung/aidot-mini'); assert.equal(plan.draft, true);
   assert.equal(plan.uploadPerformed, true); assert.deepEqual(readPlan(), plan); assert.deepEqual(output, [plan]);
 });
@@ -128,25 +136,27 @@ test('release dry run verifies assets and writes a plan without invoking GitHub'
 });
 
 test('release repository override and legacy publish flag remain supported', async t => {
-  const { directory } = releaseFixture(t);
+  const { directory, version } = releaseFixture(t);
   for (const flags of [['--repo', 'example/mini'], ['--publish', '--repo', 'example/mini'], ['--publish']]) {
     const repository = flags.includes('--repo') ? 'example/mini' : 'mike-jung/aidot-mini', calls = [];
     const plan = await releaseMain(['--directory', directory, ...flags], {
       run(command, args) {
-        assert.equal(command, 'gh'); assert.equal(args[args.indexOf('--repo') + 1], repository); calls.push(args);
-        return { status: args[1] === 'view' ? 1 : 0, stdout: '', stderr: '' };
+        assert.equal(command, 'gh'); calls.push(args);
+        if (args[0] === 'api') { assert.ok(args.at(-1).startsWith(`repos/${repository}/`)); return cliPreflight(args, version); }
+        assert.equal(args[args.indexOf('--repo') + 1], repository);
+        return { status: 0, stdout: '', stderr: '' };
       }, output() {},
     });
-    assert.equal(plan.repository, repository); assert.equal(plan.uploadPerformed, true); assert.equal(calls.length, 2);
+    assert.equal(plan.repository, repository); assert.equal(plan.uploadPerformed, true); assert.equal(calls.length, 3);
   }
 });
 
 test('an existing release stops creation and preserves the unperformed upload state', async t => {
-  const { directory, readPlan } = releaseFixture(t), calls = [];
+  const { directory, version, readPlan } = releaseFixture(t), calls = [];
   await assert.rejects(releaseMain(['--directory', directory], {
-    run(command, args) { calls.push(args); return { status: 0, stdout: '', stderr: '' }; }, output() {},
+    run(command, args) { calls.push(args); return cliPreflight(args, version, [{ tag_name: `v${version}` }]); }, output() {},
   }), /already exists/);
-  assert.equal(calls.length, 1); assert.equal(calls[0][1], 'view'); assert.equal(readPlan().uploadPerformed, false);
+  assert.equal(calls.length, 1); assert.equal(calls[0][0], 'api'); assert.equal(readPlan().uploadPerformed, false);
 });
 
 test('GitHub CLI setup failures stop before attempting release creation', async t => {
@@ -154,16 +164,16 @@ test('GitHub CLI setup failures stop before attempting release creation', async 
   for (const failure of [{ error: new Error('spawn gh ENOENT'), status: null }, { status: 4, stderr: 'Authentication required' }]) {
     let calls = 0;
     await assert.rejects(releaseMain(['--directory', directory], {
-      run(command, args) { calls++; assert.equal(args[1], 'view'); return failure; }, output() {},
+      run(command, args) { calls++; assert.equal(args[0], 'api'); return failure; }, output() {},
     }), /GitHub CLI/);
     assert.equal(calls, 1); assert.equal(readPlan().uploadPerformed, false);
   }
 });
 
 test('failed release creation is not recorded as a completed upload', async t => {
-  const { directory, readPlan } = releaseFixture(t);
+  const { directory, version, readPlan } = releaseFixture(t);
   await assert.rejects(releaseMain(['--directory', directory], {
-    run(command, args) { return { status: 1, stdout: '', stderr: args[1] === 'view' ? 'release not found' : 'remote tag does not exist' }; }, output() {},
+    run(command, args) { return args[0] === 'api' ? cliPreflight(args, version) : { status: 1, stdout: '', stderr: 'remote tag does not exist' }; }, output() {},
   }), /remote tag does not exist/);
   assert.equal(readPlan().uploadPerformed, false);
 });
