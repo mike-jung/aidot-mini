@@ -37,7 +37,9 @@ for package in packages:
     digest = package['SHA256']; source = cache.get(digest)
     if source is None:
         if not args.download: raise SystemExit('Missing pinned package: '+package['Filename'])
-        source = args.cache/pathlib.PurePosixPath(package['Filename']).name
+        # Debian epoch ':' is an NTFS alternate-stream separator, so use a portable cache filename.
+        filename = re.sub(r'[^A-Za-z0-9._+-]', '_', pathlib.PurePosixPath(package['Filename']).name)
+        source = args.cache/(digest[:16]+'-'+filename)
         url = 'https://packages.termux.dev/apt/termux-main/'+package['Filename']
         with urllib.request.urlopen(url, timeout=60) as response: data = response.read()
         if hashlib.sha256(data).hexdigest() != digest: raise SystemExit('Package checksum mismatch: '+package['Package'])

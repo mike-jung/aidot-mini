@@ -1,6 +1,6 @@
 {
   "edition": "public",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "files": [
     {
       "path": ".env.example",
@@ -40,11 +40,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "43ec66eb120641d96fd8aeebbceae0884bac8edc8e9fa6d4f6615bee8f218f5e"
+      "sha256": "a8aa94169fe23eed0d2259eef2a2e6395e40d42f3a073330bcb309f24b6813e4"
     },
     {
       "path": "REVISION.txt",
-      "sha256": "bc5823285ad08a98467d69984ddf1f48b8036ab722b3fe0edbdd5378d1f0fde5"
+      "sha256": "738cf679e570213b595c40c8e61728b731f8a8727cda17dee11fc048929dd2f6"
     },
     {
       "path": "SECURITY.md",
@@ -75,8 +75,12 @@
       "sha256": "2159f36a40ad34f2ca19f2dfc59fa13bea1737c2b5cc341a8914725e48c136be"
     },
     {
+      "path": "android/README.md",
+      "sha256": "cba14696c1322368f97b4a730c006f3f56333251fd534c15a383b9082dfa0339"
+    },
+    {
       "path": "android/app/build.gradle.kts",
-      "sha256": "ebf0d6ae99a23973738e6ee3b7adac6618c8304dd13289223d21af594a334e0f"
+      "sha256": "ce1bf7932806ccdb8de04e182fbce3be98aafb21288a13d3847fb7efb6acb628"
     },
     {
       "path": "android/app/proguard-rules.pro",
@@ -96,11 +100,11 @@
     },
     {
       "path": "android/app/src/main/assets/licenses/README.txt",
-      "sha256": "4fa3cc661c23e8f465e05aa538614f28b606a6e390ddd407b3de7fc8d45fc4e3"
+      "sha256": "5904e64aef24a18e5b3fb9e46d20db3346eb26f97819923b825819154ead1c87"
     },
     {
       "path": "android/app/src/main/assets/licenses/THIRD_PARTY_NOTICES.md",
-      "sha256": "e03e0f93a4f33151abded74a297d7e91b506a5d1c523c1ee773cdc6188720d36"
+      "sha256": "34479a76e393883a2fa5cd48678ec17a2f67d9428935ba53b616c1d597e2a60d"
     },
     {
       "path": "android/app/src/main/assets/licenses/aidot-express-LICENSE",
@@ -112,7 +116,7 @@
     },
     {
       "path": "android/app/src/main/assets/licenses/share/doc/libicu/LICENSE",
-      "sha256": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed"
+      "sha256": "e55522d81edc687a341a4411e0776e54ca654e90147f354a90458aaced4116af"
     },
     {
       "path": "android/app/src/main/assets/licenses/share/doc/nodejs-lts/copyright",
@@ -171,6 +175,10 @@
       "sha256": "57931b17dd228e5c24dac90e815d0bf82477e831a4618dfab4136f5446b42a9f"
     },
     {
+      "path": "android/runtime-license-manifest.json",
+      "sha256": "feeec3c34b3766ebf46b3ddb2073075f4f4562eca1fd3c6c773093ac75bcfbd3"
+    },
+    {
       "path": "android/runtime-licenses/LLVM-libcxx-LICENSE.txt",
       "sha256": "539dd7aed86e8a4f12cbdd0e6c50c189c7d74847e4fecc64ce2c6ee3a01da38b"
     },
@@ -180,7 +188,7 @@
     },
     {
       "path": "android/runtime-licenses/README.txt",
-      "sha256": "4fa3cc661c23e8f465e05aa538614f28b606a6e390ddd407b3de7fc8d45fc4e3"
+      "sha256": "5904e64aef24a18e5b3fb9e46d20db3346eb26f97819923b825819154ead1c87"
     },
     {
       "path": "android/runtime-licenses/share/doc/c-ares/copyright",
@@ -188,7 +196,7 @@
     },
     {
       "path": "android/runtime-licenses/share/doc/libicu/LICENSE",
-      "sha256": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed"
+      "sha256": "e55522d81edc687a341a4411e0776e54ca654e90147f354a90458aaced4116af"
     },
     {
       "path": "android/runtime-licenses/share/doc/nodejs-lts/copyright",
@@ -200,7 +208,7 @@
     },
     {
       "path": "android/runtime-manifest.json",
-      "sha256": "27be93179aa401aae6e43a6903f72b47fd9bd6e78d9fad948db487f55daa5bb4"
+      "sha256": "743c2ab7e73e75208af556b94c1d5dd9cb8dfb53b8262b0405d939493f3844fc"
     },
     {
       "path": "android/runtime-packages.json",
@@ -208,7 +216,7 @@
     },
     {
       "path": "android/scripts/build-assets.py",
-      "sha256": "ec533bb0ee96c15909c3eea596f97c403642cfc414e46f82b1c3f0e2bd0fd36e"
+      "sha256": "4bc3021d16321e6358335245be1f1472773079806e62f468570f3cebfe073b5b"
     },
     {
       "path": "android/scripts/build-assets.sh",
@@ -220,7 +228,7 @@
     },
     {
       "path": "android/scripts/check-runtime.py",
-      "sha256": "0ecd4aa8274e8c5c8132858715491832b1871fb7fbde12cc3df3ea9042abed1e"
+      "sha256": "81422dce602b58e288a609cb203bf24f8c1fc5e11a912f05548d2809e8171a77"
     },
     {
       "path": "android/scripts/elf_runtime.py",
@@ -228,11 +236,31 @@
     },
     {
       "path": "android/scripts/import-runtime.py",
-      "sha256": "51dd4f35ea674dad84ed1358bb7d041ba5cbf017363047b03c6ef5de6b8fa5d2"
+      "sha256": "ad51b288f5487b8670ba3d7a5e1018e741b16a62e0c96bc1f6589bbfa5456338"
+    },
+    {
+      "path": "android/scripts/runtime_licenses.py",
+      "sha256": "affe1bea6b8ebde07740cc6d9d903d2daf636c4d2ace44a8ec055a5a4b7e7a80"
+    },
+    {
+      "path": "android/scripts/verify-apk.mjs",
+      "sha256": "be72ceba4926a697772026f3d36e033682ccc778840b79ab336907b1c1f82ef7"
     },
     {
       "path": "android/settings.gradle.kts",
       "sha256": "ac225b0413f93971185368bc214195fae163074f3f6b96886bb66db8719c4d5a"
+    },
+    {
+      "path": "deploy/installed/launch.mjs",
+      "sha256": "7eefc7de3a4670b4184db2cb593ff95a92b991d25152b2b4ef246bed47992189"
+    },
+    {
+      "path": "deploy/installed/lifecycle.mjs",
+      "sha256": "34efb772bfe3aef49e368290992b0b3b9b89b1a1d6ace201364dd55812b2c407"
+    },
+    {
+      "path": "deploy/installed/server.mjs",
+      "sha256": "3363bdd02edab1051a764cd992674e3b5c9f1bf481989ff6d3d3dad1bb2c0272"
     },
     {
       "path": "deploy/linux/aidot-mini",
@@ -335,16 +363,32 @@
       "sha256": "06a765b7fb43a5f674890604b41a4aed98e27f7e63fb73840a718fc0701cf167"
     },
     {
+      "path": "deploy/windows/create-uninstall-manifest.py",
+      "sha256": "930c2a9220c0933f4a9b7a072c63b4eddcd78566fe4801c7db3eba11f13a6db0"
+    },
+    {
+      "path": "deploy/windows/installer.nsi",
+      "sha256": "dd80bd594fd2b34e777a34f35d3f231b9a4106876e848d400c15faafb26b3841"
+    },
+    {
+      "path": "deploy/windows/setup-helper.mjs",
+      "sha256": "c0e8e8f26acf0d20f32bdde083b4dcaa6997c1494090d18ba2e0c2cf124fff79"
+    },
+    {
       "path": "docs/AI_API_RULES.md",
       "sha256": "acf02b373e4d3842fe06f4e8caa6354574be332fedd13c554ea15adffe3d6d33"
     },
     {
       "path": "docs/AI_API_RULES_PRODUCT.md",
-      "sha256": "533b17622ed67253c330519a07946ebd314f5c84a7f896c9aeda584a876ac871"
+      "sha256": "d2eec4204a45e14865bb10511b91335d59403f66afb955e5fd54fd16b328654f"
     },
     {
       "path": "docs/AI_FRONTEND_RULES.md",
-      "sha256": "786e98fa1fdcb49f442a1ae009c99d4b062f4c18a8654c665c81475d8e66e2b2"
+      "sha256": "ddc120fbb59306c42a85a8b8f53fe69e209fec5c834afbcf724b1a98114702d1"
+    },
+    {
+      "path": "docs/AI_STARTER.md",
+      "sha256": "3fa2cb3e3232f7e5e416f2ee2b50465ef1928fa3d42534cd4418fdc6a0f58a5d"
     },
     {
       "path": "docs/AI_WORKFLOW.md",
@@ -380,11 +424,11 @@
     },
     {
       "path": "docs/DEPLOY_ANDROID.md",
-      "sha256": "a8b7e55760dd07a2bd4cc1cd125d91a0a8f1f95e107fbce638b35c27ca78dcd1"
+      "sha256": "7d4d469bebe2d2fc39112ae3c1a61b8ab7109dddeafe8317a79a8a19675cac76"
     },
     {
       "path": "docs/DEPLOY_LINUX.md",
-      "sha256": "2407877c73c44da423cfdedba48c474888b8d11b0999d6aa4ba6c81710d692d4"
+      "sha256": "d3f68b7f15d1ab49983638f7db77c8868816f29eadda2df2ba6460a04d593245"
     },
     {
       "path": "docs/DEPLOY_ROS.md",
@@ -393,6 +437,10 @@
     {
       "path": "docs/HTTPS_CONSOLE_KO.md",
       "sha256": "ae8373c5342982031967692f502dde8329c463526e5b7a94a990cd268a37acdf"
+    },
+    {
+      "path": "docs/INSTALL_WINDOWS_KO.md",
+      "sha256": "84df94b0d97c1ed24df8dcbe1d48b4b2423f9cc811cd69c3630ed7a00a115ab2"
     },
     {
       "path": "docs/LICENSING.md",
@@ -413,6 +461,10 @@
     {
       "path": "docs/RELEASE_1.0.7_KO.md",
       "sha256": "9e8f2ee76b417077ba694241243270aa23724e496425dafcb0623487981a1355"
+    },
+    {
+      "path": "docs/RELEASE_1.0.8_KO.md",
+      "sha256": "994975021b3a8407383c1af3f639c06811f9ce894229f4d63e0bd08570c84c2c"
     },
     {
       "path": "docs/ROS_SDK_BUILD_KO.md",
@@ -516,15 +568,15 @@
     },
     {
       "path": "examples/product-client/docs/AI_API_RULES.md",
-      "sha256": "533b17622ed67253c330519a07946ebd314f5c84a7f896c9aeda584a876ac871"
+      "sha256": "d2eec4204a45e14865bb10511b91335d59403f66afb955e5fd54fd16b328654f"
     },
     {
       "path": "examples/product-client/docs/AI_API_RULES_PRODUCT.md",
-      "sha256": "533b17622ed67253c330519a07946ebd314f5c84a7f896c9aeda584a876ac871"
+      "sha256": "d2eec4204a45e14865bb10511b91335d59403f66afb955e5fd54fd16b328654f"
     },
     {
       "path": "examples/product-client/docs/AI_FRONTEND_RULES.md",
-      "sha256": "786e98fa1fdcb49f442a1ae009c99d4b062f4c18a8654c665c81475d8e66e2b2"
+      "sha256": "ddc120fbb59306c42a85a8b8f53fe69e209fec5c834afbcf724b1a98114702d1"
     },
     {
       "path": "examples/product-client/docs/CLIENT_GUIDE_KO.md",
@@ -8028,7 +8080,7 @@
     },
     {
       "path": "examples/product-client/source-manifest.json",
-      "sha256": "453035ef626e89e3658460c2256106084e665f8daf8eb131063a694e6a78d823"
+      "sha256": "9b6bb49ecd05732db440d12201d0b7e0cad360cdf3f18e6c6210601894af28c3"
     },
     {
       "path": "examples/product-client/src/App.vue",
@@ -8152,7 +8204,7 @@
     },
     {
       "path": "examples/product-module.json",
-      "sha256": "c20881d1825bd4ade3ffa74d8f1a0f03c2b8d8ee6b6fe6a14c0ae75063ea7b18"
+      "sha256": "ca4acada5663969cb16e62b372e38ffbf01ec486b30b3ea90a8c166e4668651d"
     },
     {
       "path": "examples/product-workspace/controller/ProductController.js",
@@ -8176,7 +8228,7 @@
     },
     {
       "path": "module.json",
-      "sha256": "ade64a579ac5ba59513ba740334247a06b36c122e7d38790b7299bb79388b5f8"
+      "sha256": "4c711da1444ce57b1d6a84541bb25948b1cef4baf927dd76eff21307bc862df5"
     },
     {
       "path": "modules/robot-client/client.mjs",
@@ -8200,11 +8252,11 @@
     },
     {
       "path": "package-lock.json",
-      "sha256": "5ce701147a14721ef70b5a7b54d7440ecadb60d6ccf16b50a6986346de71f071"
+      "sha256": "5205555f1ddfb4d1d97ad137571b5e642f8396bfc622c6cc6a990d6925be1971"
     },
     {
       "path": "package.json",
-      "sha256": "2467568084e645e4840d1a4b8e9cf5630e85a8dfa50fd6c73bfa24c495f1266f"
+      "sha256": "732c295f739f4af3b945466936e2845489d7344154a1cb62148d8a6aaaa9e341"
     },
     {
       "path": "public/console-tools.css",
@@ -8260,7 +8312,7 @@
     },
     {
       "path": "scripts/build-starter.py",
-      "sha256": "8757a5a6dc36a7cc3329837b203d169600cafe9fd81c5e7241732e91926ed0b6"
+      "sha256": "5755caa4e3dfe9faa9d61a3d6559113fdf52bf9427444f95f415c74aa8094924"
     },
     {
       "path": "scripts/check-contract.mjs",
@@ -8281,6 +8333,38 @@
     {
       "path": "scripts/dev-cert.mjs",
       "sha256": "9628e1f64803f0bfd8f60a5338bec783a80f87c2bee6dad5ccff3bf8cb072a06"
+    },
+    {
+      "path": "scripts/dist/android.mjs",
+      "sha256": "dc21382a46495dfb6cff55a4714eac263a82cb1803b67a6f897e4743d387f42c"
+    },
+    {
+      "path": "scripts/dist/archive.py",
+      "sha256": "f9daef65a7cade408e6965bd8d0051cae45bb12dde35bdf14abe95a7b0793332"
+    },
+    {
+      "path": "scripts/dist/dist.mjs",
+      "sha256": "d9cef381c54da6f0df90237f0ed5bbb2397ce0bbab842aa311be199def81bf49"
+    },
+    {
+      "path": "scripts/dist/licenses/node-24.19.0-LICENSE",
+      "sha256": "148eacf7863ef4329224a29398623077200a27194aa075569faf4a0a85566ca5"
+    },
+    {
+      "path": "scripts/dist/release-github.mjs",
+      "sha256": "5014d8fdf9a12c2c1ff0bfbc1a2df8f59d815fb91050ee8314bfa5cdc86e8e19"
+    },
+    {
+      "path": "scripts/dist/runtime-files.json",
+      "sha256": "f8f7c0b9d60523e70d8209354ec58d7316f00d994e42054ca136977a4c527383"
+    },
+    {
+      "path": "scripts/dist/runtime-lock.json",
+      "sha256": "8778a0eb12e7799cf1998029090977ae9b628c1889f9e439d68af4215b813bab"
+    },
+    {
+      "path": "scripts/dist/verify-runtime.mjs",
+      "sha256": "8be9b68d2eb4821a631f74df1efda9542ef05d2e5dd0f639536e7412b5502fcd"
     },
     {
       "path": "scripts/export-module.mjs",
@@ -8308,7 +8392,7 @@
     },
     {
       "path": "scripts/starter-files.json",
-      "sha256": "83d9669607a313b69b101bddcec9f2f3b55c9cfe479f762da0a805b0eb206c52"
+      "sha256": "6fa82d08789fd7285f54388385f8761d4bd7d6bc9e77519ca20f1a6fad7928f2"
     },
     {
       "path": "scripts/test.mjs",
@@ -8503,6 +8587,10 @@
       "sha256": "54c92abaced289da1f1f0af17c91695d751bb07b35358dbde9679d3f3ebcef5e"
     },
     {
+      "path": "tests/dist.test.mjs",
+      "sha256": "fe88af705d7aba9160c0f884d86a8092f3ded99ad75e551c1796749fec095699"
+    },
+    {
       "path": "tests/events.test.mjs",
       "sha256": "f077634023c8971523cf0a0e6914437a019534065f12b85e0cddbe05c57e5c66"
     },
@@ -8533,6 +8621,10 @@
     {
       "path": "tests/https-cert.test.mjs",
       "sha256": "3451a58b8a389d09bd09b38a5793dd4bdddf03ab571d565027061dfd0f9107c8"
+    },
+    {
+      "path": "tests/installed-runtime.test.mjs",
+      "sha256": "5e090ea21f868f867c5eaa8c0bf1c326ccca980b4dae0dd210a8c4eecf800991"
     },
     {
       "path": "tests/linux_release.py",
@@ -8585,6 +8677,14 @@
     {
       "path": "tests/uploads.test.mjs",
       "sha256": "d1e34246b75df7da68eb00e524b4106f48965377b6f174cfaa18480456e718cd"
+    },
+    {
+      "path": "tests/windows-installer.test.mjs",
+      "sha256": "bee37cb454a6489abfecd40275da768d5edb5f907a9eb91058fb12b0847be867"
+    },
+    {
+      "path": "tests/windows-release-qa.ps1",
+      "sha256": "37500d25692366170a5eccec8019d955ce05191d988dc5a39878fd2864a736eb"
     },
     {
       "path": "tests/workspace-verifier.test.mjs",

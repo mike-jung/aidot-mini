@@ -1,9 +1,47 @@
-# Linux servers and robot boards
+# Linux servers and robot boards — 1.0.8
 
 Run the source project on a supported Node.js installation, or build a package
 that includes its own Node runtime. ROS is optional for a normal web server.
 The packaged runtime supports Linux x64 and ARM64 with glibc; Android, musl/Alpine
 and ARMv7 require different runtime builds.
+
+
+## Current 1.0.8 release packages
+
+Build the current public release artifacts from the source root:
+
+```sh
+npm ci --ignore-scripts
+npm run dist:linux
+npm run dist:linux:arm64
+# Optional console/robot UI on Linux x64:
+npm run dist:linux:full
+npm run dist:robot
+```
+
+The current outputs go to `dist/release/`. Linux defaults to the minimal API runtime; the robot target defaults to ARM64 and includes ROS source bridge workspaces. The target machine does not need Node or npm installed. Native runtimes and hashes are pinned in `scripts/dist/runtime-lock.json`; this is separate from the legacy build lock below.
+
+For the Linux x64 minimal artifact:
+
+```sh
+tar -xzf aidot-mini-1.0.8-linux-x64-minimal.tar.gz
+cd aidot-mini-1.0.8-linux-x64-minimal
+./bin/aidot-mini configure --port 8901 --profile note --database app.db
+./bin/aidot-mini start
+# Another terminal, from the same package:
+./bin/aidot-mini status
+./bin/aidot-mini stop
+```
+
+Mutable state uses `$XDG_DATA_HOME/aidot-mini`, or `~/.local/share/aidot-mini` if unset. The launcher also accepts `--data-dir <absolute path>` and `AIDOT_MINI_HOME`; keep port and state separate for separate instances. Editable workspaces, DB, accounts, uploads, logs and caches stay outside program files. Use `configure --profile product --database product.db` to switch an existing Note installation explicitly. LAN hosts require TLS through `configure --tls-cert ... --tls-key ... --host ...`.
+
+The current launcher commands are `configure`, `config`, `start`, `stop`, `status`, `account`, `token`, and `uninstall`. Consult `./bin/aidot-mini help`. Its `uninstall` command manages application state; removing an extracted program directory is a separate step. Do not apply the legacy `--check`/`--admin-account` launcher syntax below to a `dist:*` package.
+
+The robot artifact contains `ros-src/` source workspaces, not a preinstalled ROS distribution or hardware drivers. Build those bridges with a compatible ROS environment and verify the actual robot board before deployment. Cross-building ARM64 on x64 does not prove ARM64 execution. Check the current [release validation record](RELEASE_1.0.8_KO.md).
+
+## Legacy build path
+
+The following `build:linux`/Debian workflow remains available for existing deployments. It uses its own packaging layout, launcher options and runtime lock. Prefer the `dist:*` commands above for the current GitHub Release; do not mix launcher commands or data-path assumptions between the two formats.
 
 ## Build a runtime package
 
@@ -27,8 +65,8 @@ not execute the package on ARM64.
 ## Run the archive
 
 ```sh
-tar -xzf aidot-mini-1.0.1-linux-x64.tar.gz
-cd aidot-mini-1.0.1-linux-x64
+tar -xzf aidot-mini-1.0.8-linux-x64.tar.gz
+cd aidot-mini-1.0.8-linux-x64
 ./bin/aidot-mini --check
 ./bin/aidot-mini
 ```
@@ -43,7 +81,7 @@ check the actual release manifest and target ABI before deployment.
 ## Debian and systemd
 
 ```sh
-sudo dpkg -i aidot-mini_1.0.1_amd64.deb
+sudo dpkg -i aidot-mini_1.0.8_amd64.deb
 sudo cp /opt/aidot-mini/deploy/aidot-mini.env.example /etc/aidot-mini/aidot-mini.env
 sudo chmod 600 /etc/aidot-mini/aidot-mini.env
 ```

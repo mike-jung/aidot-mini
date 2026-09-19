@@ -2,9 +2,13 @@
 """Check the exact Android native runtime inventory, ELF ABI and 16 KB alignment."""
 import pathlib,hashlib,json,struct,sys
 from elf_runtime import inspect
+from runtime_licenses import validate_licenses
 root=pathlib.Path(__file__).resolve().parents[1];native=root/'app/src/main/jniLibs';mf=root/'runtime-manifest.json'
 if not mf.is_file():raise SystemExit('Missing android/runtime-manifest.json. Import and verify an Android Node runtime first.')
 manifest=json.loads(mf.read_text());errors=[];seen=[]
+try:
+ validate_licenses(root);validate_licenses(root,bundled=True)
+except (OSError,ValueError,KeyError) as error:errors.append(str(error))
 for abi,expected in [('x86_64',62),('arm64-v8a',183)]:
  folder=native/abi
  if not (folder/'libnode_exec.so').is_file():continue

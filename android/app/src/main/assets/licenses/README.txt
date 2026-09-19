@@ -32,3 +32,8 @@ licensed under Apache License 2.0. Source: https://android.googlesource.com/plat
 The Kotlin standard library 2.1.20 is distributed under Apache License 2.0:
 https://github.com/JetBrains/kotlin/tree/v2.1.20
 Apache License 2.0 text is included in OpenSSL-LICENSE.txt and LLVM-libcxx-LICENSE.txt.
+
+ICU license correction: the pinned Termux 78.3 .deb contains a 404 placeholder.
+The complete 27,718-byte license and notices are restored from Unicode ICU release-78.3,
+commit 21d1eb0f306e1141c10931e914dfc038c06121da. Exact source and SHA-256 are in
+android/runtime-license-manifest.json; runtime_licenses.py validates the copies before APK packaging.

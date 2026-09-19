@@ -1,0 +1,43 @@
+{
+  "format": "aidot-mini-bundled-node/v1",
+  "nodeVersion": "24.19.0",
+  "checksumsSource": "https://nodejs.org/download/release/v24.19.0/SHASUMS256.txt",
+  "archives": {
+    "win-x64": {
+      "file": "node-win-x64-24.19.0.tgz",
+      "package": "node-win-x64@24.19.0",
+      "sha256": "19d19af1cf659bd2bc1cc909b0e135a69dbea16a069239a48f94bb2bf6ca3e98",
+      "binarySha256": "3602f2bb1a10f2cbab4c36886218a33c1ab3db87290e73b033c46c77147d0237",
+      "provenance": "npm mirror; node.exe SHA-256 equals the official Node.js published binary checksum",
+      "officialArtifact": {
+        "url": "https://nodejs.org/download/release/v24.19.0/win-x64/node.exe",
+        "sha256": "3602f2bb1a10f2cbab4c36886218a33c1ab3db87290e73b033c46c77147d0237",
+        "verification": "Executable checksum matches official SHASUMS256.txt"
+      }
+    },
+    "linux-x64": {
+      "file": "node-linux-x64-24.19.0.tgz",
+      "package": "node-linux-x64@24.19.0",
+      "sha256": "fc3154551fb7d35dd59253f1d7379d88583b1df8693369b1804e99476258c681",
+      "binarySha256": "bc17c508ffeed0ec622934f9b7fa72f8e78da65350e63c3eceb56fa688aa5e12",
+      "provenance": "npm mirror; executable SHA-256 independently matched the executable extracted from the SHA-256-verified official Node.js archive",
+      "officialArtifact": {
+        "url": "https://nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-x64.tar.xz",
+        "sha256": "14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647",
+        "verification": "Official archive checksum verified and extracted executable compared byte-for-byte by SHA-256"
+      }
+    },
+    "linux-arm64": {
+      "file": "node-linux-arm64-24.19.0.tgz",
+      "package": "node-linux-arm64@24.19.0",
+      "sha256": "cb0556d78e4b5f6b259d991212402d7bf1be074eca3bff7ba1541b1e2e9131fb",
+      "binarySha256": "3e53e5ff5eaa922f1b4308312d50da9091db62d40b87716ad36c60b347e7f984",
+      "provenance": "npm mirror; executable SHA-256 independently matched the executable extracted from the SHA-256-verified official Node.js archive",
+      "officialArtifact": {
+        "url": "https://nodejs.org/download/release/v24.19.0/node-v24.19.0-linux-arm64.tar.xz",
+        "sha256": "01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc",
+        "verification": "Official archive checksum verified and extracted executable compared byte-for-byte by SHA-256"
+      }
+    }
+  }
+}

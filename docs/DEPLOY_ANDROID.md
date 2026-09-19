@@ -1,8 +1,26 @@
-# Android application builds
+# Android application builds — 1.0.8
 
 The Android app runs a local Node server in a foreground service and opens the
 console in a WebView. Its bundled profile listens on loopback. The source HTTPS
 certificate command does not configure the APK's fixed local endpoint.
+
+
+## Current release command
+
+Use the source-root command for the current release workflow:
+
+```sh
+npm ci --ignore-scripts
+npm run dist:android
+# Build only the ABI required for a device when appropriate:
+npm run dist:android -- --abi arm64-v8a
+```
+
+This imports and checks the pinned Bionic runtime, regenerates server assets, runs Gradle and copies actual APK outputs to `dist/release/` with SHA-256 metadata. It fails when the native runtime, SDK or build requirements are unavailable. `--prepare-only` stops after preparing assets/runtime and does **not** produce an APK. `--debug-only` requests debug APKs only.
+
+Without an owner-provided release signing configuration, release output is explicitly named `-release-unsigned.apk`. It is not an installable signed public release. Debug APKs use a debug key for validation; they do not establish your production signing identity. See the current [Android build and signing guide](../android/README.md) for environment variables, ABI options and exact checks, and the [1.0.8 validation record](RELEASE_1.0.8_KO.md) for actual completed builds/device runs.
+
+The step-by-step commands below remain useful for diagnosing the build pipeline. Generated assets alone are not a successful APK build, and building an APK does not prove installation or foreground operation on a device.
 
 ## Requirements
 

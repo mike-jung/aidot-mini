@@ -21,19 +21,15 @@ the package metadata, browser compiler, WebAssembly binary and license.
 
 Source: https://github.com/evanw/esbuild
 
-## Node.js and device runtimes
+## Vue client
 
-Linux runtime versions and archive checksums are pinned in
-`deploy/linux/runtime-lock.json`. Linux packages retain `runtime/LICENSE`,
-including notices for Node.js and its bundled components.
+The optional client uses Vue 3, Pinia, Axios, Vite and @vitejs/plugin-vue.
+These packages use MIT licenses; pinned versions and transitive dependencies
+are recorded in examples/product-client/package-lock.json. npm installs each
+package with its license. Retain licenses when distributing bundled dependencies.
 
-Android runtime versions and hashes are pinned in `android/runtime-packages.json`
-and `android/runtime-manifest.json`. Notices are retained in
-`android/runtime-licenses/` and APK license assets.
+The source starter does not include Node binaries or device SDKs.
 
-## Optional communication adapters
+## Supplied WT client assets
 
-The separately installed communication package uses MQTT.js and Socket.IO under
-their MIT licenses. Exact versions are in `addons/communications/package-lock.json`.
-Retain the license files supplied with these packages and their dependencies
-when including the adapters in a distribution.
+The optional `examples/product-client/public/assets/` tree is retained from the user-supplied WT project. Its Metronic theme, embedded vendor files, images and fonts retain their original terms and notices; they are not relicensed under the server runtime license. npm dependencies are separately listed in the client package and lockfile.

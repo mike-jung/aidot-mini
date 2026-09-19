@@ -1,7 +1,7 @@
 {
   "name": "aidot-mini",
-  "version": "1.0.7",
-  "description": "Lightweight aidot-express annotation-compatible workspace runtime",
+  "version": "1.0.8",
+  "description": "Minimal portable aidot-express Controller/Service/SQL runtime for robots, drones and mobile terminals",
   "type": "module",
   "engines": {
     "node": ">=22.19.0"
@@ -38,7 +38,15 @@
     "product:verify": "node scripts/verify-product.mjs",
     "test:product": "node scripts/verify-product.mjs",
     "product:contract": "node scripts/verify-product-contract.mjs",
-    "workspace:verify": "node scripts/verify-workspace.mjs"
+    "workspace:verify": "node scripts/verify-workspace.mjs",
+    "dist:win": "node scripts/dist/dist.mjs --target win --arch x64 --variant minimal",
+    "dist:win:full": "node scripts/dist/dist.mjs --target win --arch x64 --variant full",
+    "dist:linux": "node scripts/dist/dist.mjs --target linux --arch x64 --variant minimal",
+    "dist:linux:arm64": "node scripts/dist/dist.mjs --target linux --arch arm64 --variant minimal",
+    "dist:linux:full": "node scripts/dist/dist.mjs --target linux --arch x64 --variant full",
+    "dist:robot": "node scripts/dist/dist.mjs --target robot --arch arm64 --variant full",
+    "dist:android": "node scripts/dist/android.mjs",
+    "release:github": "node scripts/dist/release-github.mjs"
   },
   "dependencies": {
     "esbuild-wasm": "0.28.2"

@@ -52,7 +52,7 @@ npm run workspace:verify -- --workspace examples/product-workspace --migrations 
 
 `workspace:verify`는 동일한 컴파일러로 별도 프로세스에서 먼저 컴파일하고 그 프로세스를 종료한 뒤, 같은 캐시를 사용하는 원본 API 서버를 시작합니다. 컴파일 중 일시적으로 필요한 메모리는 여전히 존재하며 실행 환경별 고정 RSS를 보장하지 않습니다.
 
-`EXPRESS_PROJECT_ROOT`에 별도로 설치한 Express 1.45.8 Full 경로를 지정하면 `product:contract`로 동일한 업무 파일을 교차 검증할 수 있습니다. Express 서버나 DB 드라이버는 이 ZIP에 포함하지 않습니다. [현재 검증 기록](docs/VERIFICATION_1.0.7.md)을 참고하세요.
+`EXPRESS_PROJECT_ROOT`에 별도로 설치한 Express 1.45.8 Full 경로를 지정하면 `product:contract`로 동일한 업무 파일을 교차 검증할 수 있습니다. Express 서버나 DB 드라이버는 이 ZIP에 포함하지 않습니다. [Starter 범위와 검증 보고 기준](docs/AI_STARTER.md)을 참고하세요.
 
 ## 배포 범위와 크기
 
@@ -60,7 +60,7 @@ API 런타임·컴파일러 설정·작은 업무 예제·작성 규칙만 포�
 
 `npm run build:starter`로 이 최소 패키지를 다시 만들 수 있습니다. 빌더는 `scripts/starter-files.json`에 검토된 정확한 경로만 포함하므로 새 업무 파일을 배포하려면 목록을 검토하여 추가하거나 `npm run port:export`를 사용합니다. 계정·DB·업로드·캐시는 배포 파일에 넣지 않습니다.
 
-[릴리스 변경](docs/RELEASE_1.0.7_KO.md) · [Apache License 2.0](LICENSE) · [저작권](COPYRIGHT.md) · [NOTICE](NOTICE) · [타사 고지](docs/THIRD_PARTY_NOTICES.md)
+[현재 Starter 안내](docs/AI_STARTER.md) · [Apache License 2.0](LICENSE) · [저작권](COPYRIGHT.md) · [NOTICE](NOTICE) · [타사 고지](docs/THIRD_PARTY_NOTICES.md)
 '''
 
 def starter_agents():

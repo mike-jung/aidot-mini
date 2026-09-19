@@ -1,6 +1,6 @@
 # AI Frontend RULES — Vue Product v2
 
-**이 문서는 AI의 Vue 코드 생성·수정 지시문이다.** 기준은 **Product client 1.0.7, aidot-mini 1.0.7, 첨부 aidot-express 1.45.8 Full**이다. 대상은 mini Full의 `examples/product-client` 또는 독립 클라이언트 루트다. **최소 mini Starter는 서버 API 작성·검증용이며 Vue 클라이언트를 포함하지 않는다.** Starter에 프런트엔드 도구·UI를 새로 추가하지 말고 필요한 경우 별도 클라이언트를 사용한다.
+**이 문서는 AI의 Vue 코드 생성·수정 지시문이다.** 기준은 **Product client 1.0.7, aidot-mini 1.0.8, 첨부 aidot-express 1.45.8 Full**이다. 대상은 mini Full의 `examples/product-client` 또는 독립 클라이언트 루트다. **최소 mini Starter는 서버 API 작성·검증용이며 Vue 클라이언트를 포함하지 않는다.** Starter에 프런트엔드 도구·UI를 새로 추가하지 말고 필요한 경우 별도 클라이언트를 사용한다.
 
 Vue 3 + Vite + `<script setup>` + Pinia + Axios, JavaScript ES module을 유지한다. 기존 완성 파일을 확장한다. 아래 발췌 코드는 각 기능의 계약을 설명하며, 전체 파일을 대체하는 최소 구현으로 사용하지 않는다.
 

@@ -46,5 +46,6 @@
       "libz.so": "221f416e06e5c7dfb6f02b4bbc2132c4680c19ea965579bcbf47e9d28c7b71e9",
       "libnode_exec.so": "47b804b8b7c75f3399ff7cec51ad83c4f6191ef6e840aa5ec2f888cbc5af6442"
     }
-  }
+  },
+  "deviceRuntimeTestProvenance": "Historical upstream runtime validation, not a validation of the current application APK. Current release results are stored separately in the release verification report."
 }

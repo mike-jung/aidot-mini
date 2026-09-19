@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "files": {
+    "LLVM-libcxx-LICENSE.txt": {
+      "bytes": 16703,
+      "sha256": "539dd7aed86e8a4f12cbdd0e6c50c189c7d74847e4fecc64ce2c6ee3a01da38b"
+    },
+    "OpenSSL-LICENSE.txt": {
+      "bytes": 10175,
+      "sha256": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a"
+    },
+    "share/doc/nodejs-lts/copyright": {
+      "bytes": 157606,
+      "sha256": "148eacf7863ef4329224a29398623077200a27194aa075569faf4a0a85566ca5"
+    },
+    "share/doc/libicu/LICENSE": {
+      "bytes": 27718,
+      "sha256": "e55522d81edc687a341a4411e0776e54ca654e90147f354a90458aaced4116af",
+      "source": "https://raw.githubusercontent.com/unicode-org/icu/21d1eb0f306e1141c10931e914dfc038c06121da/LICENSE",
+      "releaseTag": "release-78.3",
+      "sourceCommit": "21d1eb0f306e1141c10931e914dfc038c06121da",
+      "reason": "Pinned Termux 78.3 package contains a 404 placeholder; restored the complete license from the exact official ICU release commit."
+    },
+    "share/doc/c-ares/copyright": {
+      "bytes": 1211,
+      "sha256": "460f5e768fda3752ca2169a95df062578a10fb126bfd65f3b9b1a1bed2f84807"
+    },
+    "share/doc/zlib/copyright": {
+      "bytes": 1002,
+      "sha256": "e32ff4e00d9d94930537635291da39e7e612703334bf6fde8c7f1686fe8a45a2"
+    }
+  }
+}

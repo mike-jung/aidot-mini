@@ -1,6 +1,6 @@
 # AI API RULES — aidot Controller / Service / SQL
 
-**이 문서는 AI의 코드 생성·수정 지시문이다.** aidot-mini 1.0.7과 첨부 aidot-express 1.45.8 Full에서 **동일한 Controller·Service·SQL 파일을 수정 없이 복사해 실행**할 수 있도록 작성한다. mini Starter는 이를 빠르게 작성·실행 검증하는 최소 서버 환경이다. 브라우저 UI·Vue·개발 도구를 요구하거나 런타임을 재구현하지 않는다.
+**이 문서는 AI의 코드 생성·수정 지시문이다.** aidot-mini 1.0.8과 첨부 aidot-express 1.45.8 Full에서 **동일한 Controller·Service·SQL 파일을 수정 없이 복사해 실행**할 수 있도록 작성한다. mini Starter는 이를 빠르게 작성·실행 검증하는 최소 서버 환경이다. 브라우저 UI·Vue·개발 도구를 요구하거나 런타임을 재구현하지 않는다.
 
 ## 1. 입력과 산출물
 

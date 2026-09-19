@@ -1,6 +1,7 @@
-aidot-mini 1.0.7 local reviewed Full/Starter release
+aidot-mini 1.0.8 local reviewed source and platform release preparation
 Full edition source: user-supplied aidot-mini-v0_6_2-full.zip
 Runtime: reviewed 1.0.6 based on GitHub fdff6332b21058baaed7328fb6e334c06521d717
 Express compatibility: user-supplied aidot-express 1.45.8 Full, unchanged framework
 Rules: API Product v3 / Frontend Product v2
-See docs/RELEASE_1.0.7_KO.md and docs/VERIFICATION_1.0.7.md.
+Current release: docs/RELEASE_1.0.8_KO.md
+Historical runtime verification: docs/VERIFICATION_1.0.7.md
