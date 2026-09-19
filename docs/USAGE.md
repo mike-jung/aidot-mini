@@ -101,3 +101,7 @@ Keep account data, settings, database and logs outside deployed source.
 Stop the service before making a simple file backup of SQLite and associated
 state. Back up before applying migrations; restoring only an old executable
 does not roll back a changed database schema.
+
+## Product example
+
+Use `npm run product:account` and `npm run start:product`. These select the Product workspace and separate demo state. See [TUTORIAL_PRODUCT_KO.md](TUTORIAL_PRODUCT_KO.md) and [PORTING.md](PORTING.md).

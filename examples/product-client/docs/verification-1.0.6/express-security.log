@@ -1,0 +1,36 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> aidot-express@1.45.8 check:security
+> node --import ./src/loader/register.mjs --test tests/security-hardening.test.mjs
+
+[config] ⚠ no .env file found — starting from defaults and environment variables only.
+[config]   looked in (priority order):
+[config]     - /workspace/scratch/eb1d0b35f3bb/work/aidot-express/.env
+[config] key values from process.env: NODE_ENV=<unset>, PORT=<unset>, DB_TYPE=<unset>, DB_HOST=<unset>, DB_PORT=<unset>, DB_USER=<unset>, DB_PASSWORD=<unset>, DB_DATABASE=<unset>, DB_SAMPLE_PREFIX=<unset>, MCI_HOST=<unset>, MCI_PORT=<unset>, MCI_TIMEOUT_MS=<unset>, MCI_ENABLED=<unset>
+[config] MCI resolved: host=localhost(default.js) port=7101(default.js) timeout=10000ms(default.js) enabled=true
+✔ nested prototype keys and over-depth input fail closed (1.827348ms)
+[auth] ⚠ AUTH_ACCESS_SECRET 이 비어 있거나 기본값이라 임시 시크릿으로 기동합니다 (재시작 시 로그인 세션 전부 만료). .env 에 AUTH_ACCESS_SECRET 을 설정하세요. (`npm start` 가 .env 를 자동 생성할 때는 랜덤 값이 들어갑니다)
+✔ origin rejection happens before handlers, including CSRF form requests (90.153854ms)
+✔ reflective origins, paths and embedded credentials are rejected (0.946277ms)
+✔ timeouts preserve streaming and malformed body limits fail startup (0.427893ms)
+✔ encoded credentials and SSE tickets are removed from logged URLs (0.904027ms)
+✔ IPC checks window identity, main frame, scheme, host and exact port (0.34775ms)
+✔ setup values cannot inject environment lines and special passwords round trip (1.232935ms)
+✔ persistent account version blocks old tokens independently of process memory (23.443859ms)
+✔ admin: concurrent refresh admits only one successor and commits replay revocation (8.035781ms)
+✔ user: concurrent refresh admits only one successor and commits replay revocation (5.019161ms)
+✔ archive limits, duplicate paths and symlinks are rejected before extraction (1.475944ms)
+✔ public policy treats **/ as zero or more directories and blocks shadow backups (328.936654ms)
+✔ refresh retries only rolled-back database conflicts and never arbitrary errors (42.887138ms)
+✔ desktop and source startup replace installer secrets once and preserve strong credentials (3.335929ms)
+✔ custom loader preserves CommonJS modules containing optional chaining (193.301765ms)
+✔ uploaded active content is isolated at both public URL aliases (17.479453ms)
+✔ Electron attaches only to an explicitly selected valid service port (1.98889ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1308.953988

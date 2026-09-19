@@ -1,0 +1,26 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> aidot-mini@1.0.6 verify
+> npm run check && npm run contract:check && npm test
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> aidot-mini@1.0.6 check
+> node scripts/check.mjs
+
+Declarations: 1 services, 1 controllers, 5 routes, 5 queries
+Syntax: 70/70 ; runtime compiler: esbuild-wasm 0.28.2
+Validation errors: 0
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> aidot-mini@1.0.6 contract:check
+> node scripts/check-contract.mjs
+
+{"workspace":"/workspace/scratch/eb1d0b35f3bb/work/starter-validation-v2/aidot-mini/workspace","controllers":1,"services":1,"queries":5,"metadata":"matches runtime declarations"}
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> aidot-mini@1.0.6 test
+> node scripts/smoke-note.mjs && node scripts/verify-product.mjs
+
+{"passed":15,"administratorAccess":"anonymous denied","workspace":"/workspace/scratch/eb1d0b35f3bb/work/starter-validation-v2/aidot-mini/workspace"}
+{"host":"aidot-mini","database":"SQLite","checks":56,"result":"PASS","workspace":"same Controller/Service/SQL files"}

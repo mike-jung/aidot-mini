@@ -1,0 +1,24 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> aidot-express@1.45.8 check
+> node --experimental-vm-modules --no-warnings scripts/check-syntax.mjs && npm run check:refs && npm run check:self && npm run check:sqlnames
+
+syntax-check: ok=409 fail=0
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> aidot-express@1.45.8 check:refs
+> node scripts/check-vue-refs.mjs
+
+vue-refs: 114 files checked — no problems
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> aidot-express@1.45.8 check:self
+> node scripts/check-self-calls.mjs
+
+self-calls: class files checked — no problems
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> aidot-express@1.45.8 check:sqlnames
+> node scripts/check-sql-names.mjs
+
+sql-names: 61 files — no duplicate definitions

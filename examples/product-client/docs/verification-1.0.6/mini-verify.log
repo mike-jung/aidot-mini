@@ -1,0 +1,167 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> aidot-mini@1.0.6 verify
+> npm run check && npm run contract:check && npm test && npm run product:verify
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> aidot-mini@1.0.6 check
+> node scripts/check.mjs
+
+Declarations: 1 services, 1 controllers, 5 routes, 5 queries
+Syntax: 99/99 ; runtime compiler: esbuild-wasm 0.28.2
+Validation errors: 0
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> aidot-mini@1.0.6 contract:check
+> node scripts/check-contract.mjs
+
+{"workspace":"/workspace/scratch/eb1d0b35f3bb/work/aidot-mini/workspace","controllers":1,"services":1,"queries":5,"metadata":"matches runtime declarations"}
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> aidot-mini@1.0.6 test
+> node scripts/test.mjs
+
+✔ Configured schema mapping preserves literals, comments and column aliases (2.538271ms)
+✔ Schema mapping executes CRUD, joins, nested queries and three-part columns in one SQLite database (2.66374ms)
+✔ Fresh install offers local one-time ID/password setup without an administrator key (446.300541ms)
+✔ ID/password login rejects wrong credentials and creates a bounded cookie session (1527.698404ms)
+✔ Remembered session stores only a session digest and survives an actual restart (254.90657ms)
+✔ Password change requires current password, rotates session and revokes all older sessions (2057.687261ms)
+✔ Logout removes remembered authentication from disk as well as memory (32.732529ms)
+✔ Existing API key still authenticates integrations and can recover the console account (619.563474ms)
+✔ Local account command creates and resets credentials without printing the password (1284.834017ms)
+✔ Existing pre-account installations never expose anonymous setup (558.739657ms)
+✔ Local bootstrap ignores forged forwarding headers and is disabled on LAN bindings (1.778523ms)
+2026-09-18T07:24:37.663Z [ERROR] [3e4f510a] POST /admin/login: Error: Authentication is busy; try again shortly     at fail (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/adminAccount.js:11:49)     at AdminAccount.exclusive (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/adminAccount.js:54:41)     at router.add.auth [as handler] (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/security.js:114:35)     at file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/router.js:75:29     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+2026-09-18T07:24:37.663Z [ERROR] [3e4f510a] POST /admin/login 503 1ms
+2026-09-18T07:24:37.665Z [ERROR] [d0085551] POST /admin/login: Error: Authentication is busy; try again shortly     at fail (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/adminAccount.js:11:49)     at AdminAccount.exclusive (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/adminAccount.js:54:41)     at router.add.auth [as handler] (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/security.js:114:35)     at file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/router.js:75:29     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+2026-09-18T07:24:37.665Z [ERROR] [d0085551] POST /admin/login 503 1ms
+2026-09-18T07:24:37.668Z [ERROR] [b7e5aba0] POST /admin/login: Error: Authentication is busy; try again shortly     at fail (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/adminAccount.js:11:49)     at AdminAccount.exclusive (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/adminAccount.js:54:41)     at router.add.auth [as handler] (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/security.js:114:35)     at file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/router.js:75:29     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+2026-09-18T07:24:37.668Z [ERROR] [b7e5aba0] POST /admin/login 503 1ms
+2026-09-18T07:24:37.670Z [ERROR] [d21bcebd] POST /admin/login: Error: Authentication is busy; try again shortly     at fail (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/adminAccount.js:11:49)     at AdminAccount.exclusive (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/adminAccount.js:54:41)     at router.add.auth [as handler] (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/security.js:114:35)     at file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/router.js:75:29     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+2026-09-18T07:24:37.670Z [ERROR] [d21bcebd] POST /admin/login 503 1ms
+2026-09-18T07:24:37.673Z [ERROR] [bfe42026] POST /admin/login: Error: Authentication is busy; try again shortly     at fail (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/adminAccount.js:11:49)     at AdminAccount.exclusive (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/adminAccount.js:54:41)     at router.add.auth [as handler] (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/security.js:114:35)     at file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/router.js:75:29     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+2026-09-18T07:24:37.673Z [ERROR] [bfe42026] POST /admin/login 503 2ms
+2026-09-18T07:24:37.675Z [ERROR] [a3ef313f] POST /admin/login: Error: Authentication is busy; try again shortly     at fail (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/adminAccount.js:11:49)     at AdminAccount.exclusive (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/adminAccount.js:54:41)     at router.add.auth [as handler] (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/security.js:114:35)     at file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/router.js:75:29     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+2026-09-18T07:24:37.675Z [ERROR] [a3ef313f] POST /admin/login 503 1ms
+2026-09-18T07:24:37.676Z [ERROR] [9bebab34] POST /admin/login: Error: Authentication is busy; try again shortly     at fail (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/adminAccount.js:11:49)     at AdminAccount.exclusive (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/adminAccount.js:54:41)     at router.add.auth [as handler] (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/security.js:114:35)     at file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/core/router.js:75:29     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+2026-09-18T07:24:37.677Z [ERROR] [9bebab34] POST /admin/login 503 1ms
+✔ Concurrent password calculations are bounded while HTTP health remains available (232.735333ms)
+✔ Expired remembered sessions and rotated API keys are discarded durably (579.839933ms)
+✔ Failed passwords are rate limited while health remains responsive (1801.112294ms)
+✔ Console editor, log bounds, authentication and restart application (2732.776053ms)
+✔ SSE resumes bounded history, resets unknown cursor and rechecks revocation (96.736665ms)
+✔ SSE drops slow clients and handles close without writing again (0.833598ms)
+✔ SSE connection limits reject excess clients before headers (10.788904ms)
+✔ Authentication is enforced for business and administrator APIs (161.515613ms)
+✔ Login creates HttpOnly cookie and CSRF token without exposing admin key (13.517641ms)
+✔ Cookie writes require CSRF and cross-origin writes are refused (13.987931ms)
+✔ Forged Host cannot rebind local console (9.330832ms)
+✔ Invalid JSON and oversized bodies return bounded 400/413 responses (11.843722ms)
+✔ Unsupported media type and compression are rejected (7.047172ms)
+2026-09-18T07:24:44.266Z [ERROR] [3c00fc2c] POST /api/notes: Error: NOT NULL constraint failed: note.title     at executeDirect (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/database/db.js:93:21)     at file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/database/db.js:99:22     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+2026-09-18T07:24:44.266Z [ERROR] [3c00fc2c] POST /api/notes 500 1ms
+2026-09-18T07:24:44.269Z [ERROR] [76a737f8] POST /api/notes: Error: NOT NULL constraint failed: note.title     at executeDirect (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/database/db.js:93:21)     at file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/database/db.js:99:22     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+2026-09-18T07:24:44.269Z [ERROR] [76a737f8] POST /api/notes 500 0ms
+2026-09-18T07:24:44.285Z [ERROR] [43dbd974] PUT /api/notes/3: Error: NOT NULL constraint failed: note.title     at executeDirect (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/database/db.js:93:21)     at file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/database/db.js:99:22     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+2026-09-18T07:24:44.285Z [ERROR] [43dbd974] PUT /api/notes/3 500 1ms
+✔ Generated Note preserves missing-row and full-field update semantics (35.558501ms)
+✔ HEAD and method errors follow HTTP semantics (15.937365ms)
+✔ Malformed percent encoding returns 400 and server survives (13.592106ms)
+✔ Router ranks literal routes and rejects equivalent duplicate parameters (0.821822ms)
+✔ Static dotfiles and symlink escape are rejected (8.644281ms)
+✔ Actual HTTP execution retains per-request context across awaits (44.159214ms)
+✔ SQL shim preserves literals/quoted identifiers and rejects semantic loss (0.571898ms)
+✔ Large integers retain exact precision and multiple statements are refused (0.399965ms)
+✔ Async transaction callback cannot commit before completion (6.836473ms)
+✔ Nested savepoint rollback does not poison the outer transaction (0.968739ms)
+✔ Failed migration is atomic and applied migration drift blocks startup (3.200174ms)
+{"measurement":"100_concurrent_writes","elapsedMs":235,"rssMB":285}
+✔ Concurrent writes preserve row count, unique IDs, response status and health (235.235422ms)
+✔ Settings persist, live values update and invalid TLS does not overwrite settings (13.551044ms)
+✔ Session logout revokes cookie immediately (3.813378ms)
+✔ Login failures are rate limited (21.255596ms)
+✔ HTTPS performs a verified handshake and serves the application (505.78343ms)
+✔ documented npm command applies SANs and preserved .env, then serves verified HTTPS (1401.235059ms)
+ℹ Runtime: linux v24.19.0; OpenSSL: openssl
+✔ rerunning --apply reuses the certificate and leaves settings unchanged (397.16672ms)
+✔ renewal validates changed SANs, preserves backups and keeps files on generation failure (1114.626186ms)
+✔ legacy cert:dev and custom directories work without changing .env (577.168609ms)
+✔ invalid flags, host injection, empty hosts and missing OpenSSL do not alter settings (662.040246ms)
+✔ Startup creates and loads missing public metadata without changing business source (1216.428786ms)
+✔ Startup creates and loads missing Auth metadata without changing business source (1205.569168ms)
+✔ Code changes synchronize metadata while preserving descriptions and extension fields (1169.041696ms)
+✔ Invalid JSON and linked metadata fail with file context and never overwrite the source (1235.357411ms)
+✔ The generated Note example loads from an external workspace and supports public CRUD (1173.852549ms)
+✔ The authenticated example keeps anonymous access denied and exposes console write capabilities (956.945141ms)
+✔ A legacy database is backed up and renamed without losing IDs, bodies or migration history (1457.735167ms)
+✔ Ambiguous table migrations and non-empty workspace initialization refuse to overwrite data (179.867552ms)
+✔ External Unicode workspace recursively loads annotation classes and named SQL (178.181738ms)
+✔ Express parameter order is query, body, then path; request is the second argument (22.310366ms)
+✔ Automatic envelopes preserve false/null and explicit responses are sent once (17.323221ms)
+✔ Validate passes parsed data and reports validation issues before the handler (13.729259ms)
+✔ SQL binding ignores quoted literals and fills only required execute placeholders (2.144656ms)
+✔ execute supports writes, RETURNING, MySQL date functions and executeList (2.51424ms)
+✔ Async transactions hold the connection across awaits and queue unrelated writes (17.896815ms)
+✔ The loader never rewrites user Controller, Service or SQL files (0.768343ms)
+✔ robot features and diagnostics require administrator authentication (99.200423ms)
+✔ diagnostic actions never extend the control heartbeat (5.89667ms)
+✔ session settings writes require CSRF and never echo a saved controller key (42.744341ms)
+✔ a resume action requires explicit stop confirmation and a configured client (4.471566ms)
+✔ cached robot status expires without another successful response (4.614364ms)
+✔ missing or invalid measurement ages cannot enable navigation or resume (3.587003ms)
+✔ resume retries a ROS-confirmed canceled waypoint with a new attempt (3.440717ms)
+✔ resume preserves success and rejects missing results or stale controller state (1.954585ms)
+✔ checkpoint failure still requests cancellation and prevents new dispatch (3.354612ms)
+✔ holding an idle client does not cancel an unrelated navigation goal (2.156222ms)
+✔ a pause requested during a pending poll prevents the next goal dispatch (3.698357ms)
+✔ an unfinished order disappearing from the controller remains held (6.153883ms)
+✔ a profile change cannot discard an unfinished order checkpoint (1.718063ms)
+✔ settings persist with private permissions and never return the access key (1.96691ms)
+✔ settings reject concurrent overwrite, remote plaintext, secret URL and unmanaged fields (1.394771ms)
+✔ environment values stay locked and credentials remain hidden (0.736511ms)
+✔ repeated diagnostics coalesce requests and do not send control heartbeats (1.353464ms)
+✔ settings cannot change while the bridge reports active navigation (0.993828ms)
+✔ real HTTP driver separates diagnostic GET from heartbeat POST (64.640215ms)
+✔ bounded HTTP JSON rejects oversized data and does not echo remote error text (16.40162ms)
+✔ SSE 라우트는 인증을 적용하고 실제 서버에서 상태를 보낸다 (136.538252ms)
+✔ MariaDB AUTO_INCREMENT 를 SQLite 형태로 바꾼다 (0.638913ms)
+✔ DELETE ... ORDER BY ... LIMIT 을 rowid 부분질의로 바꾼다 (1.660165ms)
+✔ 파라미터를 SQLite 가 받는 형태로 정규화한다 (0.465712ms)
+✔ -- @name: 마커로 SQL 을 잘라 낸다 (1.347631ms)
+✔ {{sample}} 토큰이 접두사로 치환된다 (0.521604ms)
+✔ requestId 는 짧고 traceId 는 W3C 32자리다 (0.420022ms)
+✔ 앞단의 traceparent 를 이어받는다 (0.593772ms)
+✔ 컨텍스트 밖에서는 던지지 않고 null 을 돌려준다 (0.455398ms)
+✔ 동시에 흐르는 두 요청이 섞이지 않는다 (5.685676ms)
+✔ liveness 는 DB 를 보지 않는다 (8.290267ms)
+✔ readiness 는 모든 항목을 "정상이면 true" 로 보고한다 (4.6955ms)
+✔ 마이그레이션 시드가 들어가 있다 (29.529062ms)
+✔ CRUD 한 바퀴가 돈다 (41.5212ms)
+2026-09-18T07:25:05.595Z [ERROR] [6fe811bd] POST /api/notes: Error: NOT NULL constraint failed: note.title     at executeDirect (file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/database/db.js:93:21)     at file:///workspace/scratch/eb1d0b35f3bb/work/aidot-mini/src/database/db.js:99:22     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+2026-09-18T07:25:05.595Z [ERROR] [6fe811bd] POST /api/notes 500 3ms
+✔ 생성형 Note의 필수 SQL 값 누락은 내부 내용을 숨긴 DB 오류로 응답한다 (14.972842ms)
+✔ 없는 경로는 404 이고 메서드/경로를 알려 준다 (5.166913ms)
+✔ 모든 응답에 X-Request-Id 와 traceparent 가 붙는다 (4.144386ms)
+✔ 클라이언트가 준 X-Request-Id 를 존중하되 형식을 검사한다 (5.950534ms)
+✔ 본문이 JSON 이 아니면 400 으로 거절한다 (4.813722ms)
+✔ 정적 서빙이 상위 경로로 탈출하지 못한다 (3.312708ms)
+✔ 트랜잭션이 중간 실패에 롤백된다 (3.121926ms)
+✔ WAL 저널이 켜져 있다 — 급사해도 다음 기동에 복구된다 (2.320767ms)
+✔ 테이블 접두사 치환은 SQL 문자열과 주석을 보존한다 (0.211062ms)
+✔ Image profile accepts PNG/JPEG/WebP and rejects a mismatched MIME without saving (43.265469ms)
+ℹ tests 105
+ℹ suites 0
+ℹ pass 105
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 36028.470981
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> aidot-mini@1.0.6 product:verify
+> node scripts/verify-product.mjs
+
+{"host":"aidot-mini","database":"SQLite","checks":56,"result":"PASS","workspace":"same Controller/Service/SQL files"}

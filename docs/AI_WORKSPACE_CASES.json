@@ -1,0 +1,126 @@
+[
+  {
+    "method": "GET",
+    "path": "/api/product/paged?page=1&perPage=10",
+    "status": 200,
+    "expect": {
+      "code": 200,
+      "header": {
+        "total": 24
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/api/product",
+    "body": {
+      "name": "AI 검증 상품",
+      "price": 2500
+    },
+    "status": 401,
+    "expect": {
+      "code": 401
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/api/product",
+    "auth": "admin",
+    "body": {
+      "name": "AI 검증 상품",
+      "price": 2500
+    },
+    "status": 201,
+    "expect": {
+      "code": 201,
+      "data": {
+        "rowsAffected": 1
+      }
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/product/paged?q=AI%20%EA%B2%80%EC%A6%9D%20%EC%83%81%ED%92%88",
+    "status": 200,
+    "expect": {
+      "code": 200,
+      "data": [
+        {
+          "name": "AI 검증 상품",
+          "price": 2500
+        }
+      ]
+    }
+  },
+  {
+    "method": "PUT",
+    "path": "/api/product/1",
+    "auth": "admin",
+    "body": {
+      "name": "AI 수정 상품",
+      "price": 5000,
+      "memo": "수정 검증"
+    },
+    "status": 200,
+    "expect": {
+      "code": 200,
+      "data": {
+        "rowsAffected": 1
+      }
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/product/1",
+    "status": 200,
+    "expect": {
+      "code": 200,
+      "data": {
+        "id": 1,
+        "name": "AI 수정 상품",
+        "price": 5000
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/api/product",
+    "auth": "admin",
+    "body": {
+      "name": "",
+      "price": -1
+    },
+    "status": 400,
+    "expect": {
+      "code": 400
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/product/paged?page=0",
+    "status": 400,
+    "expect": {
+      "code": 400
+    }
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/product/1",
+    "auth": "admin",
+    "status": 200,
+    "expect": {
+      "code": 200,
+      "data": {
+        "rowsAffected": 1
+      }
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/product/1",
+    "status": 404,
+    "expect": {
+      "code": 404
+    }
+  }
+]

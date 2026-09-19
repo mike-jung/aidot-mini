@@ -1,0 +1,8 @@
+@import './base.css';
+@import './product.css';
+
+/* App.vue의 RouterView가 화면 전체를 사용합니다. */
+#app {
+  display: block;
+  min-height: 100vh;
+}

@@ -1,0 +1,70 @@
+{
+  "name": "ProductController",
+  "basePath": "/api/product",
+  "controllerType": "DB",
+  "serviceName": "ProductService",
+  "description": "ProductController",
+  "auth": false,
+  "roles": [],
+  "routes": [
+    {
+      "type": "list",
+      "method": "get",
+      "path": "/",
+      "handlerName": "list",
+      "auth": false,
+      "roles": []
+    },
+    {
+      "method": "get",
+      "path": "/paged",
+      "handlerName": "listPaged",
+      "auth": false,
+      "roles": []
+    },
+    {
+      "type": "getById",
+      "method": "get",
+      "path": "/:id",
+      "handlerName": "get",
+      "auth": false,
+      "roles": []
+    },
+    {
+      "type": "create",
+      "method": "post",
+      "path": "/",
+      "handlerName": "create",
+      "auth": true,
+      "roles": [
+        "admin"
+      ]
+    },
+    {
+      "type": "update",
+      "method": "put",
+      "path": "/:id",
+      "handlerName": "update",
+      "auth": true,
+      "roles": [
+        "admin"
+      ]
+    },
+    {
+      "type": "remove",
+      "method": "delete",
+      "path": "/:id",
+      "handlerName": "remove",
+      "auth": true,
+      "roles": [
+        "admin"
+      ]
+    }
+  ],
+  "realtime": {
+    "enabled": false,
+    "channel": ""
+  },
+  "_generatedAt": "2026-09-18T07:21:18.742Z",
+  "_version": 2
+}

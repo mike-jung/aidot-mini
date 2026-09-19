@@ -6,7 +6,7 @@ import { createContext, runWith } from './requestContext.js';
 import logger from './logger.js';
 import config from '../config.js';
 
-const MIME={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.ico':'image/x-icon','.woff2':'font/woff2'};
+const MIME={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.ico':'image/x-icon','.woff2':'font/woff2'};
 const error=(status,message)=>Object.assign(new Error(message),{status});
 const normalized=p=>p.replace(/\/+$/,'')||'/';
 function compile(pattern) {
@@ -30,7 +30,7 @@ function compare(a,b) {
 export class Router {
   constructor(options={}){this.options={bodyLimit:262144,requestTimeout:15000,...options};this.routes=[];this.middlewares=[];this.statics=[];this.notFound=null;}
   use(fn){this.middlewares.push(fn);return this;}
-  static_(prefix,dir,{spa=false}={}){this.statics.push({prefix:prefix.replace(/\/+$/,''),dir:path.resolve(dir),spa});return this;}
+  static_(prefix,dir,{spa=false,setHeaders}={}){this.statics.push({prefix:prefix.replace(/\/+$/,''),dir:path.resolve(dir),spa,setHeaders});return this;}
   add(method,pattern,handler,meta={}) {
     method=method.toUpperCase();
     if(!['GET','HEAD','POST','PUT','PATCH','DELETE','OPTIONS','ALL'].includes(method)||typeof handler!=='function')throw new Error('Invalid route declaration');
@@ -111,6 +111,7 @@ export class Router {
         if(!file.startsWith(root+path.sep))continue;
         const stat=await fs.promises.stat(file);if(!stat.isFile())continue;
         res.setHeader('Content-Type',MIME[path.extname(file)]||'application/octet-stream');res.setHeader('Content-Length',stat.size);
+        s.setHeaders?.(res,file);
         if(req.method==='HEAD'){res.end();return true;}
         const stream=fs.createReadStream(file);
         stream.once('error',()=>{if(!res.headersSent)res.json(500,{code:500,message:'File unavailable'});else res.destroy();});
@@ -141,8 +142,10 @@ function decorate(req,res){
   res.send=body=>{if(body!==null&&typeof body==='object'&&!Buffer.isBuffer(body))return res.json(body);if(!res.hasHeader('Content-Type'))res.setHeader('Content-Type',typeof body==='string'?'text/html; charset=utf-8':'application/octet-stream');res.end(req.method==='HEAD'?undefined:body??'');return res;};
   req.get=name=>req.headers[String(name).toLowerCase()];req.header=req.get;
 }
-function readBody(req,{bodyLimit,requestTimeout}){
+function readBody(req,{bodyLimit,multipartBodyLimit=6291456,requestTimeout}){
   const ct=String(req.headers['content-type']||'').split(';')[0].trim().toLowerCase();
+  const multipart=ct==='multipart/form-data';
+  const limit=multipart?multipartBodyLimit:bodyLimit;
   if(req.headers['content-encoding']&&req.headers['content-encoding']!=='identity')throw error(415,'Content encoding is not supported');
   return new Promise((resolve,reject)=>{
     let size=0,done=false;const chunks=[];
@@ -152,10 +155,13 @@ function readBody(req,{bodyLimit,requestTimeout}){
       if(e){req.resume();reject(e);}else resolve();
     };
     const timer=setTimeout(()=>finish(error(408,'Request body timed out')),requestTimeout);timer.unref();
-    const data=c=>{size+=c.length;if(size>bodyLimit)return finish(error(413,`Body exceeds ${bodyLimit} bytes`));chunks.push(c);};
+    const data=c=>{size+=c.length;if(size>limit)return finish(error(413,`Body exceeds ${limit} bytes`));chunks.push(c);};
     const end=()=>{
       try {
-        const raw=Buffer.concat(chunks).toString('utf8');
+        const buffer=Buffer.concat(chunks);
+        // Keep binary bytes intact. A workspace upload Service parses FormData.
+        if(multipart){req.body=buffer;finish();return;}
+        const raw=buffer.toString('utf8');
         if(!raw)req.body={};
         else if(ct==='application/json'||/^application\/[\w.+-]+\+json$/.test(ct))req.body=JSON.parse(raw);
         else if(ct==='application/x-www-form-urlencoded')req.body=Object.fromEntries(new URLSearchParams(raw));
@@ -165,7 +171,7 @@ function readBody(req,{bodyLimit,requestTimeout}){
     };
     const aborted=()=>finish(error(400,'Request aborted'));
     req.on('data',data);req.once('end',end);req.once('error',finish);req.once('aborted',aborted);
-    if(Number(req.headers['content-length'])>bodyLimit)finish(error(413,`Body exceeds ${bodyLimit} bytes`));
+    if(Number(req.headers['content-length'])>limit)finish(error(413,`Body exceeds ${limit} bytes`));
   });
 }
 export default Router;

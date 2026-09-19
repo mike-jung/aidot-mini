@@ -3,9 +3,9 @@
 /// My Note Service
 ///
 
-import { Service, Sql, Log } from '../../src/core/decorators.js';
-import db from '../../src/database/db.js';
-import { fillPlaceholders } from '../../src/core/sqlLoader.js';
+import { Service, Sql, Log } from '@aidot/core/decorators.js';
+import db from '@aidot/database/db.js';
+import { fillPlaceholders } from '@aidot/core/sqlLoader.js';
 
 
 @Service('NoteService')

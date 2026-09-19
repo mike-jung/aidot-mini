@@ -1,0 +1,41 @@
+[aidot-express] FAIL POST denies admin-realm account without admin role: POST /api/product: {"code":201,"message":"Created","header":{"requestCode":null,"timestamp":"2026-09-18 16:20:32"},"data":{"insertId":32,"rowsAffected":1}}
+
+201 !== 403
+
+[aidot-express] FAIL PUT denies admin-realm account without admin role: PUT /api/product/31: {"code":200,"message":"OK","header":{"requestCode":null,"timestamp":"2026-09-18 16:20:32"},"data":{"rowsAffected":1}}
+
+200 !== 403
+
+[aidot-express] FAIL DELETE denies admin-realm account without admin role: DELETE /api/product/31: {"code":200,"message":"OK","header":{"requestCode":null,"timestamp":"2026-09-18 16:20:32"},"data":{"rowsAffected":1}}
+
+200 !== 403
+
+{
+  "host": "aidot-express",
+  "database": "SQLite",
+  "result": "FAIL",
+  "checks": 81,
+  "requests": 110,
+  "failures": [
+    {
+      "name": "POST denies admin-realm account without admin role",
+      "message": "POST /api/product: {\"code\":201,\"message\":\"Created\",\"header\":{\"requestCode\":null,\"timestamp\":\"2026-09-18 16:20:32\"},\"data\":{\"insertId\":32,\"rowsAffected\":1}}\n\n201 !== 403\n"
+    },
+    {
+      "name": "PUT denies admin-realm account without admin role",
+      "message": "PUT /api/product/31: {\"code\":200,\"message\":\"OK\",\"header\":{\"requestCode\":null,\"timestamp\":\"2026-09-18 16:20:32\"},\"data\":{\"rowsAffected\":1}}\n\n200 !== 403\n"
+    },
+    {
+      "name": "DELETE denies admin-realm account without admin role",
+      "message": "DELETE /api/product/31: {\"code\":200,\"message\":\"OK\",\"header\":{\"requestCode\":null,\"timestamp\":\"2026-09-18 16:20:32\"},\"data\":{\"rowsAffected\":1}}\n\n200 !== 403\n"
+    }
+  ],
+  "sourceHashes": {
+    "controller/ProductController.js": "875b4cf50049e55eb39a4774bf1be07a02ddcf160cea599bca95d0231c09e8b2",
+    "service/ProductService.js": "d4173d0b2131c164ddac86857be9dc9c90acf7c34892aebae4a61ab6e9eaf43f",
+    "sql/product.sql": "8115f8638d2ad045e83a356cdd2618e6d3c098f3e9d74ce8ed90c347e0032f6c"
+  },
+  "externalWorkspace": true,
+  "externalMigrations": true,
+  "sourceRewrites": false
+}

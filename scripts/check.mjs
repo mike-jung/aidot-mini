@@ -11,6 +11,7 @@ function walk(dir){
   for(const entry of fs.readdirSync(dir,{withFileTypes:true})){
     if(entry.name.startsWith('.')||['node_modules','data','log','dist','runtime-cache','build','android','validation'].includes(entry.name))continue;
     const p=path.join(dir,entry.name);
+    if(p===path.join(ROOT,'examples','product-client','public'))continue;
     if(entry.isDirectory())walk(p);else if(/\.(?:[cm]?js|mts|ts)$/.test(entry.name))files.push(p);
   }
 }

@@ -1,0 +1,48 @@
+{
+  "name": "UploadController",
+  "basePath": "/api/uploads",
+  "controllerType": "",
+  "serviceName": "",
+  "description": "UploadController",
+  "auth": true,
+  "roles": [
+    "admin"
+  ],
+  "routes": [
+    {
+      "type": "create",
+      "method": "post",
+      "path": "/",
+      "handlerName": "upload",
+      "auth": true,
+      "roles": [
+        "admin"
+      ]
+    },
+    {
+      "method": "post",
+      "path": "/multipart",
+      "handlerName": "uploadMultipart",
+      "auth": true,
+      "roles": [
+        "admin"
+      ]
+    },
+    {
+      "type": "list",
+      "method": "get",
+      "path": "/",
+      "handlerName": "list",
+      "auth": true,
+      "roles": [
+        "admin"
+      ]
+    }
+  ],
+  "realtime": {
+    "enabled": false,
+    "channel": ""
+  },
+  "_generatedAt": "2026-09-18T06:28:10.799Z",
+  "_version": 2
+}

@@ -4,7 +4,13 @@ import {createHash} from 'node:crypto';
 import path from 'node:path';
 import config,{ROOT} from '../src/config.js';
 import {workspaceFiles} from '../src/core/workspaceFiles.js';
-const fingerprint=()=>{const h=createHash('sha256');for(const f of workspaceFiles(config.paths.workspace,/\.(?:m?js|mts|ts|sql)$/i)){h.update(f);h.update(fs.readFileSync(f));}return h.digest('hex');};
+const fingerprint=()=>{
+  const h=createHash('sha256');
+  // Product migrations live outside APP_WORKSPACE and must trigger a restart too.
+  const files=new Set([config.paths.workspace,config.paths.migrations].flatMap(dir=>workspaceFiles(dir,/\.(?:m?js|mts|ts|sql)$/i)));
+  for(const f of [...files].sort()){h.update(f);h.update(fs.readFileSync(f));}
+  return h.digest('hex');
+};
 let child,stopping=false,reloading=false,known=fingerprint();
 const start=()=>{child=fork(path.join(ROOT,'start.js'),[],{cwd:ROOT,stdio:['inherit','inherit','inherit','ipc']});child.once('exit',code=>{if(!reloading&&!stopping)console.log('Server exited '+code+'; waiting for a workspace change.');});};
 const stopChild=()=>new Promise(resolve=>{

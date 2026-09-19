@@ -56,6 +56,7 @@ export const config = {
     certFile: setting('certFile','TLS_CERT_FILE',''),
     keyFile: setting('keyFile','TLS_KEY_FILE',''),
     bodyLimit: integer(process.env.BODY_LIMIT_BYTES,'BODY_LIMIT_BYTES',262144,1024,2097152),
+    multipartBodyLimit: integer(process.env.MULTIPART_LIMIT_BYTES,'MULTIPART_LIMIT_BYTES',20971520,1024,33554432),
     requestTimeout: integer(process.env.REQUEST_TIMEOUT_MS,'REQUEST_TIMEOUT_MS',15000,1000,120000),
     allowedHosts: (process.env.ALLOWED_HOSTS || '').split(',').map(x=>x.trim().toLowerCase()).filter(Boolean),
     managed: boolean(process.env.MANAGED_ENDPOINT,'MANAGED_ENDPOINT',false),
@@ -82,8 +83,15 @@ export const config = {
     keepFiles: integer(process.env.LOG_KEEP_FILES,'LOG_KEEP_FILES',5,1,20),
   },
   trace: { enabled: boolean(process.env.TRACE_ENABLED,'TRACE_ENABLED',true), slowMs:integer(process.env.TRACE_SLOW_MS,'TRACE_SLOW_MS',500,1,60000) },
-  paths: Object.fromEntries([['controllers','controller'],['services','service'],['sql','sql'],['migrations','migrations']].map(([k,v])=>[k,path.join(resolve(setting('workspace','APP_WORKSPACE','workspace')),v)]).concat([['workspace',resolve(setting('workspace','APP_WORKSPACE','workspace'))],['public',path.join(ROOT,'public')]])),
+  paths: Object.fromEntries([['controllers','controller'],['services','service'],['sql','sql'],['migrations','migrations']].map(([k,v])=>[k,path.join(resolve(setting('workspace','APP_WORKSPACE','workspace')),v)]).concat([['workspace',resolve(setting('workspace','APP_WORKSPACE','workspace'))],['public',resolve(process.env.PUBLIC_DIR || 'public')]])),
 };
+const migrationRoot = process.env.DB_MIGRATIONS_DIR
+  ? resolve(process.env.DB_MIGRATIONS_DIR)
+  : config.paths.workspace === resolve('examples/product-workspace')
+    ? resolve('examples/product-database')
+    : config.paths.migrations;
+config.paths.migrations = fs.existsSync(path.join(migrationRoot, 'sqlite'))
+  ? path.join(migrationRoot, 'sqlite') : migrationRoot;
 if (!['NORMAL','FULL'].includes(config.db.synchronous)) throw new Error('DB_SYNCHRONOUS must be FULL or NORMAL');
 if (config.db.appSchema && (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(config.db.appSchema) || config.db.appSchema.toLowerCase() === 'temp')) throw new Error('DB_APP_SCHEMA must be one application schema name, or empty');
 validateSettings({host:config.server.host,https:config.server.https,language:config.console.language,logLevel:config.log.level});

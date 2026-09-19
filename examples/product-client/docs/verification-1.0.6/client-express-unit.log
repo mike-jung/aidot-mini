@@ -1,0 +1,20 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> aidot-product-client@1.0.6 test
+> node --test scripts/test-client.mjs
+
+✔ only the newest list request updates the store (13.790199ms)
+✔ a deletion completing after screen exit does not restart a list request (2.148995ms)
+✔ deleting the last row fetches the last valid page (2.609255ms)
+✔ login waits for session restoration so an older refresh cookie cannot overwrite login (2.968208ms)
+✔ logout waits for session restoration and leaves local credentials cleared (2.176589ms)
+✔ cancelled uploads leave progress and busy state reset (5.756625ms)
+✔ write controls require the admin role in Express mode (0.868904ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1497.525773

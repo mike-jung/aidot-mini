@@ -7,7 +7,7 @@
 export function mergeParams(req) {
   return {
     ...(req.query || {}),
-    ...(req.body || {}),
+    ...(Buffer.isBuffer(req.body) ? {} : (req.body || {})),
     ...(req.params || {}),
   };
 }

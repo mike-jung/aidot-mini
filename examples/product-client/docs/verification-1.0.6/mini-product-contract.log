@@ -1,0 +1,16 @@
+{
+  "host": "aidot-mini",
+  "database": "SQLite",
+  "result": "PASS",
+  "checks": 86,
+  "requests": 112,
+  "failures": [],
+  "sourceHashes": {
+    "controller/ProductController.js": "64fcf62ea27636469805dfed871b2bd728588fadcbd0125b199b1d2faede9417",
+    "service/ProductService.js": "e71e284e12075e1848017525838ee052937601da51fc3497ded9c778f97bf86b",
+    "sql/product.sql": "8115f8638d2ad045e83a356cdd2618e6d3c098f3e9d74ce8ed90c347e0032f6c"
+  },
+  "externalWorkspace": true,
+  "externalMigrations": true,
+  "sourceRewrites": false
+}

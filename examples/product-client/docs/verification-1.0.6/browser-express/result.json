@@ -1,0 +1,23 @@
+{
+  "host": "express",
+  "createdAt": "2026-09-18T07:25:23.886Z",
+  "browser": "153.0.8010.0",
+  "node": "v24.19.0",
+  "passed": 12,
+  "failed": 0,
+  "checks": [
+    "Anonymous listing loads 24 seeded products and hides write controls",
+    "Real administrator login enables Product write controls",
+    "Pagination, search reset, page size and price sorting work through real API",
+    "Image selection is local only; invalid replacement preserves valid preview",
+    "Upload then save works; DB-failure retry reuses URL and sends no duplicate upload",
+    "Reload restores authenticated session and persisted thumbnail",
+    "Edit retains image path; explicit removal saves null while public file remains",
+    "390px mobile list and upload form fit viewport",
+    "Delete cancellation preserves the database row",
+    "Finishing DELETE after browser Back does not restart list or touch destroyed dialog",
+    "Logout clears write permission",
+    "No browser JavaScript exceptions"
+  ],
+  "pageErrors": []
+}

@@ -1,0 +1,778 @@
+/* 공통 레이아웃 */
+.product-page {
+  min-height: 100vh;
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  min-height: 88px;
+  padding: 18px max(24px, calc((100vw - 1140px) / 2));
+  background: white;
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  font-size: 21px;
+  letter-spacing: -0.7px;
+}
+.brand-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 41px;
+  height: 41px;
+  border-radius: 13px;
+  background: var(--primary);
+  color: white;
+  font-size: 30px;
+  font-weight: 800;
+}
+.brand-icon span {
+  color: #f7cb88;
+  font-size: 24px;
+  margin-top: -18px;
+}
+.header-nav {
+  display: flex;
+  gap: 24px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.header-nav .router-link-exact-active {
+  color: var(--primary);
+}
+.account-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+.account-name {
+  font-size: 13px;
+}
+.product-main {
+  max-width: 1190px;
+  margin: 0 auto;
+  padding: 42px 24px 64px;
+}
+.page-intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 12px 0 32px;
+}
+.page-intro h1 {
+  margin: 9px 0 10px;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 750;
+  letter-spacing: -1.4px;
+  color: var(--ink);
+}
+.page-intro p {
+  color: var(--muted);
+  margin: 0;
+}
+.eyebrow {
+  color: var(--primary);
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 2px;
+}
+.card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 8px 24px #173e4204;
+}
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.card > .section-heading {
+  padding: 23px 26px 14px;
+}
+.section-heading h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.count {
+  margin-left: 7px;
+  color: var(--primary);
+  font-size: 15px;
+}
+.section-description {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 10px 0 18px;
+}
+
+/* 입력 요소와 상태 메시지 */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-height: 42px;
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.button.primary {
+  color: white;
+  background: var(--primary);
+}
+.button.primary:hover:enabled {
+  background: #205e5b;
+}
+.button.quiet {
+  color: var(--ink);
+  background: #f0f5f2;
+}
+.text-button {
+  border: 0;
+  padding: 4px 8px;
+  background: transparent;
+  color: var(--primary);
+  font-weight: 600;
+}
+.danger {
+  color: #b15547;
+}
+.danger-button {
+  color: white;
+  background: #b15547;
+}
+input,
+textarea,
+select {
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: white;
+  min-height: 42px;
+  padding: 10px 12px;
+}
+input::placeholder,
+textarea::placeholder {
+  color: #95a5a4;
+}
+select {
+  padding-right: 28px;
+}
+.notice {
+  padding: 13px 17px;
+  border-radius: 10px;
+  color: var(--primary);
+  background: #eaf2ef;
+  margin: 16px 0;
+}
+.card > .notice {
+  margin: 16px 26px;
+}
+.notice.error {
+  color: #a44336;
+  background: #fff0eb;
+}
+.notice.success {
+  color: #236b51;
+  background: #e4f1e6;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.login-card {
+  max-width: 1140px;
+  margin: 20px auto 0;
+  padding: 20px;
+}
+.login-card form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.login-card strong {
+  margin-right: 12px;
+}
+
+/* 검색과 페이지 목록 */
+.toolbar {
+  display: flex;
+  gap: 10px;
+  padding: 12px 26px 22px;
+}
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding-left: 13px;
+}
+.search-box > span {
+  color: var(--muted);
+  font-size: 26px;
+}
+.search-box input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+}
+.table-scroll {
+  overflow-x: auto;
+  position: relative;
+}
+.product-page table {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: left;
+}
+.product-page th {
+  padding: 13px 20px;
+  background: #f7f9f7;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.product-page td {
+  padding: 13px 20px;
+  border-bottom: 1px solid #edf1ee;
+}
+.product-page tbody tr:last-child td {
+  border-bottom: 0;
+}
+.product-page tr:hover td {
+  background: #fafcf9;
+}
+.id-cell {
+  width: 70px;
+  text-align: center;
+  color: #8a9b99;
+  font-size: 12px;
+}
+.product-name {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  min-width: 200px;
+}
+.product-name strong {
+  color: var(--ink);
+  font-weight: 650;
+}
+.product-thumbnail {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  overflow: hidden;
+  color: #8cab99;
+  background: #eff4e9;
+  font-size: 23px;
+}
+.product-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.memo-cell {
+  max-width: 310px;
+  color: var(--muted);
+  word-break: break-word;
+  font-size: 13px;
+}
+.price-cell {
+  text-align: right;
+  white-space: nowrap;
+  font-weight: 650;
+}
+.currency {
+  margin-left: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.actions-cell {
+  text-align: right;
+  white-space: nowrap;
+  width: 120px;
+}
+.loading-strip {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  min-height: 80px;
+  background: #ffffffd9;
+  color: var(--primary);
+}
+.table-scroll:has(.loading-strip) {
+  min-height: 100px;
+}
+.empty-state {
+  text-align: center;
+  padding: 64px 20px;
+  color: var(--muted);
+}
+.empty-state strong {
+  color: var(--ink);
+  font-size: 19px;
+}
+.list-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 26px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+.result-count strong {
+  color: var(--ink);
+}
+.pagination {
+  display: flex;
+  gap: 5px;
+  margin: 0;
+}
+.pagination button {
+  min-width: 32px;
+  height: 34px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--muted);
+  background: transparent;
+}
+.pagination button.active {
+  color: white;
+  background: var(--primary);
+  font-weight: 700;
+}
+.page-size {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+.page-size select {
+  min-height: 32px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+/* 등록·수정 폼과 드래그앤드롭 */
+.form-main {
+  max-width: 1050px;
+}
+.back-link {
+  display: inline-block;
+  margin-bottom: 17px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.product-form {
+  padding: 32px;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 42px;
+}
+.details-fields {
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.details-fields legend {
+  display: block;
+  float: none;
+  width: auto;
+  margin-bottom: 24px;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.details-fields label {
+  margin: 0 0 9px;
+  font-weight: 650;
+}
+.details-fields > input,
+.details-fields > textarea,
+.price-input {
+  margin-bottom: 21px;
+}
+.details-fields textarea {
+  resize: vertical;
+}
+.details-fields label > span:not(.optional) {
+  color: #be856b;
+}
+.optional {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+  margin-left: 5px;
+}
+.price-input {
+  position: relative;
+}
+.price-input input {
+  width: 100%;
+  padding-right: 38px;
+}
+.price-input > span {
+  position: absolute;
+  right: 14px;
+  top: 10px;
+  color: var(--muted);
+}
+.field-help {
+  color: var(--muted);
+  font-size: 12px;
+}
+.memo-count {
+  text-align: right;
+  margin-top: -14px;
+}
+.soft-badge {
+  display: inline-block;
+  background: #edf4ef;
+  border-radius: 7px;
+  padding: 5px 9px;
+  color: var(--primary);
+  font-size: 11px;
+}
+.dropzone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  height: 290px;
+  padding: 28px 18px;
+  border: 1.5px dashed #b7cec3;
+  border-radius: 15px;
+  background: #f7faf4;
+  color: var(--ink);
+  overflow: hidden;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+.dropzone:hover:enabled,
+.dropzone.dragging {
+  background: #eaf3e7;
+  border-color: var(--primary);
+}
+.dropzone strong {
+  font-size: 15px;
+}
+.dropzone > span:not(.upload-art):not(.replace-overlay) {
+  color: var(--muted);
+  font-size: 12px;
+}
+.dropzone small {
+  color: #90a19b;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.upload-art {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 7px;
+  color: #6f9c87;
+}
+.upload-art svg {
+  width: 100%;
+  height: 100%;
+}
+.dropzone.has-preview {
+  padding: 0;
+  background: #f1f4ee;
+}
+.image-preview {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+.replace-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  color: white;
+  background: #173e42b8;
+  font-size: 12px;
+}
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 13px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.file-mark {
+  color: var(--primary);
+  font-size: 25px;
+}
+.file-info > div {
+  flex: 1;
+  min-width: 0;
+}
+.file-info strong {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+}
+.file-info div > span {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+}
+.icon-button {
+  border: 0;
+  background: transparent;
+  width: 32px;
+  height: 32px;
+  color: var(--muted);
+  font-size: 22px;
+}
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.form-footer p {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0;
+}
+.upload-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--primary);
+  margin-top: 24px;
+  font-size: 12px;
+}
+.upload-progress progress {
+  width: 100%;
+  height: 8px;
+  accent-color: var(--primary);
+}
+.confirm-dialog {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 28px;
+  color: var(--ink);
+  width: min(90vw, 420px);
+}
+.confirm-dialog::backdrop {
+  background: #173e4260;
+}
+.confirm-dialog h2 {
+  font-size: 20px;
+}
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+/* 작은 화면에서는 기존 폴더·컴포넌트 구조를 그대로 사용해 세로로 배치합니다. */
+@media (max-width: 760px) {
+  .topbar {
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 16px 20px;
+  }
+  .brand {
+    font-size: 19px;
+  }
+  .header-nav {
+    order: 3;
+    flex-basis: 100%;
+    padding-left: 2px;
+    gap: 22px;
+    font-size: 12px;
+  }
+  .account-name {
+    display: none;
+  }
+  .product-main {
+    padding: 25px 16px 40px;
+  }
+  .page-intro {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .page-intro h1 {
+    font-size: 25px;
+  }
+  .page-intro p {
+    font-size: 12px;
+  }
+  .toolbar {
+    padding: 12px 16px 18px;
+    flex-wrap: wrap;
+  }
+  .search-box {
+    flex-basis: calc(100% - 90px);
+  }
+  .toolbar select {
+    width: 100%;
+  }
+  .card > .section-heading {
+    padding: 20px 16px 8px;
+  }
+  .list-footer {
+    flex-wrap: wrap;
+    padding: 18px 16px;
+  }
+  .pagination {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 12px;
+  }
+  .product-form {
+    padding: 22px 18px;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .form-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .form-footer p {
+    text-align: center;
+  }
+  .login-card {
+    margin: 16px;
+  }
+  .login-card form label,
+  .login-card input {
+    width: 100%;
+  }
+}
+
+/* 모바일에서는 한 상품의 사진·가격·설명을 같은 카드 안에서 읽도록 배치합니다. */
+@media (max-width: 760px) {
+  .product-page table,
+  .product-page tbody {
+    display: block;
+  }
+
+  .product-page thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .product-page tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px 12px;
+    padding: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .product-page tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  .product-page td {
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+
+  .product-page td.id-cell {
+    display: none;
+  }
+
+  .product-name {
+    min-width: 0;
+    gap: 10px;
+  }
+
+  .product-name strong {
+    font-size: 13px;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+
+  .product-page td.price-cell {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+  }
+
+  .product-page td.memo-cell {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    max-width: none;
+  }
+
+  .product-page td.actions-cell {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    width: auto;
+    text-align: right;
+  }
+}
+
+@media (max-width: 760px) {
+  .pagination {
+    gap: 3px;
+  }
+  .pagination button {
+    min-width: 28px;
+    padding: 0 5px;
+  }
+}

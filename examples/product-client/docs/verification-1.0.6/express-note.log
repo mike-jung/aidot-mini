@@ -1,0 +1,30 @@
+{
+  "host": "aidot-express",
+  "version": "1.45.8",
+  "database": "SQLite",
+  "externalWorkspace": true,
+  "dotenvOnlyWorkspace": true,
+  "sourceRewrites": false,
+  "results": [
+    {
+      "authenticated": false,
+      "requests": 16,
+      "result": "PASS",
+      "sourceHashes": {
+        "controller/NoteController.js": "1e0e01db04c65ee93e4003cea264a823a51d5653a6c5d84667fc095c2dc19d65",
+        "service/NoteService.js": "5dfe30e1ba1ad93d66fc8ecd1f3e42d18f7f88f11090b9635f46ee2d59bb521c",
+        "sql/note.sql": "9fdae8a211d568f6b010e826edf9b6019c796a4f33a7317cb8e387a9e33447c5"
+      }
+    },
+    {
+      "authenticated": true,
+      "requests": 21,
+      "result": "PASS",
+      "sourceHashes": {
+        "controller/NoteController.js": "a9b2b3b76131b55adcd192c30333078a5dbf8c4bf9c381916c421aaa74a28a59",
+        "service/NoteService.js": "5dfe30e1ba1ad93d66fc8ecd1f3e42d18f7f88f11090b9635f46ee2d59bb521c",
+        "sql/note.sql": "9fdae8a211d568f6b010e826edf9b6019c796a4f33a7317cb8e387a9e33447c5"
+      }
+    }
+  ]
+}

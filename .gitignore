@@ -41,3 +41,6 @@ __pycache__/
 
 # Internal local version backups
 /internal/version-backups/
+
+# User-uploaded images are runtime data, not source.
+public/uploads/

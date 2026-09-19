@@ -1,0 +1,16 @@
+{
+  "name": "ProductService",
+  "sqlFile": "product",
+  "description": "ProductService",
+  "methods": [
+    "list",
+    "listPaged",
+    "getById",
+    "create",
+    "update",
+    "remove"
+  ],
+  "multiSqlMethods": [],
+  "_generatedAt": "2026-09-18T06:26:05.813Z",
+  "_version": 2
+}

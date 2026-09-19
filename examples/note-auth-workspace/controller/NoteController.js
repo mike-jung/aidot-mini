@@ -12,7 +12,7 @@ import {
   PutMapping,
   DeleteMapping,
   Autowired,
-} from '../../src/core/decorators.js';
+} from '@aidot/core/decorators.js';
 
 
 @Controller('/api/notes')

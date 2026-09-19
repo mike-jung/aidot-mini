@@ -1,0 +1,20 @@
+{
+  "runtime": "v24.19.0",
+  "browser": "153.0.8010.0",
+  "passed": 13,
+  "cases": [
+    "Anonymous paginated list loads from actual SQLite server",
+    "Pagination and search reset to page one",
+    "Page size selection updates actual results",
+    "ID/password authentication through Vite proxy",
+    "File selection previews locally before upload",
+    "Upload, DB imagePath persistence, and public image list render",
+    "Image and login restore after browser reload",
+    "JPEG drag and drop, replacement, and saved thumbnail",
+    "Invalid selection keeps previously saved image",
+    "WebP preview and upload, mobile layout without page overflow",
+    "Removing the image saves null in the database",
+    "Accessible delete dialog, Escape, and real record deletion",
+    "No browser runtime errors"
+  ]
+}

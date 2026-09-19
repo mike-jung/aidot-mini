@@ -1,0 +1,15 @@
+{
+  "name": "aidot-product",
+  "version": "1.0.7",
+  "controller": [
+    "ProductController.js",
+    "meta/ProductController.meta.json"
+  ],
+  "service": [
+    "ProductService.js",
+    "meta/ProductService.meta.json"
+  ],
+  "sql": [
+    "product.sql"
+  ]
+}

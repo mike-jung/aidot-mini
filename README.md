@@ -1,4 +1,4 @@
-# aidot-mini 1.0.1
+# aidot-mini 1.0.7 — Public source
 
 A lightweight, Spring Boot-style JavaScript web server for mobile devices,
 robots and drones. Build APIs with annotated Controllers, Services and named
@@ -20,7 +20,7 @@ Optional communication adapters install their dependencies separately.
 
 ## Quick start
 
-Install Node.js 22.13 or later, then run these commands in the project folder:
+Install Node.js 22.19 or later, then run these commands in the project folder:
 
 ```sh
 npm ci --ignore-scripts
@@ -30,6 +30,41 @@ npm start
 Open **http://127.0.0.1:8901**. On a fresh local installation, create an
 administrator ID and password. Use **Sample API** to list, create, edit and
 delete notes. English is the default console language.
+
+See [1.0.7 release notes](docs/RELEASE_1.0.7_KO.md) and [current validation](docs/VERIFICATION_1.0.7.md). The Full edition includes local publishing tools and the Vue client. The AI Starter is a small public subset for compiling and executing generated Controller/Service/SQL; it has no browser console or Vue assets.
+
+## Product example (pagination and images)
+
+This combines the supplied Full 0.6.2 development/publishing tools with the reviewed 1.0.6 runtime and Product example. The core still derives from GitHub mini 1.0.1 (`fdff633`). Version 1.0.7 identifies this Full/Starter and RULES update; no GitHub release was published.
+
+`npm start` preserves the original Note workspace and `data` defaults. To run Product with its own demo state:
+
+```sh
+npm ci --ignore-scripts
+npm run product:account
+npm run start:product
+# another terminal
+cd examples/product-client
+npm ci
+npm run dev
+```
+
+Open Vite's `/product` page. Product uses `examples/product-workspace`, `examples/product-database` and `data/product-demo` unless explicitly overridden. Keep the server account command and start command on the same settings. Existing 1.0.5 Product users should use these Product commands after upgrading; their database/account files are retained.
+
+- [Korean Product tutorial](docs/TUTORIAL_PRODUCT_KO.md)
+- [Product API rules](docs/AI_API_RULES_PRODUCT.md) / [Vue rules](docs/AI_FRONTEND_RULES.md)
+- [Express patch and portability](docs/PORTING.md)
+- [Current release review](docs/RELEASE_1.0.7_KO.md) / [Current verification](docs/VERIFICATION_1.0.7.md)
+
+The exact Product Controller/Service/SQL files are shared with the supplied Express 1.45.8 Full. Database schema, runtime configuration, authentication credentials and existing uploads are deployed separately. The canonical `@aidot/...` imports also work when `.env` selects an external workspace; no Express framework patch is required beyond the supplied 1.45.8 baseline.
+
+## Validate AI-generated workspace files
+
+```sh
+npm run workspace:verify -- --workspace examples/product-workspace --migrations examples/product-database --cases docs/AI_WORKSPACE_CASES.json
+```
+
+Use your own workspace and HTTP case file for new APIs. This copies sources to temporary state, starts the real runtime and checks the supplied responses. Without cases it only checks startup and declarations; it does not claim business validation.
 
 ## Write an API
 
@@ -101,4 +136,5 @@ Each target needs its documented build tools and runtime dependencies.
 The Public project is licensed under [Apache License 2.0](LICENSE).
 See [copyright and distribution terms](COPYRIGHT.md), [notices](NOTICE),
 [third-party notices](docs/THIRD_PARTY_NOTICES.md) and [security guidance](SECURITY.md).
+
 

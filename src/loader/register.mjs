@@ -6,6 +6,10 @@ const registered=new Set();
 export function registerWorkspaceLoader(root){
   root=realpathSync(path.resolve(root));
   if(registered.has(root))return;
-  register('./hooks.mjs',import.meta.url,{data:{root,projectRoot:ROOT,cacheDir:path.join(DATA_DIR,'compile-cache')}});
+  // Each root needs a separate hook instance: initialize() owns root-local state.
+  // Framework controllers must not replace an already registered workspace root.
+  const hook = new URL('./hooks.mjs', import.meta.url);
+  hook.searchParams.set('workspace', root);
+  register(hook.href,import.meta.url,{data:{root,projectRoot:ROOT,cacheDir:path.join(DATA_DIR,'compile-cache')}});
   registered.add(root);
 }

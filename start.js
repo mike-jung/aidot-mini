@@ -1,6 +1,9 @@
 import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
-import config from './src/config.js';
+import config, { ROOT } from './src/config.js';
+import path from 'node:path';
+import { configureUploads } from './src/core/uploads.js';
+import { uploadHeaders } from './src/core/uploadHeaders.js';
 import logger,{initFileLog} from './src/core/logger.js';
 import {Router} from './src/core/router.js';
 import {tlsOptions} from './src/core/transport.js';
@@ -8,7 +11,7 @@ import {createSecurity,ensureAdminToken,isLoopback} from './src/core/security.js
 import {AdminAccount} from './src/core/adminAccount.js';
 import {registerSettings} from './src/core/settings.js';
 import sqlRegistry from './src/core/sqlLoader.js';
-import {resetRegistry,loadServices,loadControllers,listControllers,listServices,listMetadata} from './src/core/controllerLoader.js';
+import {ModuleRegistry,resetRegistry,loadServices,loadControllers,listControllers,listServices,listMetadata} from './src/core/controllerLoader.js';
 import db from './src/database/db.js';
 import {runMigrations} from './src/database/migrationRunner.js';
 import {state} from './src/state.js';
@@ -24,6 +27,7 @@ export async function createServer({configure}={}){
   const security=createSecurity(token,new AdminAccount({allowLocalSetup:freshInstallation}));
   state.draining=false;state.migrationOk=false;state.startedAt=Date.now();
   try{
+    configureUploads({ publicDirectory: config.paths.public });
     db.open(config.db.file);
     if(!fs.statSync(config.paths.workspace).isDirectory())throw new Error('APP_WORKSPACE must be a directory');
     const migrations=runMigrations(config.paths.migrations);
@@ -34,6 +38,7 @@ export async function createServer({configure}={}){
     router.use((req,res)=>{if(state.draining&&req.path!=='/health/live'){res.json(503,{code:503,message:'Server is stopping'});return false;}return true;});
     router.use(security.middleware);security.register(router);registerSettings(router);registerHealth(router);registerConsoleWorkspace(router);
     await loadServices(config.paths.services);await loadControllers(router,config.paths.controllers);
+    await new ModuleRegistry().loadControllers(router, path.join(ROOT, 'src/controller'));
     router.add('GET', '/admin/features', (req, res) => {
       const routes = listControllers().filter(c => c.basePath === '/api/notes').flatMap(c => c.routes);
       const has = (method, path) => routes.some(r => r.replace(/\/$/, '') === (method.toUpperCase() + ' /api/notes' + (path === '/' ? '' : path)));
@@ -52,7 +57,8 @@ export async function createServer({configure}={}){
     router.add('GET','/admin/events',(req,res)=>events.open(req,res),{auth:true,roles:['admin'],stream:true});
     const eventTimer=setInterval(()=>events.publish('status',snapshot()),10000);eventTimer.unref();
     router.closeStreams=()=>{clearInterval(eventTimer);events.close();};
-    if(fs.existsSync(config.paths.public))router.static_('',config.paths.public);
+    // public 경로가 첫 업로드 때 생성되더라도 정적 라우트가 동작해야 합니다.
+    router.static_('',config.paths.public,{setHeaders:uploadHeaders(config.paths.public)});
     router.cleanup=()=>{router.closeStreams();security.close();db.close();logger.close();};
     try{if(configure)await configure({router,security,db,logger,state,events});}catch(error){router.closeStreams();throw error;}
     return router;

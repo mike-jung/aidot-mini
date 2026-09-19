@@ -31,12 +31,13 @@ export async function resolve(specifier,context,nextResolve){
   // Console-generated imports refer to the host framework, even when a moved
   // workspace has a different (or unrelated) ../../src directory beside it.
   const generated=/^(?:\.\.\/)+src\/([^/]+)\/(.+)$/.exec(specifier);
-  const m=generated||/^\.\.\/([^/]+)\/(.+)$/.exec(specifier);
+  const explicit=/^@aidot\/([^/]+)\/(.+)$/.exec(specifier);
+  const m=explicit||generated||/^\.\.\/([^/]+)\/(.+)$/.exec(specifier);
   if(m&&framework.has(m[1])&&context.parentURL?.startsWith('file:')){
     const parent=fileURLToPath(context.parentURL);
     if(workspaceFile(parent)){
       const literal=path.resolve(path.dirname(parent),specifier),target=path.resolve(projectRoot,'src',m[1],m[2]);
-      if((generated||!existsSync(literal))&&inside(path.join(projectRoot,'src'),target)&&existsSync(target))
+      if((explicit||generated||!existsSync(literal))&&inside(path.join(projectRoot,'src'),target)&&existsSync(target))
         return nextResolve(pathToFileURL(target).href,context);
     }
   }

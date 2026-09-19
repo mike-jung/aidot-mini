@@ -1,10 +1,10 @@
 {
   "name": "aidot-mini",
-  "version": "1.0.1",
+  "version": "1.0.7",
   "description": "Lightweight aidot-express annotation-compatible workspace runtime",
   "type": "module",
   "engines": {
-    "node": ">=22.13.0"
+    "node": ">=22.19.0"
   },
   "main": "start.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "dev": "node scripts/watch-workspace.mjs",
     "check": "node scripts/check.mjs",
     "test": "node scripts/test.mjs",
-    "verify": "npm run check && npm run contract:check && npm test",
+    "verify": "npm run check && npm run contract:check && npm test && npm run product:verify",
     "workspace:init": "node scripts/init-workspace.mjs",
     "workspace:compile": "node scripts/compile-workspace.mjs",
     "android:assets": "python3 android/scripts/build-assets.py",
@@ -32,7 +32,13 @@
     "api:verify": "node scripts/smoke-note.mjs",
     "build:starter": "python3 scripts/build-starter.py",
     "test:console": "node --test tests/console-workspace.test.mjs",
-    "test:browser": "node scripts/browser-note-qa.mjs"
+    "test:browser": "node scripts/browser-note-qa.mjs",
+    "start:product": "node scripts/start-product.mjs",
+    "product:account": "node scripts/start-product.mjs --account",
+    "product:verify": "node scripts/verify-product.mjs",
+    "test:product": "node scripts/verify-product.mjs",
+    "product:contract": "node scripts/verify-product-contract.mjs",
+    "workspace:verify": "node scripts/verify-workspace.mjs"
   },
   "dependencies": {
     "esbuild-wasm": "0.28.2"
