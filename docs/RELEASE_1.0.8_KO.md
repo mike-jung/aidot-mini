@@ -2,6 +2,8 @@
 
 1.0.8은 검토 수정본 1.0.7을 기반으로 README의 제품 목적을 정리하고, 운영체제별 런타임 배포와 Windows 설치·설정·삭제 절차를 추가하는 버전입니다. **이 문서는 GitHub Release 발행 사실을 의미하지 않습니다.**
 
+README·릴리즈 명령 수정본에서는 공개 GitHub 저장소용 README를 영문으로 정리하고, `npm run release:github`의 기본 동작을 `mike-jung/aidot-mini`의 Draft Release 생성으로 변경했습니다. 업로드 없는 로컬 검토는 `npm run release:github -- --dry-run`으로 실행합니다. 아래 기존 플랫폼 실행 기록은 이전 검증 결과이며, 이 명령 수정만으로 새 플랫폼 빌드나 GitHub 게시가 수행된 것은 아닙니다.
+
 ## 제품과 호환성
 
 - 로봇·드론·모바일 단말에서 업무 API를 실행하는 최소 환경을 기본으로 합니다.
@@ -21,7 +23,7 @@
 | 삭제 | 기본은 데이터 유지. 명시적 선택 시 관리되는 사용자 데이터까지 제거 |
 | Linux/Robot | x64/ARM64 런타임 빌드 명령 및 로봇 통합 배포 경로 |
 | Android | 실제 Android runtime/SDK 조건을 확인하는 APK 빌드 경로 |
-| GitHub Release | 기본 로컬 검토 계획, 명시적 게시 단계 분리 |
+| GitHub Release | 기본 명령으로 공개 저장소에 Draft Release 생성, `--dry-run`으로 로컬 계획만 확인 |
 | Windows 실제 빌드 | NSIS 입력의 Windows 경로 구분자·공백 인수 처리를 수정하여 Linux 교차 빌드 외의 Windows 네이티브 빌드도 확인 |
 | Android 빌드 경로 | Debian 패키지 이름의 콜론이 NTFS 대체 데이터 스트림으로 해석되는 문제 수정. 해시 접두사와 안전한 캐시 파일명 사용 |
 | 타사 라이선스 | 이전 ICU 파일의 `404: Not Found` 응답을 공식 ICU 78.3 라이선스로 교체. Android 라이선스 6개에 크기·SHA-256 및 오류 응답 거절 검사 추가 |
@@ -37,6 +39,17 @@ npm run dist:linux -- --arch arm64
 npm run dist:robot
 npm run dist:android
 npm run release:github
+```
+
+`release:github`는 이미 빌드한 `dist/release/`의 공개 산출물과 sidecar를 검증하고 체크섬을 생성한 뒤 Draft Release에 업로드합니다. GitHub CLI 인증(`gh auth login`)과 대상 원격 저장소에 미리 push한 버전 태그 `v1.0.8`이 필요합니다. 빌드·커밋·태그 생성·태그 push는 자동 수행하지 않습니다.
+
+```sh
+# GitHub 접속 없이 산출물과 업로드 계획만 확인
+npm run release:github -- --dry-run
+# 다른 저장소 선택
+npm run release:github -- --repo owner/repository
+# 기존 명령도 계속 지원
+npm run release:github -- --publish --repo mike-jung/aidot-mini
 ```
 
 Windows/Linux/로봇 빌드 결과는 기본 `dist/release/`에 저장됩니다. Node.js 24.19.0 런타임과 해시를 고정합니다. 빌드 PC에는 Node·Python 3, Windows 설치 파일 컴파일에는 NSIS가 필요합니다.
@@ -84,6 +97,19 @@ Starter의 새 검증은 Linux x64·Node 24.19.0·npm 11.9.0·SQLite에서 수�
 
 - 장치에는 CPU/OS에 맞는 배포물을 사용하고 실행 상태는 패키지 밖에 보관합니다.
 - 기존 사용자 데이터와 계정은 업그레이드 전에 백업하고 서버를 정지합니다.
-- 플랫폼 빌드와 공개 게시를 분리합니다. `release:github`의 기본 호출은 로컬 `RELEASE_PLAN.json`·`SHA256SUMS.txt`를 만들며 원격 GitHub를 변경하지 않습니다. `--publish --repo mike-jung/aidot-mini`를 명시해야 Draft Release를 생성하고 기존 릴리스를 덮어쓰지 않습니다. 인증된 GitHub CLI와 대상 원격 저장소의 기존 `v1.0.8` 태그가 필요합니다.
+- 플랫폼 빌드를 먼저 완료한 뒤 `npm run release:github`를 실행하면 `mike-jung/aidot-mini`에 Draft Release를 생성합니다. `--repo owner/repository`로 대상을 변경할 수 있으며 기존 릴리스를 덮어쓰지 않습니다. `--dry-run`은 로컬 `RELEASE_PLAN.json`·`SHA256SUMS.txt`·`RELEASE_NOTES.md`만 만들고 GitHub에 접속하지 않습니다. 인증된 GitHub CLI와 대상 원격 저장소의 기존 `v1.0.8` 태그가 필요합니다.
 - 코드 서명이나 Android release 서명에 필요한 개인키를 소스/패치/릴리스 ZIP에 포함하지 않습니다.
 - 새로운 업무 API는 해당 업무의 HTTP 검증을 수행합니다. 예제 Product의 통과가 새 업무 또는 모든 DB 조합의 통과를 의미하지 않습니다.
+
+## README·릴리즈 명령 수정본 검증
+
+이번 수정본은 Linux x64, Node.js 24.19.0, npm 11.9.0, SQLite 환경에서 확인했습니다.
+
+| 검사 | 결과 |
+|---|---|
+| `npm run verify` | 최종 실행 통과: 문법 138/138, 선언 계약, 회귀 152/152, Product HTTP 56검사 |
+| 릴리즈 명령 회귀 | 전체 회귀에 포함된 `tests/dist.test.mjs` 13개 통과. 기본 Draft 생성, dry-run, 저장소 변경, 기존 옵션, 중복 릴리즈·파일 변조·CLI 오류 처리 확인 |
+| Product 클라이언트 | `npm run format:check`와 `npm run build` 통과, Vite 91개 모듈 |
+| 공개 README | 영문 구성, 상대 문서 링크 20개와 안내 npm 명령의 Public 파일·스크립트 포함 여부 확인 |
+
+릴리즈 회귀 검사는 GitHub CLI 호출을 모의 처리했습니다. 실제 GitHub 인증·태그 조회·업로드는 수행하지 않았으며, 플랫폼 설치 프로그램이나 APK를 이번 수정으로 다시 빌드하지 않았습니다. 최초 전체 검사 도중 README를 수정하여 공개 내보내기 반복 검사 1개가 실패했으며, 파일을 고정한 뒤 해당 검사와 최종 전체 검사가 모두 통과했습니다.

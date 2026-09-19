@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { policy, regularFile, verifyBinary, sha256 } from '../scripts/dist/dist.mjs';
-import { createPlan } from '../scripts/dist/release-github.mjs';
+import { createPlan, main as releaseMain } from '../scripts/dist/release-github.mjs';
 
 test('installed release policy excludes private code and runtime state', () => {
   const files = [...policy.common, ...policy.full, ...policy.robot];
@@ -61,4 +61,99 @@ test('release plan accepts explicitly labeled Android signing variants and docum
     assert.match(fs.readFileSync(path.join(directory, 'RELEASE_NOTES.md'), 'utf8'), /production keystore/);
     assert.equal(plan.uploadPerformed, false);
   } finally { fs.rmSync(directory, { recursive: true, force: true }); }
+});
+
+function releaseFixture(t) {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'aidot-release-command-'));
+  t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
+  const version = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version;
+  const file = `aidot-mini-${version}-linux-x64-minimal.tar.gz`, bytes = Buffer.from('release command fixture');
+  fs.writeFileSync(path.join(directory, file), bytes);
+  fs.writeFileSync(path.join(directory, `${file}.release.json`), JSON.stringify({ format: 'aidot-mini-release-artifact/v1', file, version, edition: 'public', target: 'linux', arch: 'x64', variant: 'minimal', bytes: bytes.length, sha256: sha256(bytes) }));
+  return { directory, file, version, readPlan: () => JSON.parse(fs.readFileSync(path.join(directory, 'RELEASE_PLAN.json'), 'utf8')) };
+}
+
+test('release command defaults to creating a draft in the public repository', async t => {
+  const { directory, file, version, readPlan } = releaseFixture(t), calls = [], output = [];
+  const plan = await releaseMain(['--directory', directory], {
+    run(command, args) {
+      assert.equal(command, 'gh'); calls.push(args);
+      assert.equal(readPlan().uploadPerformed, false);
+      return { status: args[1] === 'view' ? 1 : 0, stdout: '', stderr: '' };
+    },
+    output: text => output.push(JSON.parse(text)),
+  });
+  assert.deepEqual(calls[0], ['release', 'view', `v${version}`, '--repo', 'mike-jung/aidot-mini']);
+  assert.deepEqual(calls[1], ['release', 'create', `v${version}`, path.join(directory, file), path.join(directory, 'SHA256SUMS.txt'), '--repo', 'mike-jung/aidot-mini', '--draft', '--verify-tag', '--title', `aidot-mini ${version}`, '--notes-file', path.join(directory, 'RELEASE_NOTES.md')]);
+  assert.equal(calls.length, 2);
+  assert.equal(plan.repository, 'mike-jung/aidot-mini'); assert.equal(plan.draft, true);
+  assert.equal(plan.uploadPerformed, true); assert.deepEqual(readPlan(), plan); assert.deepEqual(output, [plan]);
+});
+
+test('release dry run verifies assets and writes a plan without invoking GitHub', async t => {
+  const { directory, readPlan } = releaseFixture(t);
+  const plan = await releaseMain(['--directory', directory, '--dry-run'], {
+    run() { assert.fail('A dry run must not invoke GitHub'); }, output() {},
+  });
+  assert.equal(plan.repository, 'mike-jung/aidot-mini'); assert.equal(plan.uploadPerformed, false);
+  assert.deepEqual(readPlan(), plan);
+  for (const file of ['SHA256SUMS.txt', 'RELEASE_NOTES.md']) assert.ok(fs.existsSync(path.join(directory, file)));
+});
+
+test('release repository override and legacy publish flag remain supported', async t => {
+  const { directory } = releaseFixture(t);
+  for (const flags of [['--repo', 'example/mini'], ['--publish', '--repo', 'example/mini'], ['--publish']]) {
+    const repository = flags.includes('--repo') ? 'example/mini' : 'mike-jung/aidot-mini', calls = [];
+    const plan = await releaseMain(['--directory', directory, ...flags], {
+      run(command, args) {
+        assert.equal(command, 'gh'); assert.equal(args[args.indexOf('--repo') + 1], repository); calls.push(args);
+        return { status: args[1] === 'view' ? 1 : 0, stdout: '', stderr: '' };
+      }, output() {},
+    });
+    assert.equal(plan.repository, repository); assert.equal(plan.uploadPerformed, true); assert.equal(calls.length, 2);
+  }
+});
+
+test('an existing release stops creation and preserves the unperformed upload state', async t => {
+  const { directory, readPlan } = releaseFixture(t), calls = [];
+  await assert.rejects(releaseMain(['--directory', directory], {
+    run(command, args) { calls.push(args); return { status: 0, stdout: '', stderr: '' }; }, output() {},
+  }), /already exists/);
+  assert.equal(calls.length, 1); assert.equal(calls[0][1], 'view'); assert.equal(readPlan().uploadPerformed, false);
+});
+
+test('GitHub CLI setup failures stop before attempting release creation', async t => {
+  const { directory, readPlan } = releaseFixture(t);
+  for (const failure of [{ error: new Error('spawn gh ENOENT'), status: null }, { status: 4, stderr: 'Authentication required' }]) {
+    let calls = 0;
+    await assert.rejects(releaseMain(['--directory', directory], {
+      run(command, args) { calls++; assert.equal(args[1], 'view'); return failure; }, output() {},
+    }), /GitHub CLI failed/);
+    assert.equal(calls, 1); assert.equal(readPlan().uploadPerformed, false);
+  }
+});
+
+test('failed release creation is not recorded as a completed upload', async t => {
+  const { directory, readPlan } = releaseFixture(t);
+  await assert.rejects(releaseMain(['--directory', directory], {
+    run(command, args) { return { status: 1, stdout: '', stderr: args[1] === 'view' ? 'release not found' : 'remote tag does not exist' }; }, output() {},
+  }), /remote tag does not exist/);
+  assert.equal(readPlan().uploadPerformed, false);
+});
+
+test('invalid release assets cannot trigger a GitHub call', async t => {
+  const { directory, file } = releaseFixture(t);
+  fs.appendFileSync(path.join(directory, file), 'tampered');
+  await assert.rejects(releaseMain(['--directory', directory], {
+    run() { assert.fail('Invalid artifacts must not reach GitHub'); }, output() {},
+  }), /hash\/size mismatch/);
+});
+
+test('release help and invalid options do not access GitHub', async () => {
+  const output = [], hooks = { run() { assert.fail('Options must be handled locally'); }, output: text => output.push(text) };
+  await releaseMain(['--help'], hooks);
+  assert.match(output[0], /Default: create a draft in mike-jung\/aidot-mini/);
+  assert.match(output[0], /--dry-run writes local plan\/checksums only/);
+  await assert.rejects(releaseMain(['--publish', '--dry-run'], hooks), /Choose --publish or --dry-run/);
+  await assert.rejects(releaseMain(['--repo', ''], hooks), /Use --repo/);
 });

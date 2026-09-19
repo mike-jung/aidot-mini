@@ -15,7 +15,7 @@ SetCompressorDictSize 32
   !error "PAYLOAD must name the Windows release staging directory"
 !endif
 !ifndef VERSION
-  !define VERSION "1.0.8"
+  !define VERSION "1.0.9"
 !endif
 !ifndef EDITION
   !define EDITION "minimal"

@@ -1,4 +1,4 @@
-# Linux servers and robot boards — 1.0.8
+# Linux servers and robot boards — 1.0.9
 
 Run the source project on a supported Node.js installation, or build a package
 that includes its own Node runtime. ROS is optional for a normal web server.
@@ -6,7 +6,7 @@ The packaged runtime supports Linux x64 and ARM64 with glibc; Android, musl/Alpi
 and ARMv7 require different runtime builds.
 
 
-## Current 1.0.8 release packages
+## Current 1.0.9 release packages
 
 Build the current public release artifacts from the source root:
 
@@ -24,8 +24,8 @@ The current outputs go to `dist/release/`. Linux defaults to the minimal API run
 For the Linux x64 minimal artifact:
 
 ```sh
-tar -xzf aidot-mini-1.0.8-linux-x64-minimal.tar.gz
-cd aidot-mini-1.0.8-linux-x64-minimal
+tar -xzf aidot-mini-1.0.9-linux-x64-minimal.tar.gz
+cd aidot-mini-1.0.9-linux-x64-minimal
 ./bin/aidot-mini configure --port 8901 --profile note --database app.db
 ./bin/aidot-mini start
 # Another terminal, from the same package:
@@ -37,7 +37,7 @@ Mutable state uses `$XDG_DATA_HOME/aidot-mini`, or `~/.local/share/aidot-mini` i
 
 The current launcher commands are `configure`, `config`, `start`, `stop`, `status`, `account`, `token`, and `uninstall`. Consult `./bin/aidot-mini help`. Its `uninstall` command manages application state; removing an extracted program directory is a separate step. Do not apply the legacy `--check`/`--admin-account` launcher syntax below to a `dist:*` package.
 
-The robot artifact contains `ros-src/` source workspaces, not a preinstalled ROS distribution or hardware drivers. Build those bridges with a compatible ROS environment and verify the actual robot board before deployment. Cross-building ARM64 on x64 does not prove ARM64 execution. Check the current [release validation record](RELEASE_1.0.8_KO.md).
+The robot artifact contains `ros-src/` source workspaces, not a preinstalled ROS distribution or hardware drivers. Build those bridges with a compatible ROS environment and verify the actual robot board before deployment. Cross-building ARM64 on x64 does not prove ARM64 execution. Check the current [release validation record](RELEASE_1.0.9_KO.md).
 
 ## Legacy build path
 
@@ -65,8 +65,8 @@ not execute the package on ARM64.
 ## Run the archive
 
 ```sh
-tar -xzf aidot-mini-1.0.8-linux-x64.tar.gz
-cd aidot-mini-1.0.8-linux-x64
+tar -xzf aidot-mini-1.0.9-linux-x64.tar.gz
+cd aidot-mini-1.0.9-linux-x64
 ./bin/aidot-mini --check
 ./bin/aidot-mini
 ```
@@ -81,7 +81,7 @@ check the actual release manifest and target ABI before deployment.
 ## Debian and systemd
 
 ```sh
-sudo dpkg -i aidot-mini_1.0.8_amd64.deb
+sudo dpkg -i aidot-mini_1.0.9_amd64.deb
 sudo cp /opt/aidot-mini/deploy/aidot-mini.env.example /etc/aidot-mini/aidot-mini.env
 sudo chmod 600 /etc/aidot-mini/aidot-mini.env
 ```

@@ -1,4 +1,4 @@
-# AI API Starter 1.0.8
+# AI API Starter 1.0.9
 
 Starter는 AI가 만든 Controller·Service·named SQL을 작은 소스 환경에서 직접 실행·검증하기 위한 배포물입니다. Full과 같은 공통 런타임과 Note/Product 업무 예제를 사용하며, `@aidot/...` 별칭과 aidot-express 1.45.8의 공통 계약을 유지합니다.
 

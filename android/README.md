@@ -35,7 +35,7 @@ Gradle이 서명한 release APK가 필요하면 다음 환경변수를 모두 �
 - `AIDOT_ANDROID_KEY_ALIAS`
 - `AIDOT_ANDROID_KEY_PASSWORD`
 
-서명된 빌드는 `*-release.apk`로 출력됩니다. `android-build-manifest.json`이 버전·ABI·서명 종류·크기·SHA-256을 기록합니다. `package.json`의 버전이 Android `versionName`의 기준이며, 1.0.8의 `versionCode`는 10008입니다.
+서명된 빌드는 `*-release.apk`로 출력됩니다. `android-build-manifest.json`이 버전·ABI·서명 종류·크기·SHA-256을 기록합니다. `package.json`의 버전이 Android `versionName`의 기준이며, 1.0.9의 `versionCode`는 10009입니다.
 
 ## 실행과 데이터
 
@@ -46,7 +46,7 @@ Gradle이 서명한 release APK가 필요하면 다음 환경변수를 모두 �
 ## 실제 APK 검증
 
 ```sh
-node android/scripts/verify-apk.mjs dist/release/aidot-mini-1.0.8-android-x86_64-debug.apk
+node android/scripts/verify-apk.mjs dist/release/aidot-mini-1.0.9-android-x86_64-debug.apk
 ```
 
 검증기는 `aidot_mini_108_verify`라는 전용 AVD에서만 설치·삭제합니다. 기본 ADB serial은 `emulator-5590`이며 `ADB_SERIAL` 및 `ADB_PATH`로 지정할 수 있습니다. 서버 기동, SQLite CRUD, 실행 중인 Android Node/SQLite/crypto, 새로운 `@aidot` controller 컴파일, 재시작·재설치 데이터 보존, 삭제 후 재설치 초기화를 확인합니다. 결과는 `dist/android-verification/`에 기록됩니다.

@@ -1,6 +1,6 @@
 {
   "edition": "public",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "files": [
     {
       "path": ".env.example",
@@ -40,11 +40,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "a8aa94169fe23eed0d2259eef2a2e6395e40d42f3a073330bcb309f24b6813e4"
+      "sha256": "920f00ac37daf33b046c7197cc0be3fde7229b4b50a4f27f65306b539a6492c8"
     },
     {
       "path": "REVISION.txt",
-      "sha256": "738cf679e570213b595c40c8e61728b731f8a8727cda17dee11fc048929dd2f6"
+      "sha256": "1fbc53fec55c5680ba99a74857d20f8f114ef447d7653016bf742325c769d08b"
     },
     {
       "path": "SECURITY.md",
@@ -76,7 +76,7 @@
     },
     {
       "path": "android/README.md",
-      "sha256": "cba14696c1322368f97b4a730c006f3f56333251fd534c15a383b9082dfa0339"
+      "sha256": "c12f65c8ddaa753ab97b5c7b5b2f356886fb416bf8dc80448f2ecaa4d4ab446f"
     },
     {
       "path": "android/app/build.gradle.kts",
@@ -368,7 +368,7 @@
     },
     {
       "path": "deploy/windows/installer.nsi",
-      "sha256": "dd80bd594fd2b34e777a34f35d3f231b9a4106876e848d400c15faafb26b3841"
+      "sha256": "5dbc1efb74d85fa5874e1a7d34e2f12755e6621d35cfdf9ff0e5907da94c51d4"
     },
     {
       "path": "deploy/windows/setup-helper.mjs",
@@ -388,7 +388,7 @@
     },
     {
       "path": "docs/AI_STARTER.md",
-      "sha256": "3fa2cb3e3232f7e5e416f2ee2b50465ef1928fa3d42534cd4418fdc6a0f58a5d"
+      "sha256": "5187e680b491cd89a4aa32e5af99426d6278dee62d4c8fb842f203163ff5d471"
     },
     {
       "path": "docs/AI_WORKFLOW.md",
@@ -424,11 +424,11 @@
     },
     {
       "path": "docs/DEPLOY_ANDROID.md",
-      "sha256": "7d4d469bebe2d2fc39112ae3c1a61b8ab7109dddeafe8317a79a8a19675cac76"
+      "sha256": "365ff352a9fc86259a4db5d749ec3a591495134de66062edbddf64e43d0e5568"
     },
     {
       "path": "docs/DEPLOY_LINUX.md",
-      "sha256": "d3f68b7f15d1ab49983638f7db77c8868816f29eadda2df2ba6460a04d593245"
+      "sha256": "a203e9c7ba204222d1fb884b829fdfe140ed84459b59babbc8422c098c16dd47"
     },
     {
       "path": "docs/DEPLOY_ROS.md",
@@ -440,7 +440,7 @@
     },
     {
       "path": "docs/INSTALL_WINDOWS_KO.md",
-      "sha256": "84df94b0d97c1ed24df8dcbe1d48b4b2423f9cc811cd69c3630ed7a00a115ab2"
+      "sha256": "7d429d44a41728f78900afce24057319db98bad00799d29c652a88795b433371"
     },
     {
       "path": "docs/LICENSING.md",
@@ -464,7 +464,11 @@
     },
     {
       "path": "docs/RELEASE_1.0.8_KO.md",
-      "sha256": "994975021b3a8407383c1af3f639c06811f9ce894229f4d63e0bd08570c84c2c"
+      "sha256": "643d08f0766b06f1b6a4d0300304d4e9770e40e4d78000bffc48b42a1ea5e050"
+    },
+    {
+      "path": "docs/RELEASE_1.0.9_KO.md",
+      "sha256": "ec8c38ee4d8ce4ac79bd2acacf15bb7451ec6340fdeab659c2ad5bf1c0709dea"
     },
     {
       "path": "docs/ROS_SDK_BUILD_KO.md",
@@ -8204,7 +8208,7 @@
     },
     {
       "path": "examples/product-module.json",
-      "sha256": "ca4acada5663969cb16e62b372e38ffbf01ec486b30b3ea90a8c166e4668651d"
+      "sha256": "1af5cc2ee9c8d4a30072043a718403e140b5f13edb97d9b603ddf094cc1e7e62"
     },
     {
       "path": "examples/product-workspace/controller/ProductController.js",
@@ -8228,7 +8232,7 @@
     },
     {
       "path": "module.json",
-      "sha256": "4c711da1444ce57b1d6a84541bb25948b1cef4baf927dd76eff21307bc862df5"
+      "sha256": "fb1bf606dcac1b72a4acb3f6bd620a5ebf7f0e26a25dcf4c97b8fa96b397e61a"
     },
     {
       "path": "modules/robot-client/client.mjs",
@@ -8252,11 +8256,11 @@
     },
     {
       "path": "package-lock.json",
-      "sha256": "5205555f1ddfb4d1d97ad137571b5e642f8396bfc622c6cc6a990d6925be1971"
+      "sha256": "3c349f4406a33b7073cac244841b169100623143c90b0ecfffa9338b5213bd38"
     },
     {
       "path": "package.json",
-      "sha256": "732c295f739f4af3b945466936e2845489d7344154a1cb62148d8a6aaaa9e341"
+      "sha256": "e524d3ca85f9032160dc0f1620f8db57b5a7e33ce2cc8822155ce8777693bae7"
     },
     {
       "path": "public/console-tools.css",
@@ -8352,7 +8356,7 @@
     },
     {
       "path": "scripts/dist/release-github.mjs",
-      "sha256": "5014d8fdf9a12c2c1ff0bfbc1a2df8f59d815fb91050ee8314bfa5cdc86e8e19"
+      "sha256": "ca664a1289a53cfdc689418376880bd087707a0e1bec29fa2d8d6f1d17efef60"
     },
     {
       "path": "scripts/dist/runtime-files.json",
@@ -8588,7 +8592,7 @@
     },
     {
       "path": "tests/dist.test.mjs",
-      "sha256": "fe88af705d7aba9160c0f884d86a8092f3ded99ad75e551c1796749fec095699"
+      "sha256": "adcec87f213845da9190e130ffe1f22b8f948141ad33d6a867ed842599851c45"
     },
     {
       "path": "tests/events.test.mjs",

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Default is a local, reviewable release plan. Publishing requires --publish --repo.
+// Default creates a draft in the public repository. Use --dry-run for a local plan only.
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
@@ -33,24 +33,26 @@ export function createPlan(directory, { repo, version } = {}) {
   return plan;
 }
 
-function gh(args) {
-  const result = spawnSync('gh', args, { encoding: 'utf8' });
+function gh(args, run = spawnSync) {
+  const result = run('gh', args, { encoding: 'utf8' });
   if (result.error || result.status !== 0) throw new Error(`GitHub CLI failed: ${result.error?.message || result.stderr || result.stdout}`);
   return result.stdout;
 }
-async function main() {
-  const { values } = parseArgs({ options: { directory: { type: 'string', default: path.join(ROOT, 'dist/release') }, repo: { type: 'string' }, publish: { type: 'boolean', default: false }, 'dry-run': { type: 'boolean', default: false }, help: { type: 'boolean' } } });
-  if (values.help) { console.log('release-github.mjs [--directory DIR] [--repo owner/repository] [--publish]\nDefault: write local plan/checksums only. --publish creates a draft; never overwrites an existing release.'); return; }
+export async function main(args = process.argv.slice(2), { run = spawnSync, output = console.log } = {}) {
+  const { values } = parseArgs({ args, options: { directory: { type: 'string', default: path.join(ROOT, 'dist/release') }, repo: { type: 'string', default: 'mike-jung/aidot-mini' }, publish: { type: 'boolean', default: false }, 'dry-run': { type: 'boolean', default: false }, help: { type: 'boolean' } } });
+  if (values.help) { output('release-github.mjs [--directory DIR] [--repo owner/repository] [--dry-run]\nDefault: create a draft in mike-jung/aidot-mini from verified public artifacts.\nRequires an authenticated GitHub CLI and an existing remote version tag.\n--dry-run writes local plan/checksums only; no GitHub access.\n--repo overrides the destination. --publish remains accepted for compatibility.\nExisting releases are never overwritten.'); return; }
   if (values.publish && values['dry-run']) throw new Error('Choose --publish or --dry-run');
-  if (values.publish && !values.repo) throw new Error('--publish requires an explicit --repo owner/repository');
+  if (!values.repo) throw new Error('Use --repo owner/repository');
   const directory = path.resolve(values.directory), plan = createPlan(directory, { repo: values.repo });
-  if (values.publish) {
-    const existing = spawnSync('gh', ['release', 'view', plan.tag, '--repo', values.repo], { encoding: 'utf8' });
+  if (!values['dry-run']) {
+    const existing = run('gh', ['release', 'view', plan.tag, '--repo', values.repo], { encoding: 'utf8' });
+    if (existing.error || ![0, 1].includes(existing.status)) throw new Error(`GitHub CLI failed: ${existing.error?.message || existing.stderr || existing.stdout}`);
     if (existing.status === 0) throw new Error(`Release ${plan.tag} already exists; review it manually instead of overwriting.`);
-    gh(['release', 'create', plan.tag, ...plan.assets.map(asset => path.join(directory, asset.file)), path.join(directory, 'SHA256SUMS.txt'), '--repo', values.repo, '--draft', '--verify-tag', '--title', `aidot-mini ${plan.version}`, '--notes-file', path.join(directory, 'RELEASE_NOTES.md')]);
+    gh(['release', 'create', plan.tag, ...plan.assets.map(asset => path.join(directory, asset.file)), path.join(directory, 'SHA256SUMS.txt'), '--repo', values.repo, '--draft', '--verify-tag', '--title', `aidot-mini ${plan.version}`, '--notes-file', path.join(directory, 'RELEASE_NOTES.md')], run);
     plan.uploadPerformed = true;
     fs.writeFileSync(path.join(directory, 'RELEASE_PLAN.json'), JSON.stringify(plan, null, 2) + '\n');
   }
-  console.log(JSON.stringify(plan, null, 2));
+  output(JSON.stringify(plan, null, 2));
+  return plan;
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) main().catch(error => { console.error(error.message); process.exitCode = 1; });

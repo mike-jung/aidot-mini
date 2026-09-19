@@ -1,6 +1,6 @@
 {
   "name": "aidot-mini",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Minimal portable aidot-express Controller/Service/SQL runtime for robots, drones and mobile terminals",
   "type": "module",
   "engines": {
