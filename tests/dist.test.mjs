@@ -3,8 +3,31 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import { findPython } from '../scripts/run-python.mjs';
 import { policy, regularFile, verifyBinary, sha256 } from '../scripts/dist/dist.mjs';
 import { createPlan, main as releaseMain } from '../scripts/dist/release-github.mjs';
+
+test('Linux archives restore executable permissions when the build host does not preserve them', t => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'aidot-dist-modes-'));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  const source = path.join(root, 'payload'), archive = path.join(root, 'payload.tar.gz');
+  const files = ['runtime/node', 'bin/aidot-mini', 'ros-src/ros1/src/aidot_mini_ros/scripts/aidot_robot_bridge', 'app/start.js'];
+  for (const file of files) {
+    const target = path.join(source, file); fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.writeFileSync(target, '#!/bin/sh\nprintf "archive executable works"\n'); fs.chmodSync(target, 0o644);
+  }
+  const python = findPython();
+  execFileSync(python, [fileURLToPath(new URL('../scripts/dist/archive.py', import.meta.url)), 'tar', source, archive]);
+  const check = `import json,sys,tarfile\nwith tarfile.open(sys.argv[1]) as archive:\n print(json.dumps({item.name:item.mode for item in archive}))\n archive.extractall(sys.argv[2], **({'filter':'data'} if hasattr(tarfile,'data_filter') else {}))\n`;
+  const unpacked = path.join(root, 'unpacked');
+  const modes = JSON.parse(execFileSync(python, ['-c', check, archive, unpacked], { encoding: 'utf8' }));
+  for (const file of files.slice(0, 3)) assert.equal(modes['payload/' + file], 0o755, file);
+  assert.equal(modes['payload/app/start.js'], 0o644);
+  assert.equal(modes['payload/bin'], 0o755);
+  if (process.platform !== 'win32') assert.equal(execFileSync(path.join(unpacked, 'payload/bin/aidot-mini'), { encoding: 'utf8' }), 'archive executable works');
+});
 
 test('installed release policy excludes private code and runtime state', () => {
   const files = [...policy.common, ...policy.full, ...policy.robot];

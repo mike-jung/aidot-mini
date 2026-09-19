@@ -29,10 +29,16 @@ def main():
                     archive.writestr(entry, item.read_bytes())
         return
     if command == 'tar':
+        executables = {'runtime/node', 'bin/aidot-mini',
+                       'ros-src/ros1/src/aidot_mini_ros/scripts/aidot_robot_bridge'}
         with tarfile.open(destination, 'w:gz', compresslevel=6) as archive:
             def normalize(item):
                 if not (item.isfile() or item.isdir()):
                     raise ValueError('Only regular files and directories are permitted')
+                # Windows chmod cannot preserve POSIX execute bits. Write target
+                # permissions explicitly so cross-built Linux packages can run.
+                relative = pathlib.PurePosixPath(item.name).relative_to(source.name).as_posix()
+                item.mode = 0o755 if item.isdir() or relative in executables else 0o644
                 item.uid = item.gid = item.mtime = 0
                 item.uname = item.gname = ''
                 return item

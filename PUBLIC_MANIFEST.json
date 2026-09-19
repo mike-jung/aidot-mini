@@ -1,6 +1,6 @@
 {
   "edition": "public",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "files": [
     {
       "path": ".env.example",
@@ -40,11 +40,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "920f00ac37daf33b046c7197cc0be3fde7229b4b50a4f27f65306b539a6492c8"
+      "sha256": "a63a4322db63bb97d8ae2701e757cc3de39fe9070e70e0efcf0775c64e558c8d"
     },
     {
       "path": "REVISION.txt",
-      "sha256": "1fbc53fec55c5680ba99a74857d20f8f114ef447d7653016bf742325c769d08b"
+      "sha256": "e075c58f307e7b5431e55797bebde6d5f7f1cf4a0872b79e4ef50a8bc2c60266"
     },
     {
       "path": "SECURITY.md",
@@ -76,7 +76,7 @@
     },
     {
       "path": "android/README.md",
-      "sha256": "c12f65c8ddaa753ab97b5c7b5b2f356886fb416bf8dc80448f2ecaa4d4ab446f"
+      "sha256": "3fb0a1bf3bb972824e3426c98c63882ad1b6bb38fe3fc4ec85ad6628c0edff72"
     },
     {
       "path": "android/app/build.gradle.kts",
@@ -368,7 +368,7 @@
     },
     {
       "path": "deploy/windows/installer.nsi",
-      "sha256": "5dbc1efb74d85fa5874e1a7d34e2f12755e6621d35cfdf9ff0e5907da94c51d4"
+      "sha256": "b7dbb9165a336da7a9b4623218b554f10bf7a874e12805ef9a4642d1b860da98"
     },
     {
       "path": "deploy/windows/setup-helper.mjs",
@@ -388,7 +388,7 @@
     },
     {
       "path": "docs/AI_STARTER.md",
-      "sha256": "5187e680b491cd89a4aa32e5af99426d6278dee62d4c8fb842f203163ff5d471"
+      "sha256": "04e4bc493c3a43e3d9046c02df1e8baf8ccadd6dda97df1064f45e9447f4fee9"
     },
     {
       "path": "docs/AI_WORKFLOW.md",
@@ -424,11 +424,11 @@
     },
     {
       "path": "docs/DEPLOY_ANDROID.md",
-      "sha256": "365ff352a9fc86259a4db5d749ec3a591495134de66062edbddf64e43d0e5568"
+      "sha256": "553bb176e758a9b508ddf5757710f4e6add3a50741daf47c79ab6582605487c0"
     },
     {
       "path": "docs/DEPLOY_LINUX.md",
-      "sha256": "a203e9c7ba204222d1fb884b829fdfe140ed84459b59babbc8422c098c16dd47"
+      "sha256": "c87632f1d39c05dcc2f354f4386c5a0da8843a025e54ed15e743d284ff1b203a"
     },
     {
       "path": "docs/DEPLOY_ROS.md",
@@ -440,7 +440,7 @@
     },
     {
       "path": "docs/INSTALL_WINDOWS_KO.md",
-      "sha256": "7d429d44a41728f78900afce24057319db98bad00799d29c652a88795b433371"
+      "sha256": "1cd7d03cb8c84c1f6ff2271d185a9d420adf465fc36c37ec4c400143563b3b91"
     },
     {
       "path": "docs/LICENSING.md",
@@ -457,6 +457,10 @@
     {
       "path": "docs/PORTING_NOTE.md",
       "sha256": "c409a89bce72949794f36f1641d3b35ba2e096c1e3869c4e3fb2e77d8f2fda91"
+    },
+    {
+      "path": "docs/RELEASE_1.0.10_KO.md",
+      "sha256": "c81e6014fb08cda6536f130875e34761213793190ce4d7b5d447fc8c7e3bad34"
     },
     {
       "path": "docs/RELEASE_1.0.7_KO.md",
@@ -8208,7 +8212,7 @@
     },
     {
       "path": "examples/product-module.json",
-      "sha256": "1af5cc2ee9c8d4a30072043a718403e140b5f13edb97d9b603ddf094cc1e7e62"
+      "sha256": "f9356c0aad5646368aea46f2e137bdb1b503deb359c5ab5bc1d6bad6a08e9eb7"
     },
     {
       "path": "examples/product-workspace/controller/ProductController.js",
@@ -8232,7 +8236,7 @@
     },
     {
       "path": "module.json",
-      "sha256": "fb1bf606dcac1b72a4acb3f6bd620a5ebf7f0e26a25dcf4c97b8fa96b397e61a"
+      "sha256": "fcdcdc58478a70ec5b5b061db33a0c705f92a9805792b89e7051bb1b2e81ee37"
     },
     {
       "path": "modules/robot-client/client.mjs",
@@ -8256,11 +8260,11 @@
     },
     {
       "path": "package-lock.json",
-      "sha256": "3c349f4406a33b7073cac244841b169100623143c90b0ecfffa9338b5213bd38"
+      "sha256": "30243e3b525d77aa714de46d7e5a7cbc35d1bef3800823d977ffc332be3f4d28"
     },
     {
       "path": "package.json",
-      "sha256": "e524d3ca85f9032160dc0f1620f8db57b5a7e33ce2cc8822155ce8777693bae7"
+      "sha256": "a454d55874fc9552a3b6cecb545ce822ed155c87c3280453c440edb08f0c4b68"
     },
     {
       "path": "public/console-tools.css",
@@ -8308,7 +8312,7 @@
     },
     {
       "path": "scripts/build-linux.py",
-      "sha256": "f32cde080576330234ec997bdba1be31fe263fda4313b92102fc997335470b07"
+      "sha256": "203c6bf6510d33beeb4e96aafebd72acd78f8846c2e2c47a25c3d9cb7c8967f0"
     },
     {
       "path": "scripts/build-ros.py",
@@ -8340,15 +8344,19 @@
     },
     {
       "path": "scripts/dist/android.mjs",
-      "sha256": "dc21382a46495dfb6cff55a4714eac263a82cb1803b67a6f897e4743d387f42c"
+      "sha256": "a74c17132f9270e36733402415ce046949051faa30a9148892a145e5a743b168"
     },
     {
       "path": "scripts/dist/archive.py",
-      "sha256": "f9daef65a7cade408e6965bd8d0051cae45bb12dde35bdf14abe95a7b0793332"
+      "sha256": "1582cd5d6edfcaabcf823d3fc8537e89d3b2e78b1ed88b760145965b0820d2ac"
+    },
+    {
+      "path": "scripts/dist/build-tools.mjs",
+      "sha256": "bd364fc099109aca0dd1e88fddbb30929cdf31e1e7555fbe1ef3f0fda7af066f"
     },
     {
       "path": "scripts/dist/dist.mjs",
-      "sha256": "d9cef381c54da6f0df90237f0ed5bbb2397ce0bbab842aa311be199def81bf49"
+      "sha256": "2a9f5d6473e7ea6bcfaeb29417492fb293bcefc5c43a2ee22460e08c12efe34a"
     },
     {
       "path": "scripts/dist/licenses/node-24.19.0-LICENSE",
@@ -8383,8 +8391,16 @@
       "sha256": "55e99422538ebaba563a2afe900c71b491caf881dc111aed0b4885564889c335"
     },
     {
+      "path": "scripts/prepare-dependencies.mjs",
+      "sha256": "70fe2bf0669ec7a7d917a1b745dc0de3b75c48eb1144a5da5446ba155f8b544d"
+    },
+    {
+      "path": "scripts/run-python.mjs",
+      "sha256": "6172ff0277abbb3cbfcbf0a0305c99d05d77cec1c5e95db657452f448a1bf560"
+    },
+    {
       "path": "scripts/runtime_assets.py",
-      "sha256": "fd1386384d7a10ff876b8ee437fdad56e138d84734bef7eb94bb8fa89ac2200e"
+      "sha256": "d613a39921521c4db4f17193e56b42ca73bbbc4990ff2a1c0ee7a7b6a010ba4d"
     },
     {
       "path": "scripts/smoke-note.mjs",
@@ -8396,7 +8412,7 @@
     },
     {
       "path": "scripts/starter-files.json",
-      "sha256": "6fa82d08789fd7285f54388385f8761d4bd7d6bc9e77519ca20f1a6fad7928f2"
+      "sha256": "b02904ba200edd43fb1228c3e6b3df255e80f8ef2a9849ebe92b861df73e1a0b"
     },
     {
       "path": "scripts/test.mjs",
@@ -8583,6 +8599,10 @@
       "sha256": "9b6647cd5ca6a6c391540fed3e5a1ab55d339fc11fd4cff1736436eae83d67c0"
     },
     {
+      "path": "tests/build-tools.test.mjs",
+      "sha256": "a16f55ffa77a744f5fe84c4c6ec5e0166cc2daeb6ee4e4956535de007f2babc2"
+    },
+    {
       "path": "tests/console-auth.dom.mjs",
       "sha256": "9ad77d6da417e8b112fca280e25fe0194c369a95181923fb4b96890af7b2a1fd"
     },
@@ -8592,7 +8612,7 @@
     },
     {
       "path": "tests/dist.test.mjs",
-      "sha256": "adcec87f213845da9190e130ffe1f22b8f948141ad33d6a867ed842599851c45"
+      "sha256": "262fd7c091cfe25eb8a4b3329f610b4e08fe57afca3773ea56691e0275daa2ce"
     },
     {
       "path": "tests/events.test.mjs",

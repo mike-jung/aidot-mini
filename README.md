@@ -9,7 +9,7 @@ Spring-style Controllers, Services, and SQL — with local SQLite and optional d
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 ![Node](https://img.shields.io/badge/node-%3E%3D22.19-brightgreen)
-![Version](https://img.shields.io/badge/version-1.0.9-orange)
+![Version](https://img.shields.io/badge/version-1.0.10-orange)
 
 </div>
 
@@ -132,9 +132,12 @@ Device packages bundle Node.js. Use `npm run dist:win:full` or
 `npm run dist:linux:full` to include the console UI; minimal packages and the
 AI Starter omit it. Windows, Linux, and robot outputs go to `dist/release/`.
 
-Build machines need Node.js and Python 3. Windows installers also require NSIS;
-Android builds require the Android runtime, JDK, SDK, and Gradle toolchain.
-See the linked guides for setup and signing requirements.
+Build machines need Node.js and Python 3. Missing or incomplete npm build
+dependencies are prepared automatically with `npm ci --ignore-scripts`.
+Windows installers also require NSIS 3; its standard Windows installation path
+is detected automatically. Android APK builds require JDK 17+ and Android SDK
+platform 36; the build downloads the pinned Android runtime and uses the included
+Gradle wrapper. See the linked guides for setup and signing requirements.
 
 ROS and device SDKs are separate integrations. aidot-mini runs application APIs;
 real-time motion and safety control remain with the device's control system.
@@ -151,7 +154,7 @@ npm run release:github
 This creates a **Draft Release** in `mike-jung/aidot-mini`, uploading verified
 public artifacts from `dist/release/` and their checksums. It requires an
 authenticated GitHub CLI (`gh auth login`) and the version tag already pushed
-to that repository (`v1.0.9` for this release). Existing releases are never overwritten.
+to that repository (`v1.0.10` for this release). Existing releases are never overwritten.
 
 ```bash
 npm run release:github -- --dry-run                  # Local plan only; no GitHub access
@@ -179,7 +182,7 @@ npm run verify             # Static checks, regression tests, and Product HTTP t
 npm run product:contract   # Product API contract checks
 ```
 
-See the [1.0.9 release record](docs/RELEASE_1.0.9_KO.md) for changes and verification.
+See the [1.0.10 release record](docs/RELEASE_1.0.10_KO.md) for changes and verification.
 The [1.0.8 platform report](docs/RELEASE_1.0.8_KO.md) records earlier device builds
 and hardware coverage. Some detailed guides are currently in Korean.
 

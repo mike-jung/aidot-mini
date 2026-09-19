@@ -1,4 +1,4 @@
-# Android application builds — 1.0.9
+# Android application builds — 1.0.10
 
 The Android app runs a local Node server in a foreground service and opens the
 console in a WebView. Its bundled profile listens on loopback. The source HTTPS
@@ -25,7 +25,8 @@ The step-by-step commands below remain useful for diagnosing the build pipeline.
 ## Requirements
 
 Use JDK 17 or 21, Android SDK 36, the project's Gradle wrapper and Python 3.
-Install source dependencies with `npm ci --ignore-scripts`. Configure the SDK
+The release command prepares missing npm dependencies automatically; you can
+also run `npm ci --ignore-scripts` first. Configure the SDK
 using `ANDROID_HOME` or your local Android SDK configuration. The app's Gradle
 configuration specifies its build tools and SDK levels.
 

@@ -5,6 +5,9 @@ import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { parseArgs } from 'node:util';
+import { ensureBuildDependencies } from '../prepare-dependencies.mjs';
+import { findPython } from '../run-python.mjs';
+import { findMakensis } from './build-tools.mjs';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 export const sha256 = value => crypto.createHash('sha256').update(value).digest('hex');
@@ -19,13 +22,6 @@ function run(command, args, options = {}) {
     throw new Error(`${command} failed: ${result.error?.message || result.stderr || result.stdout}`);
   }
   return result.stdout;
-}
-function python() {
-  for (const candidate of process.platform === 'win32' ? ['python', 'python3'] : ['python3', 'python']) {
-    const check = spawnSync(candidate, ['--version'], { encoding: 'utf8' });
-    if (check.status === 0 && /Python 3\./.test(check.stdout + check.stderr)) return candidate;
-  }
-  throw new Error('Python 3 is required on the build machine (not on installed machines).');
 }
 export function regularFile(root, relative) {
   if (!relative || path.isAbsolute(relative) || relative.includes('\\') || relative.split('/').some(p => !p || p === '.' || p === '..')) {
@@ -118,8 +114,9 @@ export async function build(options) {
   const rootPackage = readJson(path.join(ROOT, 'package.json'));
   if (!/^\d+\.\d+\.\d+(?:-[A-Za-z0-9.-]+)?$/.test(rootPackage.version)) throw new Error('Unsafe package version');
   if (JSON.stringify(rootPackage.dependencies) !== JSON.stringify({ 'esbuild-wasm': '0.28.2' }) || rootPackage.optionalDependencies) throw new Error('Unreviewed runtime dependencies');
-  const compiler = path.join(ROOT, 'node_modules/esbuild-wasm');
-  if (readJson(path.join(compiler, 'package.json')).version !== '0.28.2') throw new Error('Run npm ci for the pinned compiler');
+  const compiler = ensureBuildDependencies({ root: ROOT, offline: options.offline });
+  const python = findPython();
+  const makensis = platform === 'win' && !options.noInstaller ? findMakensis({ explicit: options.makensis }) : null;
   const output = path.resolve(options.output), cache = path.resolve(options.cache);
   fs.mkdirSync(output, { recursive: true }); fs.mkdirSync(cache, { recursive: true });
   const runtime = lock.archives[`${platform}-${arch}`], archive = path.join(cache, runtime.file);
@@ -146,7 +143,7 @@ export async function build(options) {
     writeJson(path.join(app, 'package.json'), releasePackage(rootPackage));
     fs.mkdirSync(path.join(destination, 'runtime'));
     const binary = path.join(destination, 'runtime', platform === 'win' ? 'node.exe' : 'node');
-    run(python(), [path.join(ROOT, 'scripts/dist/archive.py'), 'runtime', archive, binary, `package/bin/${platform === 'win' ? 'node.exe' : 'node'}`]);
+    run(python, [path.join(ROOT, 'scripts/dist/archive.py'), 'runtime', archive, binary, `package/bin/${platform === 'win' ? 'node.exe' : 'node'}`]);
     const bytes = fs.readFileSync(binary);
     if (sha256(bytes) !== runtime.binarySha256) throw new Error('Runtime binary checksum mismatch');
     verifyBinary(bytes, platform, arch); fs.chmodSync(binary, 0o755);
@@ -160,15 +157,15 @@ export async function build(options) {
     writeJson(path.join(destination, 'manifest.json'), { ...distribution, files: hashes });
     const artifact = path.join(output, `${name}.${platform === 'win' ? 'zip' : 'tar.gz'}`);
     const temporary = artifact + '.tmp';
-    run(python(), [path.join(ROOT, 'scripts/dist/archive.py'), platform === 'win' ? 'zip' : 'tar', destination, temporary]);
+    run(python, [path.join(ROOT, 'scripts/dist/archive.py'), platform === 'win' ? 'zip' : 'tar', destination, temporary]);
     fs.renameSync(temporary, artifact);
     const outputs = [artifact];
     if (platform === 'win' && !options.noInstaller) {
       const include = path.join(stageParent, 'uninstall-files.nsh');
-      run(python(), [path.join(ROOT, 'deploy/windows/create-uninstall-manifest.py'), destination, include]);
+      run(python, [path.join(ROOT, 'deploy/windows/create-uninstall-manifest.py'), destination, include]);
       const installer = path.join(output, `${name}-setup.exe`);
       const define = process.platform === 'win32' ? '/D' : '-D';
-      run(options.makensis || 'makensis', [`${define}PAYLOAD=${destination}`, `${define}VERSION=${rootPackage.version}`, `${define}OUTFILE=${installer}`, `${define}EDITION=${variant}`, `${define}UNINSTALL_MANIFEST=${include}`, path.join(ROOT, 'deploy/windows/installer.nsi')], { timeout: 300000 });
+      run(makensis, [`${define}PAYLOAD=${destination}`, `${define}VERSION=${rootPackage.version}`, `${define}OUTFILE=${installer}`, `${define}EDITION=${variant}`, `${define}UNINSTALL_MANIFEST=${include}`, path.join(ROOT, 'deploy/windows/installer.nsi')], { timeout: 300000 });
       outputs.push(installer);
     }
     const result = outputs.map(file => ({ file: path.basename(file), bytes: fs.statSync(file).size, sha256: sha256(fs.readFileSync(file)), version: rootPackage.version, edition: 'public', target, arch, variant }));

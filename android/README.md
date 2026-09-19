@@ -4,10 +4,9 @@ Android 휴대 단말과 Android 기반 로봇·드론의 탑재 컴퓨터에서
 
 ## 빌드
 
-프로젝트 루트에서 실행합니다. Node 22.19 이상, Python 3, Java 17 이상, Android SDK platform 36/build-tools, Android SDK의 기존 라이선스 동의가 필요합니다.
+프로젝트 루트에서 실행합니다. Node 22.19 이상, Python 3, JDK 17 이상(`javac` 포함), Android SDK platform 36/build-tools 35.0.0, Android SDK의 기존 라이선스 동의가 필요합니다. 누락되거나 불완전한 npm 빌드 의존성은 자동 준비합니다.
 
 ```sh
-npm ci
 npm run dist:android
 ```
 
@@ -22,7 +21,7 @@ npm run dist:android -- --abi x86_64 --debug-only
 npm run dist:android -- --offline
 ```
 
-`--offline`은 Termux 런타임 패키지 다운로드만 금지합니다. Gradle 의존성은 처음 빌드할 때 다운로드할 수 있습니다. 런타임 캐시는 기본 `dist/.cache/android-runtime`, 사용자 지정 위치는 `AIDOT_ANDROID_RUNTIME_CACHE`입니다. 정확한 패키지 버전·SHA-256·ELF ABI·16KB 메모리 페이지 정렬을 검증하며, 패키지가 없어졌거나 해시가 달라지면 중단합니다. 임의의 Linux Node 실행 파일로 대체하지 않습니다.
+`--offline`은 npm 캐시만 사용하며 Termux 런타임 패키지 다운로드를 금지합니다. Gradle 의존성은 처음 빌드할 때 다운로드할 수 있습니다. 런타임 캐시는 기본 `dist/.cache/android-runtime`, 사용자 지정 위치는 `AIDOT_ANDROID_RUNTIME_CACHE`입니다. 정확한 패키지 버전·SHA-256·ELF ABI·16KB 메모리 페이지 정렬을 검증하며, 패키지가 없어졌거나 해시가 달라지면 중단합니다. 임의의 Linux Node 실행 파일로 대체하지 않습니다.
 
 ## 배포 서명
 
@@ -35,7 +34,7 @@ Gradle이 서명한 release APK가 필요하면 다음 환경변수를 모두 �
 - `AIDOT_ANDROID_KEY_ALIAS`
 - `AIDOT_ANDROID_KEY_PASSWORD`
 
-서명된 빌드는 `*-release.apk`로 출력됩니다. `android-build-manifest.json`이 버전·ABI·서명 종류·크기·SHA-256을 기록합니다. `package.json`의 버전이 Android `versionName`의 기준이며, 1.0.9의 `versionCode`는 10009입니다.
+서명된 빌드는 `*-release.apk`로 출력됩니다. `android-build-manifest.json`이 버전·ABI·서명 종류·크기·SHA-256을 기록합니다. `package.json`의 버전이 Android `versionName`의 기준이며, 1.0.10의 `versionCode`는 10010입니다.
 
 ## 실행과 데이터
 
@@ -46,7 +45,7 @@ Gradle이 서명한 release APK가 필요하면 다음 환경변수를 모두 �
 ## 실제 APK 검증
 
 ```sh
-node android/scripts/verify-apk.mjs dist/release/aidot-mini-1.0.9-android-x86_64-debug.apk
+node android/scripts/verify-apk.mjs dist/release/aidot-mini-1.0.10-android-x86_64-debug.apk
 ```
 
 검증기는 `aidot_mini_108_verify`라는 전용 AVD에서만 설치·삭제합니다. 기본 ADB serial은 `emulator-5590`이며 `ADB_SERIAL` 및 `ADB_PATH`로 지정할 수 있습니다. 서버 기동, SQLite CRUD, 실행 중인 Android Node/SQLite/crypto, 새로운 `@aidot` controller 컴파일, 재시작·재설치 데이터 보존, 삭제 후 재설치 초기화를 확인합니다. 결과는 `dist/android-verification/`에 기록됩니다.

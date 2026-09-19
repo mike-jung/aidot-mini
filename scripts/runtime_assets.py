@@ -2,9 +2,14 @@
 from pathlib import Path
 import json
 import subprocess
+from functools import lru_cache
 EXPECTED={'esbuild-wasm':'0.28.2'}
+@lru_cache(maxsize=None)
+def prepare_dependencies(root):
+    subprocess.run(['node',str(Path(root)/'scripts/prepare-dependencies.mjs')],cwd=root,check=True)
 def workspace_directory(root):
     """Use the same .env / saved setting / APP_WORKSPACE precedence as the server."""
+    prepare_dependencies(str(Path(root).resolve()))
     value=subprocess.check_output(['node','--input-type=module','-e',
         "import config from './src/config.js'; process.stdout.write(JSON.stringify(config.paths.workspace))"],
         cwd=root,text=True)
@@ -15,6 +20,7 @@ def workspace_directory(root):
 
 def compiler_files(root):
     root=Path(root)
+    prepare_dependencies(str(root.resolve()))
     app=json.loads((root/'package.json').read_text(encoding='utf-8'))
     if app.get('dependencies')!=EXPECTED or app.get('optionalDependencies'):
         raise RuntimeError('Unexpected runtime dependency; update the audited packager')

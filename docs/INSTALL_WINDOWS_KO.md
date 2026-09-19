@@ -1,4 +1,4 @@
-# aidot-mini 1.0.9 Windows 설치·설정·삭제
+# aidot-mini 1.0.10 Windows 설치·설정·삭제
 
 Windows 배포물은 **Node 런타임을 포함한 사용자별 설치 프로그램과 ZIP**으로 제공합니다. 대상 PC에 Node·npm·Python을 먼저 설치하지 않아도 API를 실행할 수 있습니다. `minimal`은 업무 API용이며, `full`은 관리 콘솔과 로봇 화면을 추가합니다. Vue Product 클라이언트는 Full 소스에서 별도로 개발·빌드합니다. 비공개 Full 소스·게시 설정을 포함한다는 뜻은 아닙니다.
 
@@ -12,16 +12,16 @@ Inno Setup도 적합한 대안이지만, 이번 구성은 Linux 빌드 환경에
 
 ## Windows 배포물 빌드
 
-소스 루트에서 `npm ci --ignore-scripts` 후 `npm run dist:win` 또는 `npm run dist:win:full`을 실행합니다. Node·Python 3·NSIS는 빌드 PC에만 필요합니다. 일반 사용자는 만들어진 ZIP/설치 프로그램을 사용합니다.
+소스 루트에서 `npm run dist:win` 또는 `npm run dist:win:full`을 실행합니다. 누락되거나 불완전한 npm 빌드 의존성은 `npm ci --ignore-scripts`로 자동 준비합니다. 미리 직접 실행해도 됩니다. Node·Python 3·NSIS 3은 빌드 PC에만 필요합니다. 일반 사용자는 만들어진 ZIP/설치 프로그램을 사용합니다.
 
-NSIS가 PATH에 없으면 PowerShell에서 실제 컴파일러 경로를 지정합니다.
+NSIS는 PATH와 `Program Files (x86)\NSIS`, `Program Files\NSIS`의 표준 설치 위치를 자동 확인합니다. 다른 위치라면 PowerShell에서 실제 컴파일러 경로를 지정합니다.
 
 ```powershell
 npm run dist:win -- --makensis "C:\Program Files (x86)\NSIS\makensis.exe"
 npm run dist:win:full -- --makensis "C:\Program Files (x86)\NSIS\makensis.exe"
 ```
 
-결과는 기본 `dist/release/`에 생성합니다. `--no-installer`는 ZIP만 만들며 설치 프로그램까지 빌드한 것으로 보고하지 않습니다. Windows 패키지 빌더는 PATH에서 `python` 또는 `python3`를 찾으므로 Python 3 실행 파일이 PATH에서 실행되는지 확인합니다.
+결과는 기본 `dist/release/`에 생성합니다. `--no-installer`는 ZIP만 만듭니다. Windows 빌더는 PATH의 `python`, `python3`, `py`를 순서대로 확인합니다. 별도 Python 경로는 `AIDOT_PYTHON`으로 지정할 수 있습니다. Python 3 또는 NSIS 3이 없으면 런타임 다운로드 전에 필요한 도구를 안내합니다.
 
 ## 신규 설치
 
@@ -125,7 +125,7 @@ Windows의 앱 제거 또는 설치 폴더의 삭제 프로그램을 실행합�
 설치 프로그램은 다음 옵션을 지원합니다. 아래 파일명은 `minimal`의 예입니다. PowerShell에서 `$setup`을 실제 다운로드한 설치 파일 경로로 지정합니다.
 
 ```powershell
-$setup = '.\aidot-mini-1.0.9-win-x64-minimal-setup.exe'
+$setup = '.\aidot-mini-1.0.10-win-x64-minimal-setup.exe'
 Start-Process -FilePath $setup -Wait -PassThru -ArgumentList '/S /PORT=8901 /DATABASE=app.db /PROFILE=note'
 ```
 
@@ -152,4 +152,4 @@ Start-Process -FilePath $setup -Wait -PassThru -ArgumentList '/S /PORT=8901 /DAT
 6. 일반 삭제 후 데이터 유지, 재설치 후 복원, 전체 삭제 후 앱 소유 데이터·바로가기·등록 정보 제거를 각각 확인합니다.
 7. 삭제 대상 밖에 둔 표식 파일이 보존되는지 확인합니다.
 
-위는 검증 기준입니다. 실제로 완료한 항목·운영체제·제약은 [1.0.9 릴리스 기록](RELEASE_1.0.9_KO.md)에 기록합니다. Linux에서 설치 파일을 컴파일한 것, Wine에서 실행한 것, 실제 Windows에서 설치한 것은 별도로 구분합니다. 서명 여부도 릴리스에서 확인하며, 코드 서명이 없는 파일을 서명된 배포물로 표시하지 않습니다.
+위는 검증 기준입니다. 실제로 완료한 항목·운영체제·제약은 [1.0.10 릴리스 기록](RELEASE_1.0.10_KO.md)에 기록합니다. Linux에서 설치 파일을 컴파일한 것, Wine에서 실행한 것, 실제 Windows에서 설치한 것은 별도로 구분합니다. 서명 여부도 릴리스에서 확인하며, 코드 서명이 없는 파일을 서명된 배포물로 표시하지 않습니다.

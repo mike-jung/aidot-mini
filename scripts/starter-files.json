@@ -79,6 +79,7 @@
     "scripts/export-module.mjs",
     "scripts/init-workspace.mjs",
     "scripts/migrate-workspace.mjs",
+    "scripts/run-python.mjs",
     "scripts/smoke-note.mjs",
     "scripts/start-product.mjs",
     "scripts/starter-files.json",

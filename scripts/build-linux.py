@@ -20,7 +20,9 @@ def main():
     runtime=lock['archives'][args.arch];args.runtime_cache.mkdir(parents=True,exist_ok=True)
     archive=args.runtime_cache/runtime['file']
     if not archive.exists() and args.download:
-        subprocess.run(['npm','pack','--ignore-scripts','--pack-destination',str(args.runtime_cache),runtime['package']],check=True)
+        npm=json.loads(subprocess.check_output(['node','--input-type=module','-e',
+            "import {npmCommand} from './scripts/prepare-dependencies.mjs'; console.log(JSON.stringify(npmCommand()))"],cwd=ROOT,text=True))
+        subprocess.run([npm['command'],*npm['args'],'pack','--ignore-scripts','--pack-destination',str(args.runtime_cache),runtime['package']],cwd=ROOT,check=True)
     if not archive.is_file():p.error('Runtime missing; supply --runtime-cache or use --download')
     if sha(archive)!=runtime['sha256']:raise SystemExit('Pinned runtime archive checksum mismatch')
     version=json.loads((ROOT/'package.json').read_text())['version']
