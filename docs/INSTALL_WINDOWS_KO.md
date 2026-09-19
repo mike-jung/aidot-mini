@@ -1,4 +1,4 @@
-# aidot-mini 1.0.10 Windows 설치·설정·삭제
+# aidot-mini 1.0.11 Windows 설치·설정·삭제
 
 Windows 배포물은 **Node 런타임을 포함한 사용자별 설치 프로그램과 ZIP**으로 제공합니다. 대상 PC에 Node·npm·Python을 먼저 설치하지 않아도 API를 실행할 수 있습니다. `minimal`은 업무 API용이며, `full`은 관리 콘솔과 로봇 화면을 추가합니다. Vue Product 클라이언트는 Full 소스에서 별도로 개발·빌드합니다. 비공개 Full 소스·게시 설정을 포함한다는 뜻은 아닙니다.
 
@@ -125,7 +125,7 @@ Windows의 앱 제거 또는 설치 폴더의 삭제 프로그램을 실행합�
 설치 프로그램은 다음 옵션을 지원합니다. 아래 파일명은 `minimal`의 예입니다. PowerShell에서 `$setup`을 실제 다운로드한 설치 파일 경로로 지정합니다.
 
 ```powershell
-$setup = '.\aidot-mini-1.0.10-win-x64-minimal-setup.exe'
+$setup = '.\aidot-mini-1.0.11-win-x64-minimal-setup.exe'
 Start-Process -FilePath $setup -Wait -PassThru -ArgumentList '/S /PORT=8901 /DATABASE=app.db /PROFILE=note'
 ```
 
@@ -152,4 +152,4 @@ Start-Process -FilePath $setup -Wait -PassThru -ArgumentList '/S /PORT=8901 /DAT
 6. 일반 삭제 후 데이터 유지, 재설치 후 복원, 전체 삭제 후 앱 소유 데이터·바로가기·등록 정보 제거를 각각 확인합니다.
 7. 삭제 대상 밖에 둔 표식 파일이 보존되는지 확인합니다.
 
-위는 검증 기준입니다. 실제로 완료한 항목·운영체제·제약은 [1.0.10 릴리스 기록](RELEASE_1.0.10_KO.md)에 기록합니다. Linux에서 설치 파일을 컴파일한 것, Wine에서 실행한 것, 실제 Windows에서 설치한 것은 별도로 구분합니다. 서명 여부도 릴리스에서 확인하며, 코드 서명이 없는 파일을 서명된 배포물로 표시하지 않습니다.
+위는 검증 기준입니다. 실제로 완료한 항목·운영체제·제약은 [1.0.11 릴리스 기록](RELEASE_1.0.11_KO.md)에 기록합니다. Linux에서 설치 파일을 컴파일한 것, Wine에서 실행한 것, 실제 Windows에서 설치한 것은 별도로 구분합니다. 서명 여부도 릴리스에서 확인하며, 코드 서명이 없는 파일을 서명된 배포물로 표시하지 않습니다.

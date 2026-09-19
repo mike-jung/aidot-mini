@@ -1,10 +1,10 @@
 {
   "edition": "public",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "files": [
     {
       "path": ".env.example",
-      "sha256": "d9ff0a6a8427a581c5d3560e365632f9e7b4290a9dc323511703d75b0fde7f64"
+      "sha256": "d99955ad4c15debdfbabd3852d44d28f069ebb34fb07c1977a6b3ddfe92d0fe8"
     },
     {
       "path": ".gitattributes",
@@ -40,11 +40,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "a63a4322db63bb97d8ae2701e757cc3de39fe9070e70e0efcf0775c64e558c8d"
+      "sha256": "7d09092d8acaa0b8608066065d2afe798ff027c4a8f0f26b1dd510f12d506674"
     },
     {
       "path": "REVISION.txt",
-      "sha256": "e075c58f307e7b5431e55797bebde6d5f7f1cf4a0872b79e4ef50a8bc2c60266"
+      "sha256": "36b976fceb5e810de517f56964104b3b723378d79dfb0cdb990c672a0a04e378"
     },
     {
       "path": "SECURITY.md",
@@ -76,7 +76,7 @@
     },
     {
       "path": "android/README.md",
-      "sha256": "3fb0a1bf3bb972824e3426c98c63882ad1b6bb38fe3fc4ec85ad6628c0edff72"
+      "sha256": "a27977d8ec5a4b2efe499201061bff17cd0eabe0c37ceff4218902974b7953a2"
     },
     {
       "path": "android/app/build.gradle.kts",
@@ -208,7 +208,7 @@
     },
     {
       "path": "android/runtime-manifest.json",
-      "sha256": "743c2ab7e73e75208af556b94c1d5dd9cb8dfb53b8262b0405d939493f3844fc"
+      "sha256": "c12c49066ad0d7274d3935609ea9f1c220691e5babbb21f91b747be637eeec01"
     },
     {
       "path": "android/runtime-packages.json",
@@ -368,7 +368,7 @@
     },
     {
       "path": "deploy/windows/installer.nsi",
-      "sha256": "b7dbb9165a336da7a9b4623218b554f10bf7a874e12805ef9a4642d1b860da98"
+      "sha256": "12cd4a048800ba6d6b60f5a52834cc98de4bca46c32539f17e042ea31e4a488c"
     },
     {
       "path": "deploy/windows/setup-helper.mjs",
@@ -388,7 +388,7 @@
     },
     {
       "path": "docs/AI_STARTER.md",
-      "sha256": "04e4bc493c3a43e3d9046c02df1e8baf8ccadd6dda97df1064f45e9447f4fee9"
+      "sha256": "4d1fe46d0c5e79a7931953f6aa2f83c1b6099f6ec443fdd073792cb2e75b157d"
     },
     {
       "path": "docs/AI_WORKFLOW.md",
@@ -424,11 +424,11 @@
     },
     {
       "path": "docs/DEPLOY_ANDROID.md",
-      "sha256": "553bb176e758a9b508ddf5757710f4e6add3a50741daf47c79ab6582605487c0"
+      "sha256": "0a3159bfd664fb05c27b2ccb52571e70a6761a047bdec2133357cd2ad28c785b"
     },
     {
       "path": "docs/DEPLOY_LINUX.md",
-      "sha256": "c87632f1d39c05dcc2f354f4386c5a0da8843a025e54ed15e743d284ff1b203a"
+      "sha256": "5b44f51eb0dba87ee5412e7bd7b4ec1d49840f9fe93013d00a0840e73c70c69b"
     },
     {
       "path": "docs/DEPLOY_ROS.md",
@@ -440,7 +440,7 @@
     },
     {
       "path": "docs/INSTALL_WINDOWS_KO.md",
-      "sha256": "1cd7d03cb8c84c1f6ff2271d185a9d420adf465fc36c37ec4c400143563b3b91"
+      "sha256": "404c73b6bffc2ad6242b7effb59d4f39f6e6a9e0b12264f83e975ca80d26c881"
     },
     {
       "path": "docs/LICENSING.md",
@@ -461,6 +461,14 @@
     {
       "path": "docs/RELEASE_1.0.10_KO.md",
       "sha256": "c81e6014fb08cda6536f130875e34761213793190ce4d7b5d447fc8c7e3bad34"
+    },
+    {
+      "path": "docs/RELEASE_1.0.11_KO.md",
+      "sha256": "b3beed15240e31b3bd4a22fc3f7f0d35a16c862d5b92ee8134870b61513a3487"
+    },
+    {
+      "path": "docs/RELEASE_1.0.11_VERIFICATION.json",
+      "sha256": "670c0bb17f5864a88b6d397ae95406c5ff6b7a4fdd9063eee788f3ceed707a04"
     },
     {
       "path": "docs/RELEASE_1.0.7_KO.md",
@@ -8212,7 +8220,7 @@
     },
     {
       "path": "examples/product-module.json",
-      "sha256": "f9356c0aad5646368aea46f2e137bdb1b503deb359c5ab5bc1d6bad6a08e9eb7"
+      "sha256": "50124ad3be40af85266952a4e80fc14238ac3056e01e8db37fb999a562e8b290"
     },
     {
       "path": "examples/product-workspace/controller/ProductController.js",
@@ -8236,7 +8244,7 @@
     },
     {
       "path": "module.json",
-      "sha256": "fcdcdc58478a70ec5b5b061db33a0c705f92a9805792b89e7051bb1b2e81ee37"
+      "sha256": "f7223dc8013961f9d28d05e6587e101a0c06ce28f390d757a5b56f6fb473ffaf"
     },
     {
       "path": "modules/robot-client/client.mjs",
@@ -8260,11 +8268,11 @@
     },
     {
       "path": "package-lock.json",
-      "sha256": "30243e3b525d77aa714de46d7e5a7cbc35d1bef3800823d977ffc332be3f4d28"
+      "sha256": "4ad1e413f285716be199fe59a5efabcd8c30b6a174615e2d599e1d033098ebe7"
     },
     {
       "path": "package.json",
-      "sha256": "a454d55874fc9552a3b6cecb545ce822ed155c87c3280453c440edb08f0c4b68"
+      "sha256": "665ffb2958e3657ef36adff43e0fb586624c9213c7064af8bd302d614247382b"
     },
     {
       "path": "public/console-tools.css",
@@ -8359,12 +8367,16 @@
       "sha256": "2a9f5d6473e7ea6bcfaeb29417492fb293bcefc5c43a2ee22460e08c12efe34a"
     },
     {
+      "path": "scripts/dist/github-api.mjs",
+      "sha256": "9b96b23446fb181b00b089b9483ddbb053ec7f26be7688f7a55219ee6399a7ff"
+    },
+    {
       "path": "scripts/dist/licenses/node-24.19.0-LICENSE",
       "sha256": "148eacf7863ef4329224a29398623077200a27194aa075569faf4a0a85566ca5"
     },
     {
       "path": "scripts/dist/release-github.mjs",
-      "sha256": "ca664a1289a53cfdc689418376880bd087707a0e1bec29fa2d8d6f1d17efef60"
+      "sha256": "858407f53249474198d50927a973f853563706b931240c3f22c43cb75e426a56"
     },
     {
       "path": "scripts/dist/runtime-files.json",
@@ -8612,7 +8624,7 @@
     },
     {
       "path": "tests/dist.test.mjs",
-      "sha256": "262fd7c091cfe25eb8a4b3329f610b4e08fe57afca3773ea56691e0275daa2ce"
+      "sha256": "b56c0d48901db632ff1bfd9ddf402d14ba28c204b2677afe66fc790f65c3f094"
     },
     {
       "path": "tests/events.test.mjs",
@@ -8629,6 +8641,10 @@
     {
       "path": "tests/fixtures/contract.sql",
       "sha256": "31f254e483272eb6ce80ebda4fe6bbc45aca7e7958a103542690431ed3b91a30"
+    },
+    {
+      "path": "tests/github-release.test.mjs",
+      "sha256": "e51c338e27bd5b2d910b2fb95763ccc67dc71471d4a4eeefb5a5e4877b282a12"
     },
     {
       "path": "tests/hardening.test.mjs",

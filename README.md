@@ -9,7 +9,7 @@ Spring-style Controllers, Services, and SQL — with local SQLite and optional d
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 ![Node](https://img.shields.io/badge/node-%3E%3D22.19-brightgreen)
-![Version](https://img.shields.io/badge/version-1.0.10-orange)
+![Version](https://img.shields.io/badge/version-1.0.11-orange)
 
 </div>
 
@@ -152,9 +152,23 @@ npm run release:github
 ```
 
 This creates a **Draft Release** in `mike-jung/aidot-mini`, uploading verified
-public artifacts from `dist/release/` and their checksums. It requires an
-authenticated GitHub CLI (`gh auth login`) and the version tag already pushed
-to that repository (`v1.0.10` for this release). Existing releases are never overwritten.
+public artifacts from `dist/release/` and their checksums. Set `GITHUB_TOKEN`
+(or `GH_TOKEN`) in the project `.env` or environment; **GitHub CLI is optional**.
+Use a token with **Contents: Read and write** access to the destination repository.
+The command also reads `.env.publish` and `.env.local`, with environment values
+taking precedence. If both token names are set, `GITHUB_TOKEN` is used, matching
+the source-publishing commands. Tokens are never written to release plans.
+
+Without a token, install [GitHub CLI](https://cli.github.com/) and run
+`gh auth login --hostname github.com`. On Windows, install it with
+`winget install --id GitHub.cli --exact`, then open a new terminal. `GH_PATH`
+can point to an existing `gh.exe` outside `PATH`.
+
+Push the version tag from the public source checkout to the destination first
+(`v1.0.11` for this release). Existing releases, including drafts, are never
+overwritten. A failed upload leaves the draft for review and records incomplete
+progress in `RELEASE_PLAN.json`. After a version upgrade, rebuild the artifacts
+for that version; move older release files to a separate directory first.
 
 ```bash
 npm run release:github -- --dry-run                  # Local plan only; no GitHub access
@@ -182,7 +196,7 @@ npm run verify             # Static checks, regression tests, and Product HTTP t
 npm run product:contract   # Product API contract checks
 ```
 
-See the [1.0.10 release record](docs/RELEASE_1.0.10_KO.md) for changes and verification.
+See the [1.0.11 release record](docs/RELEASE_1.0.11_KO.md) for changes and verification.
 The [1.0.8 platform report](docs/RELEASE_1.0.8_KO.md) records earlier device builds
 and hardware coverage. Some detailed guides are currently in Korean.
 

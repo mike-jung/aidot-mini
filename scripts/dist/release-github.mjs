@@ -6,12 +6,13 @@ import { parseArgs } from 'node:util';
 import { spawnSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 import { ROOT, sha256 } from './dist.mjs';
+import { readReleaseEnv, releaseToken, githubCommand, githubCliError, createGitHubDraft } from './github-api.mjs';
 
 export function createPlan(directory, { repo, version } = {}) {
   directory = path.resolve(directory);
   version ||= JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8')).version;
   if (!/^\d+\.\d+\.\d+(?:-[a-zA-Z0-9.-]+)?$/.test(version)) throw new Error('Invalid release version');
-  if (repo && !/^[a-zA-Z0-9_.-]+\/[a-zA-Z0-9_.-]+$/.test(repo)) throw new Error('Use --repo owner/repository');
+  if (repo && !/^[a-zA-Z0-9][a-zA-Z0-9-]*\/[a-zA-Z0-9][a-zA-Z0-9_.-]*$/.test(repo)) throw new Error('Use --repo owner/repository');
   const sidecars = fs.readdirSync(directory).filter(file => file.endsWith('.release.json')).sort();
   const assets = sidecars.map(sidecar => {
     const file = path.join(directory, sidecar);
@@ -33,24 +34,31 @@ export function createPlan(directory, { repo, version } = {}) {
   return plan;
 }
 
-function gh(args, run = spawnSync) {
-  const result = run('gh', args, { encoding: 'utf8' });
-  if (result.error || result.status !== 0) throw new Error(`GitHub CLI failed: ${result.error?.message || result.stderr || result.stdout}`);
+function gh(command, args, run, env) {
+  const result = run(command, args, { encoding: 'utf8', env, windowsHide: true });
+  if (result.error || result.status !== 0) throw githubCliError(result, env);
   return result.stdout;
 }
-export async function main(args = process.argv.slice(2), { run = spawnSync, output = console.log } = {}) {
+export async function main(args = process.argv.slice(2), { run = spawnSync, output = console.log, env = process.env, envRoot = ROOT, fetchImpl = fetch } = {}) {
   const { values } = parseArgs({ args, options: { directory: { type: 'string', default: path.join(ROOT, 'dist/release') }, repo: { type: 'string', default: 'mike-jung/aidot-mini' }, publish: { type: 'boolean', default: false }, 'dry-run': { type: 'boolean', default: false }, help: { type: 'boolean' } } });
-  if (values.help) { output('release-github.mjs [--directory DIR] [--repo owner/repository] [--dry-run]\nDefault: create a draft in mike-jung/aidot-mini from verified public artifacts.\nRequires an authenticated GitHub CLI and an existing remote version tag.\n--dry-run writes local plan/checksums only; no GitHub access.\n--repo overrides the destination. --publish remains accepted for compatibility.\nExisting releases are never overwritten.'); return; }
+  if (values.help) { output('release-github.mjs [--directory DIR] [--repo owner/repository] [--dry-run]\nDefault: create a draft in mike-jung/aidot-mini from verified public artifacts.\nSet GITHUB_TOKEN (or GH_TOKEN) in .env or the environment; gh is optional.\nWithout a token, use an authenticated GitHub CLI (GH_PATH can locate gh.exe).\nRequires an existing remote version tag.\n--dry-run writes local plan/checksums only; no GitHub access.\n--repo overrides the destination. --publish remains accepted for compatibility.\nExisting releases are never overwritten.'); return; }
   if (values.publish && values['dry-run']) throw new Error('Choose --publish or --dry-run');
   if (!values.repo) throw new Error('Use --repo owner/repository');
   const directory = path.resolve(values.directory), plan = createPlan(directory, { repo: values.repo });
+  const save = () => fs.writeFileSync(path.join(directory, 'RELEASE_PLAN.json'), JSON.stringify(plan, null, 2) + '\n');
   if (!values['dry-run']) {
-    const existing = run('gh', ['release', 'view', plan.tag, '--repo', values.repo], { encoding: 'utf8' });
-    if (existing.error || ![0, 1].includes(existing.status)) throw new Error(`GitHub CLI failed: ${existing.error?.message || existing.stderr || existing.stdout}`);
-    if (existing.status === 0) throw new Error(`Release ${plan.tag} already exists; review it manually instead of overwriting.`);
-    gh(['release', 'create', plan.tag, ...plan.assets.map(asset => path.join(directory, asset.file)), path.join(directory, 'SHA256SUMS.txt'), '--repo', values.repo, '--draft', '--verify-tag', '--title', `aidot-mini ${plan.version}`, '--notes-file', path.join(directory, 'RELEASE_NOTES.md')], run);
+    const environment = readReleaseEnv(envRoot, env);
+    if (releaseToken(environment)) {
+      await createGitHubDraft(plan, directory, { env: environment, fetchImpl, save });
+    } else {
+      const command = githubCommand(environment);
+      const existing = run(command, ['release', 'view', plan.tag, '--repo', values.repo], { encoding: 'utf8', env: environment, windowsHide: true });
+      if (existing.error || ![0, 1].includes(existing.status)) throw githubCliError(existing, environment);
+      if (existing.status === 0) throw new Error(`Release ${plan.tag} already exists; review it manually instead of overwriting.`);
+      gh(command, ['release', 'create', plan.tag, ...plan.assets.map(asset => path.join(directory, asset.file)), path.join(directory, 'SHA256SUMS.txt'), '--repo', values.repo, '--draft', '--verify-tag', '--title', `aidot-mini ${plan.version}`, '--notes-file', path.join(directory, 'RELEASE_NOTES.md')], run, environment);
+    }
     plan.uploadPerformed = true;
-    fs.writeFileSync(path.join(directory, 'RELEASE_PLAN.json'), JSON.stringify(plan, null, 2) + '\n');
+    save();
   }
   output(JSON.stringify(plan, null, 2));
   return plan;

@@ -1,6 +1,6 @@
 {
   "name": "aidot-product",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "controller": [
     "ProductController.js",
     "meta/ProductController.meta.json"

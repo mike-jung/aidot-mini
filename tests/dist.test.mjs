@@ -7,7 +7,11 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { findPython } from '../scripts/run-python.mjs';
 import { policy, regularFile, verifyBinary, sha256 } from '../scripts/dist/dist.mjs';
-import { createPlan, main as releaseMain } from '../scripts/dist/release-github.mjs';
+import { createPlan, main as releaseCommand } from '../scripts/dist/release-github.mjs';
+
+// User publishing credentials must never affect these simulated CLI tests.
+const releaseMain = (args, hooks) => releaseCommand(args, { env: {}, envRoot: args[args.indexOf('--directory') + 1],
+  fetchImpl() { assert.fail('CLI fixtures must not access the network'); }, ...hooks });
 
 test('Linux archives restore executable permissions when the build host does not preserve them', t => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'aidot-dist-modes-'));
@@ -151,7 +155,7 @@ test('GitHub CLI setup failures stop before attempting release creation', async 
     let calls = 0;
     await assert.rejects(releaseMain(['--directory', directory], {
       run(command, args) { calls++; assert.equal(args[1], 'view'); return failure; }, output() {},
-    }), /GitHub CLI failed/);
+    }), /GitHub CLI/);
     assert.equal(calls, 1); assert.equal(readPlan().uploadPerformed, false);
   }
 });

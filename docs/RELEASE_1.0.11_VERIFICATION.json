@@ -1,0 +1,233 @@
+{
+  "version": "1.0.11",
+  "scope": "Release authentication fix and rebuild; no new device installation/runtime claim",
+  "local": {
+    "os": "Linux x86_64",
+    "node": "v24.19.0",
+    "database": "SQLite",
+    "syntaxChecks": 142,
+    "regressionTestsPassed": 173,
+    "productHttpChecksPassed": 56,
+    "clientFormatCheck": "passed",
+    "clientProductionBuild": "passed"
+  },
+  "windowsReleaseRegressionTestsPassed": 26,
+  "windowsBuildVerification": {
+    "version": "1.0.11",
+    "startedAt": "2026-09-19T22:34:29.644402+00:00",
+    "host": "Windows-11-10.0.26200-SP0",
+    "node": "v24.15.0",
+    "commands": [
+      {
+        "label": "release-tests",
+        "args": [
+          "node",
+          "--test",
+          "tests/dist.test.mjs",
+          "tests/github-release.test.mjs"
+        ],
+        "exitCode": 0,
+        "seconds": 0.32
+      },
+      {
+        "label": "win-minimal",
+        "args": [
+          "cmd",
+          "/d",
+          "/c",
+          "npm",
+          "run",
+          "dist:win"
+        ],
+        "exitCode": 0,
+        "seconds": 70.47
+      },
+      {
+        "label": "win-full",
+        "args": [
+          "cmd",
+          "/d",
+          "/c",
+          "npm",
+          "run",
+          "dist:win:full"
+        ],
+        "exitCode": 0,
+        "seconds": 62.57
+      },
+      {
+        "label": "linux-x64",
+        "args": [
+          "cmd",
+          "/d",
+          "/c",
+          "npm",
+          "run",
+          "dist:linux",
+          "--",
+          "--arch",
+          "x64"
+        ],
+        "exitCode": 0,
+        "seconds": 7.66
+      },
+      {
+        "label": "linux-arm64",
+        "args": [
+          "cmd",
+          "/d",
+          "/c",
+          "npm",
+          "run",
+          "dist:linux",
+          "--",
+          "--arch",
+          "arm64"
+        ],
+        "exitCode": 0,
+        "seconds": 7.36
+      },
+      {
+        "label": "robot-arm64",
+        "args": [
+          "cmd",
+          "/d",
+          "/c",
+          "npm",
+          "run",
+          "dist:robot"
+        ],
+        "exitCode": 0,
+        "seconds": 7.43
+      },
+      {
+        "label": "android",
+        "args": [
+          "cmd",
+          "/d",
+          "/c",
+          "npm",
+          "run",
+          "dist:android"
+        ],
+        "exitCode": 0,
+        "seconds": 59.03
+      },
+      {
+        "label": "release-dry-run",
+        "args": [
+          "cmd",
+          "/d",
+          "/c",
+          "npm",
+          "run",
+          "release:github",
+          "--",
+          "--dry-run"
+        ],
+        "exitCode": 0,
+        "seconds": 0.68
+      }
+    ],
+    "actualGitHubWritePerformed": false,
+    "runtimeDeviceTestsPerformed": false,
+    "assets": [
+      {
+        "file": "aidot-mini-1.0.11-android-arm64-v8a-debug.apk",
+        "sha256": "bc6d7290787e35317a8ca17f66ad38be513e8b19543c43a592727388f2f0dcac",
+        "bytes": 44124993,
+        "zipCrc": true,
+        "nestedZipCrc": true
+      },
+      {
+        "file": "aidot-mini-1.0.11-android-arm64-v8a-release-unsigned.apk",
+        "sha256": "95ec3dc80da044499ecc0d1ebac9fa7602a22fe396c2b1116970e1401bbc6027",
+        "bytes": 40233151,
+        "zipCrc": true,
+        "nestedZipCrc": true
+      },
+      {
+        "file": "aidot-mini-1.0.11-android-x86_64-debug.apk",
+        "sha256": "3c764cd397fcb7898426c1e2319e69eb56070a9f35728869cd38d930884d6291",
+        "bytes": 43568227,
+        "zipCrc": true,
+        "nestedZipCrc": true
+      },
+      {
+        "file": "aidot-mini-1.0.11-android-x86_64-release-unsigned.apk",
+        "sha256": "04d07e6c318dc04a01a5d1da6f9f0cb31d01104c63021ac1d269c13e7fdad6ce",
+        "bytes": 39457281,
+        "zipCrc": true,
+        "nestedZipCrc": true
+      },
+      {
+        "file": "aidot-mini-1.0.11-linux-arm64-minimal.tar.gz",
+        "sha256": "7560c6ed6e79d482cb1426a8caf3cedd56422dc84dd14c8278a6e863888f64d1",
+        "bytes": 47871084,
+        "nodeMode": "0755",
+        "gzipCrc": true
+      },
+      {
+        "file": "aidot-mini-1.0.11-linux-x64-minimal.tar.gz",
+        "sha256": "b41c3b6c0440c8a2d511fa5052c9f74edc719d12ce36beac6895efbfc4f52f5b",
+        "bytes": 48192895,
+        "nodeMode": "0755",
+        "gzipCrc": true
+      },
+      {
+        "file": "aidot-mini-1.0.11-robot-arm64-robot.tar.gz",
+        "sha256": "5eb7302facec60682e5d87c7f7bc3e375e50c0bcf6aa29aa722a09b1bc5f9223",
+        "bytes": 47891692,
+        "nodeMode": "0755",
+        "gzipCrc": true
+      },
+      {
+        "file": "aidot-mini-1.0.11-win-x64-full-setup.exe",
+        "sha256": "205de76a207262688436f6e08ba2d2dc73dd729f35e8d61849674c30ff52d782",
+        "bytes": 25900170
+      },
+      {
+        "file": "aidot-mini-1.0.11-win-x64-full.zip",
+        "sha256": "95fa123c21f7176310a35f02b50da1e429cc559b7b3a71ff5febbbb08198880f",
+        "bytes": 38657848,
+        "zipCrc": true
+      },
+      {
+        "file": "aidot-mini-1.0.11-win-x64-minimal-setup.exe",
+        "sha256": "d8c56e0dff56a00068c4fe9ead60b25e7a5f15688b15749fcf50e2300bfa2b09",
+        "bytes": 25861554
+      },
+      {
+        "file": "aidot-mini-1.0.11-win-x64-minimal.zip",
+        "sha256": "15cbac8bd7a2ec8562c7b74718e9c3c14121194b82f88e3c7d8392e1a45cfe7b",
+        "bytes": 38618953,
+        "zipCrc": true
+      }
+    ],
+    "passed": true,
+    "completedAt": "2026-09-19T22:38:11.525686+00:00"
+  },
+  "githubReadOnlyVerification": {
+    "version": "1.0.11",
+    "tokenConfigured": true,
+    "cliCalled": false,
+    "actualGitHubWritePerformed": false,
+    "requests": [
+      {
+        "url": "https://api.github.com/repos/mike-jung/aidot-mini/releases?per_page=100&page=1",
+        "method": "GET",
+        "status": 200
+      },
+      {
+        "url": "https://api.github.com/repos/mike-jung/aidot-mini/git/ref/tags/v1.0.11",
+        "method": "GET",
+        "status": 404
+      }
+    ],
+    "outcome": "Token API path verified; remote v1.0.11 tag is absent",
+    "message": "GitHub tag lookup for v1.0.11 failed (HTTP 404): Not Found Check the repository and remote version tag, and token access to them.",
+    "passed": true
+  },
+  "releaseCreationAndUploadsTestedWith": "simulated GitHub responses; no real release or tag created",
+  "knownUnresolvedIssue": "Android ARM64 Node JavaScript SIGSEGV observed in previous v1.0.10 emulator investigation; not fixed by v1.0.11"
+}
