@@ -4,6 +4,7 @@ import {randomBytes, createHash, timingSafeEqual} from 'node:crypto';
 import config from '../config.js';
 import {state} from '../state.js';
 import {validateCredentials} from './adminAccount.js';
+import apiAuth from './apiAuth.js';
 
 const err=(status,message)=>Object.assign(new Error(message),{status});
 const digest=x=>createHash('sha256').update(String(x)).digest();
@@ -11,6 +12,38 @@ const fingerprint=x=>digest(x).toString('hex');
 const same=(a,b)=>timingSafeEqual(digest(a),digest(b));
 const random=()=>randomBytes(32).toString('base64url');
 export const isLoopback=host=>['127.0.0.1','::1','localhost'].includes(host);
+
+/**
+ * 요청이 이 기기 안에서 온 것인지.
+ *
+ *  프록시를 거친 요청은 로컬로 보지 않는다. 리버스 프록시 뒤에 두면 모든 요청의
+ *  소켓 주소가 127.0.0.1 로 보이기 때문에, 그것만 믿으면 "로컬 전용" 이 사실상
+ *  아무도 막지 못하는 설정이 된다. 전달 헤더가 붙어 있으면 바깥에서 온 것으로
+ *  간주해 막는 쪽(fail-closed)을 택한다.
+ */
+export function isLocalRequest(req){
+  if(req.headers?.['x-forwarded-for']||req.headers?.['forwarded'])return false;
+  const raw=String(req.socket?.remoteAddress||'');
+  const address=raw.startsWith('::ffff:')?raw.slice(7):raw;
+  // 점 네 자리를 끝까지 맞춘다. '127.0.0.1.evil.com' 같은 문자열이 접두사만으로
+  // 통과하지 않게 하려는 것이다.
+  return address==='::1'||/^127\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(address);
+}
+
+/**
+ * 관리 콘솔에 속한 요청인지 — 업무 API 는 제한 대상이 아니다.
+ *
+ *  콘솔 = /admin/* (콘솔 API) + 매칭되는 라우트가 없는 정적 파일(콘솔 화면).
+ *  워크스페이스 라우트, /health, 업로드된 파일은 콘솔이 아니다.
+ */
+export function isConsoleRequest(req){
+  if(req.routeMeta?.workspace)return false;
+  const pathname=req.path||'';
+  if(pathname==='/health'||pathname.startsWith('/health/'))return false;
+  if(pathname.startsWith('/uploads/'))return false;
+  if(pathname.startsWith('/admin/'))return true;
+  return !req.route;   // 라우트에 없으면 콘솔 화면을 이루는 정적 파일이다
+}
 export function ensureAdminToken(){
   let token=process.env.ADMIN_TOKEN;
   if(!token){
@@ -78,24 +111,41 @@ export function createSecurity(token,account){
   }
   return {
     authorized(req){
+      // realm='user' 토큰은 middleware 에서 서명·만료를 이미 확인했다.
+      if(req.user?.authType==='token')return req.user.realm==='user';
       if(req.user?.authType==='bearer')return same(/^Bearer (\S+)$/i.exec(String(req.headers.authorization||''))?.[1]||'',token);
       return req.user?.authType==='session'&&Boolean(session(req));
     },
     middleware(req,res){
+      // CONSOLE_ACCESS=local 이면 관리 콘솔은 이 기기에서만 열린다.
+      // 콘솔이 있다는 사실 자체를 알리지 않도록 403 이 아니라 404 로 답한다.
+      if(config.console.access==='local'&&isConsoleRequest(req)&&!isLocalRequest(req))
+        throw err(404,`Route not found: ${req.method} ${req.path||'/'}`);
       const expected=origin(req);
       if(req.headers.origin&&req.headers.origin!==expected)throw err(403,'Cross-origin requests are not allowed');
       if(req.headers['sec-fetch-site']==='cross-site')throw err(403,'Cross-site requests are not allowed');
       const bearer=/^Bearer (\S+)$/i.exec(String(req.headers.authorization||''));
       const active=session(req);
       if(bearer&&same(bearer[1],token))req.user={id:account.username||'admin',roles:['admin'],role:'admin',realm:'admin',authType:'bearer'};
-      else if(active)req.user={id:account.username||'admin',roles:['admin'],role:'admin',realm:'admin',authType:'session'};
+      else{
+        // 관리자 토큰이 아니면 realm='user' API 토큰인지 본다 (서명·만료 검증).
+        const claims=bearer?apiAuth.verifyAccessToken(bearer[1]):null;
+        if(claims)req.user={id:claims.sub,sub:claims.sub,username:claims.username,role:claims.role,roles:[claims.role],realm:'user',authType:'token'};
+        else if(active)req.user={id:account.username||'admin',roles:['admin'],role:'admin',realm:'admin',authType:'session'};
+      }
       const protectedRoute=req.routeMeta.auth===true||req.routeMeta.roles?.length>0;
-      if(protectedRoute&&!req.user){res.setHeader('WWW-Authenticate','Bearer realm="aidot-mini"');throw err(401,'Administrator sign-in required');}
+      // 프레임워크 라우트(/admin/* 등)는 표시가 없으면 관리자 realm 전용으로 본다.
+      // 워크스페이스 라우트는 컨트롤러의 @Auth({realm}) 가드가 따로 판정한다.
+      const wantRealm=req.routeMeta.realm??(req.routeMeta.workspace?'any':'admin');
+      if(protectedRoute&&!req.user){res.setHeader('WWW-Authenticate','Bearer realm="aidot-mini"');throw err(401,wantRealm==='user'?'Authentication required':'Administrator sign-in required');}
+      if(protectedRoute&&wantRealm!=='any'&&req.user.realm!==wantRealm)throw err(403,'This credential cannot access this endpoint');
       if(req.routeMeta.roles?.length&&!req.routeMeta.roles.some(role=>req.user?.roles.includes(role)))throw err(403,'Insufficient role');
       if(active&&req.user?.authType==='session'&&!['GET','HEAD','OPTIONS'].includes(req.method)&&!same(req.headers['x-csrf-token']||'',active.csrf))throw err(403,'Invalid CSRF token');
       return true;
     },
     register(router){
+      // realm='user' 계정용 /api/auth/login · refresh · logout
+      apiAuth.registerApiAuth(router);
       router.add('GET','/admin/preferences',(req,res)=>res.json({code:200,data:{language:config.console.language,version:state.version}}),{auth:false});
       router.add('GET','/admin/auth',(req,res)=>res.json({code:200,data:{configured:account.configured,localSetup:localSetup(req),rememberDays:config.admin.rememberDays,sessionMinutes:config.admin.sessionMinutes}}),{auth:false});
       router.add('POST','/admin/setup',async(req,res)=>{

@@ -4,7 +4,7 @@
   "files": [
     {
       "path": ".env.example",
-      "sha256": "d99955ad4c15debdfbabd3852d44d28f069ebb34fb07c1977a6b3ddfe92d0fe8"
+      "sha256": "9657801e96261f93fb058adc847d335abe2e5fb44a698ad51bbd580348e1f750"
     },
     {
       "path": ".gitattributes",
@@ -8292,7 +8292,7 @@
     },
     {
       "path": "public/console.js",
-      "sha256": "776786297da347f277a445c222b10b6a04ef043d8de16178d18bf8a5b88cdcb0"
+      "sha256": "f8e0330df83290cd98199eda0ba83d739cae0d4295a8aa1cdf0c6b482ebb21f2"
     },
     {
       "path": "public/icon.svg",
@@ -8300,7 +8300,7 @@
     },
     {
       "path": "public/index.html",
-      "sha256": "fba2b444c3e499edba92deb682b336addaccfc1a9ebf825776bf1a147c6c4ea7"
+      "sha256": "5c29e8f3689ce19e120f2c4a83020c1cc4ba22a1135c3d8a0c99d3161aa813e4"
     },
     {
       "path": "public/manifest.json",
@@ -8464,7 +8464,7 @@
     },
     {
       "path": "src/config.js",
-      "sha256": "530777bbb61fed149c0fa1eb4b0c9143bd924a620820d1472d9dd40f220baf71"
+      "sha256": "28c077df96d19441c9c37e73a343665f7b7cfc686a20e0561936b25fdc77f0d6"
     },
     {
       "path": "src/config/index.js",
@@ -8528,11 +8528,11 @@
     },
     {
       "path": "src/core/security.js",
-      "sha256": "ab41e42e15bd657372b43b96944d30829fdd11a4a60c77ded193fa9e9b592193"
+      "sha256": "a2777eea276c2451ab17ca1d968cdba802284fdf569ac233ceba7cd08c11955e"
     },
     {
       "path": "src/core/settings.js",
-      "sha256": "669036300484a2aaba6314882f438abc9d9b134b51c50514b487fa09fb95eaa6"
+      "sha256": "f68764f450ec9246567e8b81e43149473a4213c1eb5b212e093464ca0aef2a68"
     },
     {
       "path": "src/core/sqlLoader.js",

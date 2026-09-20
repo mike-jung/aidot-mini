@@ -32,7 +32,7 @@ export function boolean(value, name, fallback) {
 }
 const saved = readSettings();
 const setting = (key, env, fallback) => process.env[env] ?? saved[key] ?? fallback;
-export const settingEnv = { workspace:'APP_WORKSPACE', host:'HOST', port:'PORT', https:'HTTPS_ENABLED', certFile:'TLS_CERT_FILE', keyFile:'TLS_KEY_FILE', language:'CONSOLE_LANGUAGE', logLevel:'LOG_LEVEL' };
+export const settingEnv = { workspace:'APP_WORKSPACE', host:'HOST', port:'PORT', https:'HTTPS_ENABLED', certFile:'TLS_CERT_FILE', keyFile:'TLS_KEY_FILE', language:'CONSOLE_LANGUAGE', logLevel:'LOG_LEVEL', consoleAccess:'CONSOLE_ACCESS' };
 export function validateSettings(s) {
   const allowed = new Set(Object.keys(settingEnv));
   for (const key of Object.keys(s)) if (!allowed.has(key)) throw new Error(`Unknown setting: ${key}`);
@@ -44,6 +44,9 @@ export function validateSettings(s) {
   if ('workspace' in s && !s.workspace.trim()) throw new Error('Workspace path must not be empty');
   if ('language' in s && !['ko','en'].includes(s.language)) throw new Error('Language must be ko or en');
   if ('logLevel' in s && !['error','warn','info','debug'].includes(s.logLevel)) throw new Error('Invalid log level');
+  // 'all'  : 관리 콘솔을 어디서나 연다 (기존 동작, 기본값)
+  // 'local': 이 기기에서 연 요청에만 콘솔을 연다. 업무 API 는 영향받지 않는다.
+  if ('consoleAccess' in s && !['all','local'].includes(s.consoleAccess)) throw new Error('consoleAccess must be all or local');
   return out;
 }
 validateSettings(saved);
@@ -67,7 +70,11 @@ export const config = {
     sessionMinutes: integer(process.env.ADMIN_SESSION_MINUTES,'ADMIN_SESSION_MINUTES',60,1,1440),
     rememberDays: integer(process.env.ADMIN_REMEMBER_DAYS,'ADMIN_REMEMBER_DAYS',7,1,30),
   },
-  console: { language: setting('language','CONSOLE_LANGUAGE','en') },
+  console: {
+    language: setting('language','CONSOLE_LANGUAGE','en'),
+    // 관리 콘솔을 누구에게 열지. 'all'(기본) 또는 'local'.
+    access: setting('consoleAccess','CONSOLE_ACCESS','all'),
+  },
   db: {
     appSchema: (process.env.DB_APP_SCHEMA ?? 'aidot_app').trim(),
     file: process.env.DB_FILE === ':memory:' ? ':memory:' : resolve(process.env.DB_FILE || path.join(DATA_DIR,'app.db')),
