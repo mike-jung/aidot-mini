@@ -1,6 +1,6 @@
 {
   "edition": "public",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "files": [
     {
       "path": ".env.example",
@@ -40,11 +40,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "faf4538a40cfb7d446fbed40d08d358f80e73099235e4cfd8bb35408784a5252"
+      "sha256": "9a824c01ab15719e4d544cd8251d67b038555a28d4fc8c94bab08d7fdc1bb938"
     },
     {
       "path": "REVISION.txt",
-      "sha256": "a2213790b6372207a3daa9a706ba76c9db8ddbfad5e859e6db576a418d40c321"
+      "sha256": "415fe2d803be3c568eabe703faa4a79f80a9434527cba768ee3cdbbb9c4d4120"
     },
     {
       "path": "SECURITY.md",
@@ -8248,7 +8248,7 @@
     },
     {
       "path": "module.json",
-      "sha256": "f7223dc8013961f9d28d05e6587e101a0c06ce28f390d757a5b56f6fb473ffaf"
+      "sha256": "ad878916e532bcb634f5b71b1968fa1baeb78f4d59a5b447559459a3cc16432b"
     },
     {
       "path": "modules/robot-client/client.mjs",
@@ -8276,7 +8276,7 @@
     },
     {
       "path": "package.json",
-      "sha256": "665ffb2958e3657ef36adff43e0fb586624c9213c7064af8bd302d614247382b"
+      "sha256": "8d749ba5fd3f340810408e2452c79a936bbeaaa8fe23b8799cf4cc398117ae81"
     },
     {
       "path": "public/console-tools.css",
@@ -8528,7 +8528,7 @@
     },
     {
       "path": "src/core/security.js",
-      "sha256": "a2777eea276c2451ab17ca1d968cdba802284fdf569ac233ceba7cd08c11955e"
+      "sha256": "b0dda2f8d0a801e26155ea42cbceae8ccb20c592b1c03d91b50bce216c61d0ec"
     },
     {
       "path": "src/core/settings.js",

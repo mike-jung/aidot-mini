@@ -137,7 +137,7 @@ export function createSecurity(token,account){
       // 프레임워크 라우트(/admin/* 등)는 표시가 없으면 관리자 realm 전용으로 본다.
       // 워크스페이스 라우트는 컨트롤러의 @Auth({realm}) 가드가 따로 판정한다.
       const wantRealm=req.routeMeta.realm??(req.routeMeta.workspace?'any':'admin');
-      if(protectedRoute&&!req.user){res.setHeader('WWW-Authenticate','Bearer realm="aidot-mini"');throw err(401,wantRealm==='user'?'Authentication required':'Administrator sign-in required');}
+      if(protectedRoute&&!req.user){res.setHeader('WWW-Authenticate','Bearer realm="aidot-mini"');throw err(401,wantRealm==='admin'?'Administrator sign-in required':'Authentication required');}
       if(protectedRoute&&wantRealm!=='any'&&req.user.realm!==wantRealm)throw err(403,'This credential cannot access this endpoint');
       if(req.routeMeta.roles?.length&&!req.routeMeta.roles.some(role=>req.user?.roles.includes(role)))throw err(403,'Insufficient role');
       if(active&&req.user?.authType==='session'&&!['GET','HEAD','OPTIONS'].includes(req.method)&&!same(req.headers['x-csrf-token']||'',active.csrf))throw err(403,'Invalid CSRF token');
