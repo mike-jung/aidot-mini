@@ -1,3 +1,11 @@
+aidot-mini 1.0.13 public dependency completeness correction
+Derived from the supplied 1.0.12 Full and aidot-mini-public-check patch.
+Current release: docs/RELEASE_1.0.13_KO.md
+Public, Starter and installed runtime include src/core/apiAuth.js.
+Public policy and generated snapshot checks run before GitHub publication.
+Package, lockfile, module manifests and installer fallback use 1.0.13.
+
+Historical revision notes:
 aidot-mini 1.0.12 realm='user' API tokens and CONSOLE_ACCESS
 Derived from the 1.0.11 full edition; src/core/apiAuth.js added, security.js/config.js/settings.js and the console settings screen modified.
 

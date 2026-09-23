@@ -1,4 +1,4 @@
-# Android application builds — 1.0.11
+# Android application builds — 1.0.13
 
 The Android app runs a local Node server in a foreground service and opens the
 console in a WebView. Its bundled profile listens on loopback. The source HTTPS

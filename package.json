@@ -1,6 +1,6 @@
 {
   "name": "aidot-mini",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Minimal portable aidot-express Controller/Service/SQL runtime for robots, drones and mobile terminals",
   "type": "module",
   "engines": {
@@ -38,6 +38,7 @@
     "product:verify": "node scripts/verify-product.mjs",
     "test:product": "node scripts/verify-product.mjs",
     "product:contract": "node scripts/verify-product-contract.mjs",
+    "check:public": "node scripts/check-public.mjs",
     "workspace:verify": "node scripts/verify-workspace.mjs",
     "dist:win": "node scripts/dist/dist.mjs --target win --arch x64 --variant minimal",
     "dist:win:full": "node scripts/dist/dist.mjs --target win --arch x64 --variant full",

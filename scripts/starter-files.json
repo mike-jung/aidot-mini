@@ -94,6 +94,7 @@
     "src/controller/UploadController.js",
     "src/controller/meta/UploadController.meta.json",
     "src/core/adminAccount.js",
+    "src/core/apiAuth.js",
     "src/core/atomicFile.js",
     "src/core/consoleWorkspace.js",
     "src/core/container.js",

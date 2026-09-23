@@ -9,7 +9,7 @@ Spring-style Controllers, Services, and SQL — with local SQLite and optional d
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 ![Node](https://img.shields.io/badge/node-%3E%3D22.19-brightgreen)
-![Version](https://img.shields.io/badge/version-1.0.12-orange)
+![Version](https://img.shields.io/badge/version-1.0.13-orange)
 
 </div>
 
@@ -175,9 +175,9 @@ mean the release or its tag has been published.
 Existing releases, including drafts, are never overwritten. An API upload failure
 leaves the draft for review and records incomplete progress in `RELEASE_PLAN.json`.
 After a version upgrade, rebuild the artifacts for that version; move older
-release files to a separate directory first. This publishing-tool correction
-keeps version 1.0.11, so existing verified 1.0.11 artifacts can be reused.
-See the [missing-tag fix and verification](docs/RELEASE_1.0.11_TAG_FIX_KO.md).
+release files to a separate directory first. Version 1.0.13 repairs the Public,
+Starter, and installed-runtime file lists and validates public dependencies before
+source publication. See the [1.0.13 release record](docs/RELEASE_1.0.13_KO.md).
 
 ```bash
 npm run release:github -- --dry-run                  # Local plan only; no GitHub access
@@ -202,13 +202,18 @@ for MQTT and Socket.IO setup.
 ## Verification and contributing
 
 ```bash
+npm run check:public       # Public file selection, references, entry points, and manifest
 npm run verify             # Static checks, regression tests, and Product HTTP tests
 npm run product:contract   # Product API contract checks
 ```
 
-See the [1.0.11 release record](docs/RELEASE_1.0.11_KO.md) for changes and verification.
+See the [1.0.13 release record](docs/RELEASE_1.0.13_KO.md) for changes and verification.
 The [1.0.8 platform report](docs/RELEASE_1.0.8_KO.md) records earlier device builds
 and hardware coverage. Some detailed guides are currently in Korean.
+
+In the Full checkout, `check:public` checks only the reviewed public selection;
+in the public checkout it checks `PUBLIC_MANIFEST.json`. It needs no GitHub token.
+`sync:public` also validates the generated public snapshot before any remote access.
 
 Read [CONTRIBUTING](CONTRIBUTING.md) before submitting changes and
 [SECURITY](SECURITY.md) to report a vulnerability.
